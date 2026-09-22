@@ -1,5 +1,210 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>poe item research / the price of a roll</title><link rel="stylesheet" href="style.css"><body><header><a href="https://atul-kanodia-fieldnotes.atulswaggalicious.chatgpt.site">atul / item research</a><a href="https://github.com/LolStar123/poe-item-pricer">source & pipeline</a></header><main><div class="intro"><div><p class="eyebrow">path of exile / prices, probabilities, spreadsheets</p><h1>what's a roll worth?</h1></div><p>My early spreadsheets turned obscure item outcomes into expected value and risk. The later pipeline collected prices at scale and kept the calculations linked.</p></div><nav class="tabs" aria-label="Research views"><button data-tab="calculator" aria-pressed="true">work the numbers</button><button data-tab="archive" aria-pressed="false">original spreadsheets</button><button data-tab="variants" aria-pressed="false">variant catalogue</button><button data-tab="pipeline" aria-pressed="false">collection workflow</button></nav>
-<section id="calculator"><div class="controls"><label>historical worksheet<select id="case"></select></label><label>buy-in / source units<input id="cost" type="number" min="0" step=".1"></label><button id="restore">restore archive values</button><button id="export">export edited outcomes</button></div><p id="case-note" class="note"></p><p id="error" role="alert"></p><div class="metrics" id="metrics"></div><div class="analysis"><div><h2>profit distribution</h2><svg id="chart" viewBox="0 0 660 240" role="img" aria-label="Discrete probability histogram of profit per outcome"></svg><p class="note">Bars add the original outcome probabilities. This is a discrete distribution, not a fitted normal curve. Unknown prices keep their probability unallocated.</p></div><div class="risk-note"><h2>the tail matters.</h2><p id="risk-summary"></p><p class="note">Profit factor is expected gains divided by expected losses. Return/risk is expected profit divided by one-roll standard deviation; it is not annualised Sharpe.</p></div></div><div class="table-heading"><h2>edit an outcome price</h2><label>find a roll<input id="outcome-search" type="search" placeholder="150, energy shield..."></label></div><div class="table-wrap"><table><thead><tr><th>outcome</th><th>probability</th><th>price / source units</th><th>profit</th><th>source cell</th></tr></thead><tbody id="outcomes"></tbody></table></div><p class="note">Blank means unknown. Zero remains a deliberate zero valuation. Editing changes this browser calculation; original workbook downloads remain untouched.</p></section>
-<section id="archive" hidden><div class="controls"><label>original workbook<select id="book"></select></label><a id="download" download>download the original .xlsx</a></div><p class="note">Actual archived worksheets. Select a cell to see its original formula and saved value. These are historical working files, not a current price feed.</p><div class="formula-bar"><b id="cell-name">select a cell</b><code id="formula"></code></div><div class="table-wrap"><table id="workbook"></table></div><p id="book-note" class="note"></p></section>
-<section id="variants" hidden><h2>Watcher's Eye combinations</h2><p id="variant-summary"></p><label>find a modifier or aura<input id="mod-search" type="search" placeholder="Anger, critical strike, energy shield..."></label><p class="note">The real modifier catalogue, combined into all two-mod pairs. This view does not invent prices or claim independent equal drop probabilities. No live trade or proxy requests run here.</p><p id="variant-count"></p><div id="pairs"></div><div class="pagination"><button id="pair-prev">previous</button><span id="pair-page"></span><button id="pair-next">next</button></div></section>
-<section id="pipeline" hidden><h2>from listings to a decision sheet</h2><ol class="workflow"><li><h3>describe the item precisely</h3><p>Enumerate modifiers, variant pairs and roll ranges so each observation refers to a defined outcome.</p></li><li><h3>collect and record price evidence</h3><p>The local residential-proxy collector logs available trade listings under rate controls. Credentials remain local. Price observations retain their collection time and league.</p></li><li><h3>separate a cheap listing from a sensible buy-in</h3><p>The buy-in rule uses the median of the ten cheapest listings and reports the floor separately. Missing or suspicious prices remain visible.</p></li><li><h3>keep the workbook linked</h3><p>Outcome weights and prices feed expected value, profit, dispersion and downside. Editing an input propagates through the formulas. Coverage gaps stop an incomplete price set being presented as a complete estimate.</p></li></ol><p>The public archive shows the earlier spreadsheet research and an inspectable variant catalogue. It does not expose proxy infrastructure or your account session.</p><a href="https://github.com/LolStar123/poe-item-pricer/blob/main/original/buyin.py">inspect the original buy-in logic</a></section><footer>Historical assumptions are labelled beside each worksheet. Currency units are not specified in the two original valuation files, so their values remain in source units. No current profitability claim is made.</footer></main><script type="module" src="app.mjs"></script></body></html>
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>poe item research / the price of a roll</title
+    ><link rel="stylesheet" href="style.css" />
+    <body>
+        <header>
+            <a
+                href="https://atul-kanodia-fieldnotes.atulswaggalicious.chatgpt.site"
+                >atul / item research</a
+            ><a href="https://github.com/LolStar123/poe-item-pricer"
+                >source & pipeline</a
+            >
+        </header>
+        <main>
+            <div class="intro">
+                <div>
+                    <p class="eyebrow">
+                        path of exile / prices, probabilities, spreadsheets
+                    </p>
+                    <h1>what's a roll worth?</h1>
+                </div>
+                <p>
+                    My early spreadsheets turned obscure item outcomes into
+                    expected value and risk. The later pipeline collected prices
+                    at scale and kept the calculations linked.
+                </p>
+            </div>
+            <nav class="tabs" aria-label="Research views">
+                <button data-tab="calculator" aria-pressed="true">
+                    work the numbers</button
+                ><button data-tab="archive" aria-pressed="false">
+                    original spreadsheets</button
+                ><button data-tab="variants" aria-pressed="false">
+                    variant catalogue</button
+                ><button data-tab="pipeline" aria-pressed="false">
+                    collection workflow
+                </button>
+            </nav>
+            <section id="calculator">
+                <div class="controls">
+                    <label
+                        >historical worksheet<select id="case"></select></label
+                    ><label
+                        >buy-in / source units<input
+                            id="cost"
+                            type="number"
+                            min="0"
+                            step=".1" /></label
+                    ><button id="restore">restore archive values</button
+                    ><button id="export">export edited outcomes</button>
+                </div>
+                <p id="case-note" class="note"></p>
+                <p id="error" role="alert"></p>
+                <div class="metrics" id="metrics"></div>
+                <div class="analysis">
+                    <div>
+                        <h2>profit distribution</h2>
+                        <svg
+                            id="chart"
+                            viewBox="0 0 660 240"
+                            role="img"
+                            aria-label="Discrete probability histogram of profit per outcome"
+                        ></svg>
+                        <p class="note">
+                            Bars add the original outcome probabilities. This is
+                            a discrete distribution, not a fitted normal curve.
+                            Unknown prices keep their probability unallocated.
+                        </p>
+                    </div>
+                    <div class="risk-note">
+                        <h2>the tail matters.</h2>
+                        <p id="risk-summary"></p>
+                        <p class="note">
+                            Profit factor is expected gains divided by expected
+                            losses. Return/risk is expected profit divided by
+                            one-roll standard deviation; it is not annualised
+                            Sharpe.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-heading">
+                    <h2>edit an outcome price</h2>
+                    <label
+                        >find a roll<input
+                            id="outcome-search"
+                            type="search"
+                            placeholder="150, energy shield..."
+                    /></label>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>outcome</th>
+                                <th>probability</th>
+                                <th>price / source units</th>
+                                <th>profit</th>
+                                <th>source cell</th>
+                            </tr>
+                        </thead>
+                        <tbody id="outcomes"></tbody>
+                    </table>
+                </div>
+                <p class="note">
+                    Blank means unknown. Zero remains a deliberate zero
+                    valuation. Editing changes this browser calculation;
+                    original workbook downloads remain untouched.
+                </p>
+            </section>
+            <section id="archive" hidden>
+                <div class="controls">
+                    <label>original workbook<select id="book"></select></label
+                    ><a id="download" download>download the original .xlsx</a>
+                </div>
+                <p class="note">
+                    Actual archived worksheets. Select a cell to see its
+                    original formula and saved value. These are historical
+                    working files, not a current price feed.
+                </p>
+                <div class="formula-bar">
+                    <b id="cell-name">select a cell</b
+                    ><code id="formula"></code>
+                </div>
+                <div class="table-wrap"><table id="workbook"></table></div>
+                <p id="book-note" class="note"></p>
+            </section>
+            <section id="variants" hidden>
+                <h2>Watcher's Eye combinations</h2>
+                <p id="variant-summary"></p>
+                <label
+                    >find a modifier or aura<input
+                        id="mod-search"
+                        type="search"
+                        placeholder="Anger, critical strike, energy shield..."
+                /></label>
+                <p class="note">
+                    The real modifier catalogue, combined into all two-mod
+                    pairs. This view does not invent prices or claim independent
+                    equal drop probabilities. No live trade or proxy requests
+                    run here.
+                </p>
+                <p id="variant-count"></p>
+                <div id="pairs"></div>
+                <div class="pagination">
+                    <button id="pair-prev">previous</button
+                    ><span id="pair-page"></span
+                    ><button id="pair-next">next</button>
+                </div>
+            </section>
+            <section id="pipeline" hidden>
+                <h2>from listings to a decision sheet</h2>
+                <ol class="workflow">
+                    <li>
+                        <h3>describe the item precisely</h3>
+                        <p>
+                            Enumerate modifiers, variant pairs and roll ranges
+                            so each observation refers to a defined outcome.
+                        </p>
+                    </li>
+                    <li>
+                        <h3>collect and record price evidence</h3>
+                        <p>
+                            The local residential-proxy collector logs available
+                            trade listings under rate controls. Credentials
+                            remain local. Price observations retain their
+                            collection time and league.
+                        </p>
+                    </li>
+                    <li>
+                        <h3>separate a cheap listing from a sensible buy-in</h3>
+                        <p>
+                            The buy-in rule uses the median of the ten cheapest
+                            listings and reports the floor separately. Missing
+                            or suspicious prices remain visible.
+                        </p>
+                    </li>
+                    <li>
+                        <h3>keep the workbook linked</h3>
+                        <p>
+                            Outcome weights and prices feed expected value,
+                            profit, dispersion and downside. Editing an input
+                            propagates through the formulas. Coverage gaps stop
+                            an incomplete price set being presented as a
+                            complete estimate.
+                        </p>
+                    </li>
+                </ol>
+                <p>
+                    The public archive shows the earlier spreadsheet research
+                    and an inspectable variant catalogue. It does not expose
+                    proxy infrastructure or your account session.
+                </p>
+                <a
+                    href="https://github.com/LolStar123/poe-item-pricer/blob/main/original/buyin.py"
+                    >inspect the original buy-in logic</a
+                >
+            </section>
+            <footer>
+                Historical assumptions are labelled beside each worksheet.
+                Currency units are not specified in the two original valuation
+                files, so their values remain in source units. No current
+                profitability claim is made.
+            </footer>
+        </main>
+        <script type="module" src="app.mjs"></script>
+    </body>
+</html>

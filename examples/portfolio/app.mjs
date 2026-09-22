@@ -1,24 +1,224 @@
-import {risk,histogram,pairs,csv} from './model.mjs';
-const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fmt=x=>x===null?'unknown':x===Infinity?'no losses':Number(x).toLocaleString('en-GB',{maximumFractionDigits:3});
-let data,current,outcomes=[],pairPage=0,result;
-function update(){
-    try{const cost=$('#cost').value===''?NaN:Number($('#cost').value);result=risk(outcomes,cost);$('#error').textContent='';$('#metrics').innerHTML=[['expected profit / roll',result.profit],['one-roll standard deviation',result.stdev],['profit factor',result.profitFactor],['price coverage',100*result.coverage]].map(([label,value],i)=>`<div class="metric"><span>${label}</span><strong>${fmt(value)}${i===3?'%':''}</strong></div>`).join('');
-        $('#risk-summary').textContent=result.profit===null?`Prices cover ${(result.coverage*100).toFixed(2)}% of probability. Known outcomes contribute ${fmt(result.knownRevenue)} revenue units; complete EV and risk remain unknown.`:`Mean revenue: ${fmt(result.mean)}. Chance of a positive profit: ${(result.win*100).toFixed(2)}%. Return/risk ratio: ${fmt(result.ratio)}.`;
-        const bins=histogram(outcomes,cost),max=Math.max(.01,...bins.map(b=>b.p)),w=580/Math.max(1,bins.length);$('#chart').innerHTML=bins.map((b,i)=>{const h=b.p/max*165;return `<rect x="${48+i*w}" y="${190-h}" width="${Math.max(1,w-2)}" height="${h}" fill="${b.high<=0?'#9e8970':'#b6c39a'}"><title>${fmt(b.low)} to ${fmt(b.high)} profit: ${(b.p*100).toFixed(2)}%</title></rect>`}).join('')+(bins.length?`<path d="M48 25V190H628" fill="none" stroke="#7b846e"/><text x="48" y="215" fill="#b6bea8" font-size="12">${fmt(bins[0].low)}</text><text x="628" y="215" text-anchor="end" fill="#b6bea8" font-size="12">${fmt(bins.at(-1).high)} profit units</text><text x="48" y="18" fill="#b6bea8" font-size="12">max bin ${(max*100).toFixed(1)}% probability</text>`:'');
-        for(const el of document.querySelectorAll('[data-profit]')){const o=outcomes[Number(el.dataset.profit)];el.textContent=o.price===null?'unknown':fmt(o.price-cost)}
-    }catch(e){result=null;$('#error').textContent=e.message;$('#metrics').innerHTML='';$('#chart').innerHTML='';$('#risk-summary').textContent='Correct the input to calculate results.'}
-    window.__poe={ready:true,outcomes:outcomes.length,result,pairs:data.modifiers.length*(data.modifiers.length-1)/2,books:data.books.length};
+import { risk, histogram, pairs, csv } from "./model.mjs";
+const $ = (s) => document.querySelector(s),
+    esc = (s) =>
+        String(s ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+                ({
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;",
+                })[c],
+        );
+const fmt = (x) =>
+    x === null
+        ? "unknown"
+        : x === Infinity
+          ? "no losses"
+          : Number(x).toLocaleString("en-GB", { maximumFractionDigits: 3 });
+let data,
+    current,
+    outcomes = [],
+    pairPage = 0,
+    result;
+function update() {
+    try {
+        const cost = $("#cost").value === "" ? NaN : Number($("#cost").value);
+        result = risk(outcomes, cost);
+        $("#error").textContent = "";
+        $("#metrics").innerHTML = [
+            ["expected profit / roll", result.profit],
+            ["one-roll standard deviation", result.stdev],
+            ["profit factor", result.profitFactor],
+            ["price coverage", 100 * result.coverage],
+        ]
+            .map(
+                ([label, value], i) =>
+                    `<div class="metric"><span>${label}</span><strong>${fmt(value)}${i === 3 ? "%" : ""}</strong></div>`,
+            )
+            .join("");
+        $("#risk-summary").textContent =
+            result.profit === null
+                ? `Prices cover ${(result.coverage * 100).toFixed(2)}% of probability. Known outcomes contribute ${fmt(result.knownRevenue)} revenue units; complete EV and risk remain unknown.`
+                : `Mean revenue: ${fmt(result.mean)}. Chance of a positive profit: ${(result.win * 100).toFixed(2)}%. Return/risk ratio: ${fmt(result.ratio)}.`;
+        const bins = histogram(outcomes, cost),
+            max = Math.max(0.01, ...bins.map((b) => b.p)),
+            w = 580 / Math.max(1, bins.length);
+        $("#chart").innerHTML =
+            bins
+                .map((b, i) => {
+                    const h = (b.p / max) * 165;
+                    return `<rect x="${48 + i * w}" y="${190 - h}" width="${Math.max(1, w - 2)}" height="${h}" fill="${b.high <= 0 ? "#9e8970" : "#b6c39a"}"><title>${fmt(b.low)} to ${fmt(b.high)} profit: ${(b.p * 100).toFixed(2)}%</title></rect>`;
+                })
+                .join("") +
+            (bins.length
+                ? `<path d="M48 25V190H628" fill="none" stroke="#7b846e"/><text x="48" y="215" fill="#b6bea8" font-size="12">${fmt(bins[0].low)}</text><text x="628" y="215" text-anchor="end" fill="#b6bea8" font-size="12">${fmt(bins.at(-1).high)} profit units</text><text x="48" y="18" fill="#b6bea8" font-size="12">max bin ${(max * 100).toFixed(1)}% probability</text>`
+                : "");
+        for (const el of document.querySelectorAll("[data-profit]")) {
+            const o = outcomes[Number(el.dataset.profit)];
+            el.textContent = o.price === null ? "unknown" : fmt(o.price - cost);
+        }
+    } catch (e) {
+        result = null;
+        $("#error").textContent = e.message;
+        $("#metrics").innerHTML = "";
+        $("#chart").innerHTML = "";
+        $("#risk-summary").textContent =
+            "Correct the input to calculate results.";
+    }
+    window.__poe = {
+        ready: true,
+        outcomes: outcomes.length,
+        result,
+        pairs: (data.modifiers.length * (data.modifiers.length - 1)) / 2,
+        books: data.books.length,
+    };
 }
-function renderOutcomes(){const q=$('#outcome-search').value.toLowerCase();$('#outcomes').innerHTML=outcomes.map((o,i)=>({o,i})).filter(({o})=>o.label.toLowerCase().includes(q)).map(({o,i})=>`<tr><td>${esc(o.label)}</td><td>${(o.probability*100).toFixed(3)}%</td><td><input aria-label="Price for ${esc(o.label)}" data-price="${i}" type="number" min="0" step=".1" value="${o.price??''}" placeholder="unknown"></td><td><output data-profit="${i}"></output></td><td>${o.source}</td></tr>`).join('');update()}
-function loadCase(){current=data.cases.find(c=>c.id===$('#case').value);outcomes=structuredClone(current.outcomes);$('#cost').value=current.cost;$('#case-note').textContent=current.note;$('#outcome-search').value='';renderOutcomes()}
-$('#case').onchange=loadCase;$('#restore').onclick=loadCase;$('#cost').oninput=update;$('#outcome-search').oninput=renderOutcomes;
-$('#outcomes').oninput=e=>{const i=e.target.dataset.price;if(i===undefined)return;outcomes[Number(i)].price=e.target.value===''?null:Number(e.target.value);update()};
-function loadBook(){const book=data.books.find(b=>b.id===$('#book').value),sheet=book.sheets[0],lookup=new Map(sheet.cells.map(c=>[c.address,c]));$('#download').href=book.file;$('#download').textContent='download '+book.title.toLowerCase()+'.xlsx';let html='<thead><tr><th></th>'+Array.from({length:sheet.columns},(_,i)=>`<th>${String.fromCharCode(65+i)}</th>`).join('')+'</tr></thead><tbody>';for(let row=1;row<=sheet.rows;row++){html+=`<tr><th>${row}</th>`;for(let col=1;col<=sheet.columns;col++){const address=String.fromCharCode(64+col)+row,c=lookup.get(address),value=c?.value;html+=`<td><button data-cell="${address}" class="${c?.formula?'has-formula':''}">${typeof value==='number'?fmt(value):esc(value??'')}</button></td>`}html+='</tr>'}$('#workbook').innerHTML=html+'</tbody>';$('#cell-name').textContent='select a cell';$('#formula').textContent='';$('#book-note').textContent=book.id==='decks'?'The original sheet begins "start 04/05/2024". It records purchase costs, card counts and realised opening proceeds.':'Original working assumptions and saved formula results. Spreadsheet prices are historical; they are not refreshed by this page.';
-    $('#workbook').onclick=e=>{const b=e.target.closest('[data-cell]');if(!b)return;for(const el of document.querySelectorAll('[data-cell]'))el.setAttribute('aria-pressed',el===b);const c=lookup.get(b.dataset.cell);$('#cell-name').textContent=b.dataset.cell;$('#formula').textContent=c?.formula||String(c?.value??'blank cell');};}
-$('#book').onchange=loadBook;
-function renderPairs(){const rows=pairs(data.modifiers,$('#mod-search').value),size=24;pairPage=Math.min(pairPage,Math.max(0,Math.ceil(rows.length/size)-1));$('#variant-count').textContent=`${rows.length.toLocaleString()} matching pairs / prices not supplied`;$('#pairs').innerHTML=rows.slice(pairPage*size,(pairPage+1)*size).map((p,i)=>`<div class="pair"><small>${pairPage*size+i+1}</small><p>${esc(p.a.display_text)}</p><p>${esc(p.b.display_text)}</p></div>`).join('');$('#pair-page').textContent=`${rows.length?pairPage+1:0} / ${Math.ceil(rows.length/size)}`;$('#pair-prev').disabled=pairPage===0;$('#pair-next').disabled=(pairPage+1)*size>=rows.length;}
-$('#mod-search').oninput=()=>{pairPage=0;renderPairs()};$('#pair-prev').onclick=()=>{pairPage--;renderPairs()};$('#pair-next').onclick=()=>{pairPage++;renderPairs()};
-for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>{for(const t of document.querySelectorAll('[data-tab]')){t.setAttribute('aria-pressed',t===b);$('#'+t.dataset.tab).hidden=t!==b}};
-$('#export').onclick=()=>{const url=URL.createObjectURL(new Blob([csv(outcomes,Number($('#cost').value))],{type:'text/csv'}));const a=document.createElement('a');a.href=url;a.download=current.id+'-outcomes.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-try{const r=await fetch('data/archive.json');if(!r.ok)throw Error('Research archive could not load');data=await r.json();$('#case').innerHTML=data.cases.map(c=>`<option value="${c.id}">${esc(c.title)}</option>`).join('');$('#book').innerHTML=data.books.map(b=>`<option value="${b.id}">${esc(b.title)}</option>`).join('');const n=data.modifiers.length;$('#variant-summary').textContent=`${n} real aura modifiers form ${(n*(n-1)/2).toLocaleString()} distinct pairs and ${(n*(n-1)*(n-2)/6).toLocaleString()} nominal three-mod combinations before game eligibility constraints. Catalogue: ${data.league}, ${data.catalogueDate.slice(0,10)}.`;loadCase();loadBook();renderPairs()}catch(e){$('#error').textContent=e.message;throw e}
+function renderOutcomes() {
+    const q = $("#outcome-search").value.toLowerCase();
+    $("#outcomes").innerHTML = outcomes
+        .map((o, i) => ({ o, i }))
+        .filter(({ o }) => o.label.toLowerCase().includes(q))
+        .map(
+            ({ o, i }) =>
+                `<tr><td>${esc(o.label)}</td><td>${(o.probability * 100).toFixed(3)}%</td><td><input aria-label="Price for ${esc(o.label)}" data-price="${i}" type="number" min="0" step=".1" value="${o.price ?? ""}" placeholder="unknown"></td><td><output data-profit="${i}"></output></td><td>${o.source}</td></tr>`,
+        )
+        .join("");
+    update();
+}
+function loadCase() {
+    current = data.cases.find((c) => c.id === $("#case").value);
+    outcomes = structuredClone(current.outcomes);
+    $("#cost").value = current.cost;
+    $("#case-note").textContent = current.note;
+    $("#outcome-search").value = "";
+    renderOutcomes();
+}
+$("#case").onchange = loadCase;
+$("#restore").onclick = loadCase;
+$("#cost").oninput = update;
+$("#outcome-search").oninput = renderOutcomes;
+$("#outcomes").oninput = (e) => {
+    const i = e.target.dataset.price;
+    if (i === undefined) return;
+    outcomes[Number(i)].price =
+        e.target.value === "" ? null : Number(e.target.value);
+    update();
+};
+function loadBook() {
+    const book = data.books.find((b) => b.id === $("#book").value),
+        sheet = book.sheets[0],
+        lookup = new Map(sheet.cells.map((c) => [c.address, c]));
+    $("#download").href = book.file;
+    $("#download").textContent =
+        "download " + book.title.toLowerCase() + ".xlsx";
+    let html =
+        "<thead><tr><th></th>" +
+        Array.from(
+            { length: sheet.columns },
+            (_, i) => `<th>${String.fromCharCode(65 + i)}</th>`,
+        ).join("") +
+        "</tr></thead><tbody>";
+    for (let row = 1; row <= sheet.rows; row++) {
+        html += `<tr><th>${row}</th>`;
+        for (let col = 1; col <= sheet.columns; col++) {
+            const address = String.fromCharCode(64 + col) + row,
+                c = lookup.get(address),
+                value = c?.value;
+            html += `<td><button data-cell="${address}" class="${c?.formula ? "has-formula" : ""}">${typeof value === "number" ? fmt(value) : esc(value ?? "")}</button></td>`;
+        }
+        html += "</tr>";
+    }
+    $("#workbook").innerHTML = html + "</tbody>";
+    $("#cell-name").textContent = "select a cell";
+    $("#formula").textContent = "";
+    $("#book-note").textContent =
+        book.id === "decks"
+            ? 'The original sheet begins "start 04/05/2024". It records purchase costs, card counts and realised opening proceeds.'
+            : "Original working assumptions and saved formula results. Spreadsheet prices are historical; they are not refreshed by this page.";
+    $("#workbook").onclick = (e) => {
+        const b = e.target.closest("[data-cell]");
+        if (!b) return;
+        for (const el of document.querySelectorAll("[data-cell]"))
+            el.setAttribute("aria-pressed", el === b);
+        const c = lookup.get(b.dataset.cell);
+        $("#cell-name").textContent = b.dataset.cell;
+        $("#formula").textContent =
+            c?.formula || String(c?.value ?? "blank cell");
+    };
+}
+$("#book").onchange = loadBook;
+function renderPairs() {
+    const rows = pairs(data.modifiers, $("#mod-search").value),
+        size = 24;
+    pairPage = Math.min(
+        pairPage,
+        Math.max(0, Math.ceil(rows.length / size) - 1),
+    );
+    $("#variant-count").textContent =
+        `${rows.length.toLocaleString()} matching pairs / prices not supplied`;
+    $("#pairs").innerHTML = rows
+        .slice(pairPage * size, (pairPage + 1) * size)
+        .map(
+            (p, i) =>
+                `<div class="pair"><small>${pairPage * size + i + 1}</small><p>${esc(p.a.display_text)}</p><p>${esc(p.b.display_text)}</p></div>`,
+        )
+        .join("");
+    $("#pair-page").textContent =
+        `${rows.length ? pairPage + 1 : 0} / ${Math.ceil(rows.length / size)}`;
+    $("#pair-prev").disabled = pairPage === 0;
+    $("#pair-next").disabled = (pairPage + 1) * size >= rows.length;
+}
+$("#mod-search").oninput = () => {
+    pairPage = 0;
+    renderPairs();
+};
+$("#pair-prev").onclick = () => {
+    pairPage--;
+    renderPairs();
+};
+$("#pair-next").onclick = () => {
+    pairPage++;
+    renderPairs();
+};
+for (const b of document.querySelectorAll("[data-tab]"))
+    b.onclick = () => {
+        for (const t of document.querySelectorAll("[data-tab]")) {
+            t.setAttribute("aria-pressed", t === b);
+            $("#" + t.dataset.tab).hidden = t !== b;
+        }
+    };
+$("#export").onclick = () => {
+    const url = URL.createObjectURL(
+        new Blob([csv(outcomes, Number($("#cost").value))], {
+            type: "text/csv",
+        }),
+    );
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = current.id + "-outcomes.csv";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+try {
+    const r = await fetch("data/archive.json");
+    if (!r.ok) throw Error("Research archive could not load");
+    data = await r.json();
+    $("#case").innerHTML = data.cases
+        .map((c) => `<option value="${c.id}">${esc(c.title)}</option>`)
+        .join("");
+    $("#book").innerHTML = data.books
+        .map((b) => `<option value="${b.id}">${esc(b.title)}</option>`)
+        .join("");
+    const n = data.modifiers.length;
+    $("#variant-summary").textContent =
+        `${n} real aura modifiers form ${((n * (n - 1)) / 2).toLocaleString()} distinct pairs and ${((n * (n - 1) * (n - 2)) / 6).toLocaleString()} nominal three-mod combinations before game eligibility constraints. Catalogue: ${data.league}, ${data.catalogueDate.slice(0, 10)}.`;
+    loadCase();
+    loadBook();
+    renderPairs();
+} catch (e) {
+    $("#error").textContent = e.message;
+    throw e;
+}
