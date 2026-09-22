@@ -1,16 +1,9 @@
-# Public example provenance
+# Archive and catalogue provenance
 
-Prepared 22 September 2026 for Atul Kanodia's project portfolio.
+Three original workbooks are copied byte-for-byte: adorned profit.xlsx, light of meaning ID EV.xlsx and stacked deck data.xlsx. The JSON view extracts formulas and saved values using read-only access. No external workbook links or macros exist in these files; a credential-pattern scan found no matches in their XML.
 
-## Original work
+Adorned C5:E105 contains 101 historical rolls from 50 to 150. Equal weights match the source SUM(F5:F105)/101 calculation. Original zero valuations remain deliberate archived inputs. Light of Meaning B3:D15 carries its saved probability assumptions. Neither valuation workbook labels the currency unit. Stacked decks records a start date of 04/05/2024.
 
-poe/gambles/buyin.py, formulaic.py and docs/ARCHITECTURE.md. The 50,000-variant scope comes from Atul; this example is deliberately smaller.
+The aura modifiers come from the author's catalogue_v1.json, exporting only mod_id, aura and display_text. The catalogue date and league remain in archive.json. All 87 choose 2 pairs are enumerated without invented prices or probabilities.
 
-## This repository's example
-
-Authored chaos-price fixtures, no live trade connection. Return/risk is a per-outcome ratio, not an annualised investment Sharpe.
-
-The example was built for public inspection of the documented workflow. It is not a claim
-that the complete production application fits into this one module. Existing repository
-source retains its original history. Generated records have no customer, player, account,
-or private-message identifiers. Inputs and outputs can be exported and inspected.
+The broader collection workflow is described from the original code. This public surface is an archive, catalogue and functional risk calculator, not a live trade collector. No account credentials or proxy addresses are included.

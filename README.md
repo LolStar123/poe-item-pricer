@@ -1,43 +1,38 @@
-# poe item pricer
+# poe item research
 
-Prices 50,000 item variants and turns market logs into expected value and risk sheets.
+**[Open the research desk](https://lolstar123.github.io/poe-item-pricer/)**
 
-<!-- working-example:start -->
-## Try it in a minute
+The spreadsheets that grew into a larger item-pricing pipeline. Browse the original work, change outcome values and see expected profit, dispersion, probability of profit and profit factor update.
 
-**[Live example](https://lolstar123.github.io/poe-item-pricer/)** · [Example code](examples/portfolio/model.mjs) · [Run locally](examples/portfolio/README.md) · [Atul's website](https://atul-kanodia-fieldnotes.atulswaggalicious.chatgpt.site)
+![Item research desk](examples/portfolio/preview.png)
 
-Change the buy-in and outcome prices; inspect EV, downside and incomplete price coverage.
+## Real work to inspect
 
-<img src="examples/portfolio/preview.png" alt="poe item pricer example inputs and calculated output" width="760">
+- **Adorned valuation:** 101 outcomes from the original 50-150 roll worksheet. The browser reproduces its saved profit-per-identification result.
+- **Light of Meaning:** 13 original outcomes and weights. The calculated mean matches the saved workbook total.
+- **Stacked decks:** the original opening log, starting 04/05/2024, with costs, card counts and realised proceeds.
+- **Watcher's Eye:** the actual 87-aura-modifier catalogue, searchable across 3,741 two-mod combinations. These pairs do not carry invented prices.
 
-<!-- working-example:end -->
+Download the three original Excel files unchanged, or inspect their formulas and saved values in the browser. The two valuation sheets do not state a currency unit, so the app preserves source units. These are historical assumptions, not current profitability claims.
 
-## The project
+## Try it
 
-Residential-proxy collection logs item prices for the wider pipeline. Variant probabilities and buy-in costs feed linked sheets for expected value, dispersion and profit factor. Missing prices stay visible instead of becoming invented bargains.
+Change buy-in or an outcome price. Blank a price to see coverage fall: complete EV and risk become unknown. Restore archive values, export edited outcomes, or inspect a cell formula. The histogram uses discrete probability weights.
 
-A game got me into statistics. The cheapest listing is not always a usable price.
+## The later pipeline
 
-## Find your way around
+Local residential-proxy collection records item prices, league and collection time. Defined modifier combinations make observations comparable. The [original buy-in logic](original/buyin.py) uses the median of the ten cheapest listings while showing the floor separately. Linked formulas feed EV and risk calculations; missing coverage remains explicit.
 
-| Path | What is here |
-| --- | --- |
-| [examples/portfolio](examples/portfolio) | Runnable browser example and fixtures |
-| [model.mjs](examples/portfolio/model.mjs) | Actual calculation or workflow |
-| [model.test.mjs](examples/portfolio/model.test.mjs) | Reproducible checks and edge cases |
-| [PROVENANCE.md](PROVENANCE.md) | How this example relates to the full project |
-| [AGENTS.md](AGENTS.md) | Instructions for extending the example |
+The public desk presents the archive and workflow. It has no live trade session, proxy connection or private credentials. Nominal modifier combinations are a catalogue calculation, not a claim that every pair is eligible or equally probable in game.
 
-## Quick start
+## Run and check
 
 ```sh
 python -m http.server 8000 --directory examples/portfolio
 node --test examples/portfolio/model.test.mjs
+pip install playwright
+python -m playwright install chromium
+python tools/browser_audit.py
 ```
 
-Open http://localhost:8000. No dependencies, accounts or API keys needed.
-
-## What is included
-
-Authored chaos-price fixtures, no live trade connection. Return/risk is a per-outcome ratio, not an annualised investment Sharpe.
+Open http://localhost:8000. [Risk calculations](examples/portfolio/model.mjs), [archive extraction](tools/export_archive.py), [source notes](PROVENANCE.md). Extraction uses openpyxl to read existing workbooks without rewriting them.

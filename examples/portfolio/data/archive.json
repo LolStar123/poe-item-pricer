@@ -1,0 +1,5354 @@
+{
+  "books": [
+    {
+      "id": "adorned",
+      "title": "Adorned roll valuation",
+      "file": "assets/adorned profit.xlsx",
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "rows": 105,
+          "columns": 9,
+          "cells": [
+            {
+              "address": "C4",
+              "row": 4,
+              "column": 3,
+              "value": "adorned %",
+              "formula": null
+            },
+            {
+              "address": "D4",
+              "row": 4,
+              "column": 4,
+              "value": "value",
+              "formula": null
+            },
+            {
+              "address": "E4",
+              "row": 4,
+              "column": 5,
+              "value": "cost",
+              "formula": null
+            },
+            {
+              "address": "F4",
+              "row": 4,
+              "column": 6,
+              "value": "groffit",
+              "formula": null
+            },
+            {
+              "address": "H4",
+              "row": 4,
+              "column": 8,
+              "value": "Sum of groffit",
+              "formula": null
+            },
+            {
+              "address": "I4",
+              "row": 4,
+              "column": 9,
+              "value": "Profit per ID adorned",
+              "formula": null
+            },
+            {
+              "address": "C5",
+              "row": 5,
+              "column": 3,
+              "value": 50,
+              "formula": null
+            },
+            {
+              "address": "D5",
+              "row": 5,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E5",
+              "row": 5,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F5",
+              "row": 5,
+              "column": 6,
+              "value": -18,
+              "formula": "=D5-E5"
+            },
+            {
+              "address": "H5",
+              "row": 5,
+              "column": 8,
+              "value": 181,
+              "formula": "=SUM(F5:F105)"
+            },
+            {
+              "address": "I5",
+              "row": 5,
+              "column": 9,
+              "value": 1.7920792079207921,
+              "formula": "=H5/101"
+            },
+            {
+              "address": "C6",
+              "row": 6,
+              "column": 3,
+              "value": 51,
+              "formula": null
+            },
+            {
+              "address": "D6",
+              "row": 6,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E6",
+              "row": 6,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F6",
+              "row": 6,
+              "column": 6,
+              "value": -18,
+              "formula": "=D6-E6"
+            },
+            {
+              "address": "C7",
+              "row": 7,
+              "column": 3,
+              "value": 52,
+              "formula": null
+            },
+            {
+              "address": "D7",
+              "row": 7,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E7",
+              "row": 7,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F7",
+              "row": 7,
+              "column": 6,
+              "value": -18,
+              "formula": "=D7-E7"
+            },
+            {
+              "address": "C8",
+              "row": 8,
+              "column": 3,
+              "value": 53,
+              "formula": null
+            },
+            {
+              "address": "D8",
+              "row": 8,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E8",
+              "row": 8,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F8",
+              "row": 8,
+              "column": 6,
+              "value": -18,
+              "formula": "=D8-E8"
+            },
+            {
+              "address": "C9",
+              "row": 9,
+              "column": 3,
+              "value": 54,
+              "formula": null
+            },
+            {
+              "address": "D9",
+              "row": 9,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E9",
+              "row": 9,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F9",
+              "row": 9,
+              "column": 6,
+              "value": -18,
+              "formula": "=D9-E9"
+            },
+            {
+              "address": "C10",
+              "row": 10,
+              "column": 3,
+              "value": 55,
+              "formula": null
+            },
+            {
+              "address": "D10",
+              "row": 10,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E10",
+              "row": 10,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F10",
+              "row": 10,
+              "column": 6,
+              "value": -18,
+              "formula": "=D10-E10"
+            },
+            {
+              "address": "C11",
+              "row": 11,
+              "column": 3,
+              "value": 56,
+              "formula": null
+            },
+            {
+              "address": "D11",
+              "row": 11,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E11",
+              "row": 11,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F11",
+              "row": 11,
+              "column": 6,
+              "value": -18,
+              "formula": "=D11-E11"
+            },
+            {
+              "address": "C12",
+              "row": 12,
+              "column": 3,
+              "value": 57,
+              "formula": null
+            },
+            {
+              "address": "D12",
+              "row": 12,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E12",
+              "row": 12,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F12",
+              "row": 12,
+              "column": 6,
+              "value": -18,
+              "formula": "=D12-E12"
+            },
+            {
+              "address": "C13",
+              "row": 13,
+              "column": 3,
+              "value": 58,
+              "formula": null
+            },
+            {
+              "address": "D13",
+              "row": 13,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E13",
+              "row": 13,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F13",
+              "row": 13,
+              "column": 6,
+              "value": -18,
+              "formula": "=D13-E13"
+            },
+            {
+              "address": "C14",
+              "row": 14,
+              "column": 3,
+              "value": 59,
+              "formula": null
+            },
+            {
+              "address": "D14",
+              "row": 14,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E14",
+              "row": 14,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F14",
+              "row": 14,
+              "column": 6,
+              "value": -18,
+              "formula": "=D14-E14"
+            },
+            {
+              "address": "C15",
+              "row": 15,
+              "column": 3,
+              "value": 60,
+              "formula": null
+            },
+            {
+              "address": "D15",
+              "row": 15,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E15",
+              "row": 15,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F15",
+              "row": 15,
+              "column": 6,
+              "value": -18,
+              "formula": "=D15-E15"
+            },
+            {
+              "address": "C16",
+              "row": 16,
+              "column": 3,
+              "value": 61,
+              "formula": null
+            },
+            {
+              "address": "D16",
+              "row": 16,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E16",
+              "row": 16,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F16",
+              "row": 16,
+              "column": 6,
+              "value": -18,
+              "formula": "=D16-E16"
+            },
+            {
+              "address": "C17",
+              "row": 17,
+              "column": 3,
+              "value": 62,
+              "formula": null
+            },
+            {
+              "address": "D17",
+              "row": 17,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E17",
+              "row": 17,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F17",
+              "row": 17,
+              "column": 6,
+              "value": -18,
+              "formula": "=D17-E17"
+            },
+            {
+              "address": "C18",
+              "row": 18,
+              "column": 3,
+              "value": 63,
+              "formula": null
+            },
+            {
+              "address": "D18",
+              "row": 18,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E18",
+              "row": 18,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F18",
+              "row": 18,
+              "column": 6,
+              "value": -18,
+              "formula": "=D18-E18"
+            },
+            {
+              "address": "C19",
+              "row": 19,
+              "column": 3,
+              "value": 64,
+              "formula": null
+            },
+            {
+              "address": "D19",
+              "row": 19,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E19",
+              "row": 19,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F19",
+              "row": 19,
+              "column": 6,
+              "value": -18,
+              "formula": "=D19-E19"
+            },
+            {
+              "address": "C20",
+              "row": 20,
+              "column": 3,
+              "value": 65,
+              "formula": null
+            },
+            {
+              "address": "D20",
+              "row": 20,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E20",
+              "row": 20,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F20",
+              "row": 20,
+              "column": 6,
+              "value": -18,
+              "formula": "=D20-E20"
+            },
+            {
+              "address": "C21",
+              "row": 21,
+              "column": 3,
+              "value": 66,
+              "formula": null
+            },
+            {
+              "address": "D21",
+              "row": 21,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E21",
+              "row": 21,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F21",
+              "row": 21,
+              "column": 6,
+              "value": -18,
+              "formula": "=D21-E21"
+            },
+            {
+              "address": "C22",
+              "row": 22,
+              "column": 3,
+              "value": 67,
+              "formula": null
+            },
+            {
+              "address": "D22",
+              "row": 22,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E22",
+              "row": 22,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F22",
+              "row": 22,
+              "column": 6,
+              "value": -18,
+              "formula": "=D22-E22"
+            },
+            {
+              "address": "C23",
+              "row": 23,
+              "column": 3,
+              "value": 68,
+              "formula": null
+            },
+            {
+              "address": "D23",
+              "row": 23,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E23",
+              "row": 23,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F23",
+              "row": 23,
+              "column": 6,
+              "value": -18,
+              "formula": "=D23-E23"
+            },
+            {
+              "address": "C24",
+              "row": 24,
+              "column": 3,
+              "value": 69,
+              "formula": null
+            },
+            {
+              "address": "D24",
+              "row": 24,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E24",
+              "row": 24,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F24",
+              "row": 24,
+              "column": 6,
+              "value": -18,
+              "formula": "=D24-E24"
+            },
+            {
+              "address": "C25",
+              "row": 25,
+              "column": 3,
+              "value": 70,
+              "formula": null
+            },
+            {
+              "address": "D25",
+              "row": 25,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E25",
+              "row": 25,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F25",
+              "row": 25,
+              "column": 6,
+              "value": -18,
+              "formula": "=D25-E25"
+            },
+            {
+              "address": "C26",
+              "row": 26,
+              "column": 3,
+              "value": 71,
+              "formula": null
+            },
+            {
+              "address": "D26",
+              "row": 26,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E26",
+              "row": 26,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F26",
+              "row": 26,
+              "column": 6,
+              "value": -18,
+              "formula": "=D26-E26"
+            },
+            {
+              "address": "C27",
+              "row": 27,
+              "column": 3,
+              "value": 72,
+              "formula": null
+            },
+            {
+              "address": "D27",
+              "row": 27,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E27",
+              "row": 27,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F27",
+              "row": 27,
+              "column": 6,
+              "value": -18,
+              "formula": "=D27-E27"
+            },
+            {
+              "address": "C28",
+              "row": 28,
+              "column": 3,
+              "value": 73,
+              "formula": null
+            },
+            {
+              "address": "D28",
+              "row": 28,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E28",
+              "row": 28,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F28",
+              "row": 28,
+              "column": 6,
+              "value": -18,
+              "formula": "=D28-E28"
+            },
+            {
+              "address": "C29",
+              "row": 29,
+              "column": 3,
+              "value": 74,
+              "formula": null
+            },
+            {
+              "address": "D29",
+              "row": 29,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E29",
+              "row": 29,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F29",
+              "row": 29,
+              "column": 6,
+              "value": -18,
+              "formula": "=D29-E29"
+            },
+            {
+              "address": "C30",
+              "row": 30,
+              "column": 3,
+              "value": 75,
+              "formula": null
+            },
+            {
+              "address": "D30",
+              "row": 30,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E30",
+              "row": 30,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F30",
+              "row": 30,
+              "column": 6,
+              "value": -18,
+              "formula": "=D30-E30"
+            },
+            {
+              "address": "C31",
+              "row": 31,
+              "column": 3,
+              "value": 76,
+              "formula": null
+            },
+            {
+              "address": "D31",
+              "row": 31,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E31",
+              "row": 31,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F31",
+              "row": 31,
+              "column": 6,
+              "value": -18,
+              "formula": "=D31-E31"
+            },
+            {
+              "address": "C32",
+              "row": 32,
+              "column": 3,
+              "value": 77,
+              "formula": null
+            },
+            {
+              "address": "D32",
+              "row": 32,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E32",
+              "row": 32,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F32",
+              "row": 32,
+              "column": 6,
+              "value": -18,
+              "formula": "=D32-E32"
+            },
+            {
+              "address": "C33",
+              "row": 33,
+              "column": 3,
+              "value": 78,
+              "formula": null
+            },
+            {
+              "address": "D33",
+              "row": 33,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E33",
+              "row": 33,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F33",
+              "row": 33,
+              "column": 6,
+              "value": -18,
+              "formula": "=D33-E33"
+            },
+            {
+              "address": "C34",
+              "row": 34,
+              "column": 3,
+              "value": 79,
+              "formula": null
+            },
+            {
+              "address": "D34",
+              "row": 34,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E34",
+              "row": 34,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F34",
+              "row": 34,
+              "column": 6,
+              "value": -18,
+              "formula": "=D34-E34"
+            },
+            {
+              "address": "C35",
+              "row": 35,
+              "column": 3,
+              "value": 80,
+              "formula": null
+            },
+            {
+              "address": "D35",
+              "row": 35,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E35",
+              "row": 35,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F35",
+              "row": 35,
+              "column": 6,
+              "value": -18,
+              "formula": "=D35-E35"
+            },
+            {
+              "address": "C36",
+              "row": 36,
+              "column": 3,
+              "value": 81,
+              "formula": null
+            },
+            {
+              "address": "D36",
+              "row": 36,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E36",
+              "row": 36,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F36",
+              "row": 36,
+              "column": 6,
+              "value": -18,
+              "formula": "=D36-E36"
+            },
+            {
+              "address": "C37",
+              "row": 37,
+              "column": 3,
+              "value": 82,
+              "formula": null
+            },
+            {
+              "address": "D37",
+              "row": 37,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E37",
+              "row": 37,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F37",
+              "row": 37,
+              "column": 6,
+              "value": -18,
+              "formula": "=D37-E37"
+            },
+            {
+              "address": "C38",
+              "row": 38,
+              "column": 3,
+              "value": 83,
+              "formula": null
+            },
+            {
+              "address": "D38",
+              "row": 38,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E38",
+              "row": 38,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F38",
+              "row": 38,
+              "column": 6,
+              "value": -18,
+              "formula": "=D38-E38"
+            },
+            {
+              "address": "C39",
+              "row": 39,
+              "column": 3,
+              "value": 84,
+              "formula": null
+            },
+            {
+              "address": "D39",
+              "row": 39,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E39",
+              "row": 39,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F39",
+              "row": 39,
+              "column": 6,
+              "value": -18,
+              "formula": "=D39-E39"
+            },
+            {
+              "address": "C40",
+              "row": 40,
+              "column": 3,
+              "value": 85,
+              "formula": null
+            },
+            {
+              "address": "D40",
+              "row": 40,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E40",
+              "row": 40,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F40",
+              "row": 40,
+              "column": 6,
+              "value": -18,
+              "formula": "=D40-E40"
+            },
+            {
+              "address": "C41",
+              "row": 41,
+              "column": 3,
+              "value": 86,
+              "formula": null
+            },
+            {
+              "address": "D41",
+              "row": 41,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E41",
+              "row": 41,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F41",
+              "row": 41,
+              "column": 6,
+              "value": -18,
+              "formula": "=D41-E41"
+            },
+            {
+              "address": "C42",
+              "row": 42,
+              "column": 3,
+              "value": 87,
+              "formula": null
+            },
+            {
+              "address": "D42",
+              "row": 42,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E42",
+              "row": 42,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F42",
+              "row": 42,
+              "column": 6,
+              "value": -18,
+              "formula": "=D42-E42"
+            },
+            {
+              "address": "C43",
+              "row": 43,
+              "column": 3,
+              "value": 88,
+              "formula": null
+            },
+            {
+              "address": "D43",
+              "row": 43,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E43",
+              "row": 43,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F43",
+              "row": 43,
+              "column": 6,
+              "value": -18,
+              "formula": "=D43-E43"
+            },
+            {
+              "address": "C44",
+              "row": 44,
+              "column": 3,
+              "value": 89,
+              "formula": null
+            },
+            {
+              "address": "D44",
+              "row": 44,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E44",
+              "row": 44,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F44",
+              "row": 44,
+              "column": 6,
+              "value": -18,
+              "formula": "=D44-E44"
+            },
+            {
+              "address": "C45",
+              "row": 45,
+              "column": 3,
+              "value": 90,
+              "formula": null
+            },
+            {
+              "address": "D45",
+              "row": 45,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E45",
+              "row": 45,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F45",
+              "row": 45,
+              "column": 6,
+              "value": -18,
+              "formula": "=D45-E45"
+            },
+            {
+              "address": "C46",
+              "row": 46,
+              "column": 3,
+              "value": 91,
+              "formula": null
+            },
+            {
+              "address": "D46",
+              "row": 46,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E46",
+              "row": 46,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F46",
+              "row": 46,
+              "column": 6,
+              "value": -18,
+              "formula": "=D46-E46"
+            },
+            {
+              "address": "C47",
+              "row": 47,
+              "column": 3,
+              "value": 92,
+              "formula": null
+            },
+            {
+              "address": "D47",
+              "row": 47,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E47",
+              "row": 47,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F47",
+              "row": 47,
+              "column": 6,
+              "value": -18,
+              "formula": "=D47-E47"
+            },
+            {
+              "address": "C48",
+              "row": 48,
+              "column": 3,
+              "value": 93,
+              "formula": null
+            },
+            {
+              "address": "D48",
+              "row": 48,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E48",
+              "row": 48,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F48",
+              "row": 48,
+              "column": 6,
+              "value": -18,
+              "formula": "=D48-E48"
+            },
+            {
+              "address": "C49",
+              "row": 49,
+              "column": 3,
+              "value": 94,
+              "formula": null
+            },
+            {
+              "address": "D49",
+              "row": 49,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E49",
+              "row": 49,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F49",
+              "row": 49,
+              "column": 6,
+              "value": -18,
+              "formula": "=D49-E49"
+            },
+            {
+              "address": "C50",
+              "row": 50,
+              "column": 3,
+              "value": 95,
+              "formula": null
+            },
+            {
+              "address": "D50",
+              "row": 50,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E50",
+              "row": 50,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F50",
+              "row": 50,
+              "column": 6,
+              "value": -18,
+              "formula": "=D50-E50"
+            },
+            {
+              "address": "C51",
+              "row": 51,
+              "column": 3,
+              "value": 96,
+              "formula": null
+            },
+            {
+              "address": "D51",
+              "row": 51,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E51",
+              "row": 51,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F51",
+              "row": 51,
+              "column": 6,
+              "value": -18,
+              "formula": "=D51-E51"
+            },
+            {
+              "address": "C52",
+              "row": 52,
+              "column": 3,
+              "value": 97,
+              "formula": null
+            },
+            {
+              "address": "D52",
+              "row": 52,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E52",
+              "row": 52,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F52",
+              "row": 52,
+              "column": 6,
+              "value": -18,
+              "formula": "=D52-E52"
+            },
+            {
+              "address": "C53",
+              "row": 53,
+              "column": 3,
+              "value": 98,
+              "formula": null
+            },
+            {
+              "address": "D53",
+              "row": 53,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E53",
+              "row": 53,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F53",
+              "row": 53,
+              "column": 6,
+              "value": -18,
+              "formula": "=D53-E53"
+            },
+            {
+              "address": "C54",
+              "row": 54,
+              "column": 3,
+              "value": 99,
+              "formula": null
+            },
+            {
+              "address": "D54",
+              "row": 54,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E54",
+              "row": 54,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F54",
+              "row": 54,
+              "column": 6,
+              "value": -18,
+              "formula": "=D54-E54"
+            },
+            {
+              "address": "C55",
+              "row": 55,
+              "column": 3,
+              "value": 100,
+              "formula": null
+            },
+            {
+              "address": "D55",
+              "row": 55,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E55",
+              "row": 55,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F55",
+              "row": 55,
+              "column": 6,
+              "value": -17,
+              "formula": "=D55-E55"
+            },
+            {
+              "address": "C56",
+              "row": 56,
+              "column": 3,
+              "value": 101,
+              "formula": null
+            },
+            {
+              "address": "D56",
+              "row": 56,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E56",
+              "row": 56,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F56",
+              "row": 56,
+              "column": 6,
+              "value": -17,
+              "formula": "=D56-E56"
+            },
+            {
+              "address": "C57",
+              "row": 57,
+              "column": 3,
+              "value": 102,
+              "formula": null
+            },
+            {
+              "address": "D57",
+              "row": 57,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E57",
+              "row": 57,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F57",
+              "row": 57,
+              "column": 6,
+              "value": -17,
+              "formula": "=D57-E57"
+            },
+            {
+              "address": "C58",
+              "row": 58,
+              "column": 3,
+              "value": 103,
+              "formula": null
+            },
+            {
+              "address": "D58",
+              "row": 58,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E58",
+              "row": 58,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F58",
+              "row": 58,
+              "column": 6,
+              "value": -17,
+              "formula": "=D58-E58"
+            },
+            {
+              "address": "C59",
+              "row": 59,
+              "column": 3,
+              "value": 104,
+              "formula": null
+            },
+            {
+              "address": "D59",
+              "row": 59,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E59",
+              "row": 59,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F59",
+              "row": 59,
+              "column": 6,
+              "value": -17,
+              "formula": "=D59-E59"
+            },
+            {
+              "address": "C60",
+              "row": 60,
+              "column": 3,
+              "value": 105,
+              "formula": null
+            },
+            {
+              "address": "D60",
+              "row": 60,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E60",
+              "row": 60,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F60",
+              "row": 60,
+              "column": 6,
+              "value": -17,
+              "formula": "=D60-E60"
+            },
+            {
+              "address": "C61",
+              "row": 61,
+              "column": 3,
+              "value": 106,
+              "formula": null
+            },
+            {
+              "address": "D61",
+              "row": 61,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E61",
+              "row": 61,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F61",
+              "row": 61,
+              "column": 6,
+              "value": -17,
+              "formula": "=D61-E61"
+            },
+            {
+              "address": "C62",
+              "row": 62,
+              "column": 3,
+              "value": 107,
+              "formula": null
+            },
+            {
+              "address": "D62",
+              "row": 62,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E62",
+              "row": 62,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F62",
+              "row": 62,
+              "column": 6,
+              "value": -17,
+              "formula": "=D62-E62"
+            },
+            {
+              "address": "C63",
+              "row": 63,
+              "column": 3,
+              "value": 108,
+              "formula": null
+            },
+            {
+              "address": "D63",
+              "row": 63,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E63",
+              "row": 63,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F63",
+              "row": 63,
+              "column": 6,
+              "value": -17,
+              "formula": "=D63-E63"
+            },
+            {
+              "address": "C64",
+              "row": 64,
+              "column": 3,
+              "value": 109,
+              "formula": null
+            },
+            {
+              "address": "D64",
+              "row": 64,
+              "column": 4,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "E64",
+              "row": 64,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F64",
+              "row": 64,
+              "column": 6,
+              "value": -17,
+              "formula": "=D64-E64"
+            },
+            {
+              "address": "C65",
+              "row": 65,
+              "column": 3,
+              "value": 110,
+              "formula": null
+            },
+            {
+              "address": "D65",
+              "row": 65,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E65",
+              "row": 65,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F65",
+              "row": 65,
+              "column": 6,
+              "value": -16,
+              "formula": "=D65-E65"
+            },
+            {
+              "address": "C66",
+              "row": 66,
+              "column": 3,
+              "value": 111,
+              "formula": null
+            },
+            {
+              "address": "D66",
+              "row": 66,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E66",
+              "row": 66,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F66",
+              "row": 66,
+              "column": 6,
+              "value": -16,
+              "formula": "=D66-E66"
+            },
+            {
+              "address": "C67",
+              "row": 67,
+              "column": 3,
+              "value": 112,
+              "formula": null
+            },
+            {
+              "address": "D67",
+              "row": 67,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E67",
+              "row": 67,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F67",
+              "row": 67,
+              "column": 6,
+              "value": -16,
+              "formula": "=D67-E67"
+            },
+            {
+              "address": "C68",
+              "row": 68,
+              "column": 3,
+              "value": 113,
+              "formula": null
+            },
+            {
+              "address": "D68",
+              "row": 68,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E68",
+              "row": 68,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F68",
+              "row": 68,
+              "column": 6,
+              "value": -16,
+              "formula": "=D68-E68"
+            },
+            {
+              "address": "C69",
+              "row": 69,
+              "column": 3,
+              "value": 114,
+              "formula": null
+            },
+            {
+              "address": "D69",
+              "row": 69,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E69",
+              "row": 69,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F69",
+              "row": 69,
+              "column": 6,
+              "value": -16,
+              "formula": "=D69-E69"
+            },
+            {
+              "address": "C70",
+              "row": 70,
+              "column": 3,
+              "value": 115,
+              "formula": null
+            },
+            {
+              "address": "D70",
+              "row": 70,
+              "column": 4,
+              "value": 4,
+              "formula": null
+            },
+            {
+              "address": "E70",
+              "row": 70,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F70",
+              "row": 70,
+              "column": 6,
+              "value": -14,
+              "formula": "=D70-E70"
+            },
+            {
+              "address": "C71",
+              "row": 71,
+              "column": 3,
+              "value": 116,
+              "formula": null
+            },
+            {
+              "address": "D71",
+              "row": 71,
+              "column": 4,
+              "value": 4,
+              "formula": null
+            },
+            {
+              "address": "E71",
+              "row": 71,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F71",
+              "row": 71,
+              "column": 6,
+              "value": -14,
+              "formula": "=D71-E71"
+            },
+            {
+              "address": "C72",
+              "row": 72,
+              "column": 3,
+              "value": 117,
+              "formula": null
+            },
+            {
+              "address": "D72",
+              "row": 72,
+              "column": 4,
+              "value": 4,
+              "formula": null
+            },
+            {
+              "address": "E72",
+              "row": 72,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F72",
+              "row": 72,
+              "column": 6,
+              "value": -14,
+              "formula": "=D72-E72"
+            },
+            {
+              "address": "C73",
+              "row": 73,
+              "column": 3,
+              "value": 118,
+              "formula": null
+            },
+            {
+              "address": "D73",
+              "row": 73,
+              "column": 4,
+              "value": 5,
+              "formula": null
+            },
+            {
+              "address": "E73",
+              "row": 73,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F73",
+              "row": 73,
+              "column": 6,
+              "value": -13,
+              "formula": "=D73-E73"
+            },
+            {
+              "address": "C74",
+              "row": 74,
+              "column": 3,
+              "value": 119,
+              "formula": null
+            },
+            {
+              "address": "D74",
+              "row": 74,
+              "column": 4,
+              "value": 6,
+              "formula": null
+            },
+            {
+              "address": "E74",
+              "row": 74,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F74",
+              "row": 74,
+              "column": 6,
+              "value": -12,
+              "formula": "=D74-E74"
+            },
+            {
+              "address": "C75",
+              "row": 75,
+              "column": 3,
+              "value": 120,
+              "formula": null
+            },
+            {
+              "address": "D75",
+              "row": 75,
+              "column": 4,
+              "value": 9.5,
+              "formula": null
+            },
+            {
+              "address": "E75",
+              "row": 75,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F75",
+              "row": 75,
+              "column": 6,
+              "value": -8.5,
+              "formula": "=D75-E75"
+            },
+            {
+              "address": "C76",
+              "row": 76,
+              "column": 3,
+              "value": 121,
+              "formula": null
+            },
+            {
+              "address": "D76",
+              "row": 76,
+              "column": 4,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "E76",
+              "row": 76,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F76",
+              "row": 76,
+              "column": 6,
+              "value": -8,
+              "formula": "=D76-E76"
+            },
+            {
+              "address": "C77",
+              "row": 77,
+              "column": 3,
+              "value": 122,
+              "formula": null
+            },
+            {
+              "address": "D77",
+              "row": 77,
+              "column": 4,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "E77",
+              "row": 77,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F77",
+              "row": 77,
+              "column": 6,
+              "value": -8,
+              "formula": "=D77-E77"
+            },
+            {
+              "address": "C78",
+              "row": 78,
+              "column": 3,
+              "value": 123,
+              "formula": null
+            },
+            {
+              "address": "D78",
+              "row": 78,
+              "column": 4,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "E78",
+              "row": 78,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F78",
+              "row": 78,
+              "column": 6,
+              "value": -8,
+              "formula": "=D78-E78"
+            },
+            {
+              "address": "C79",
+              "row": 79,
+              "column": 3,
+              "value": 124,
+              "formula": null
+            },
+            {
+              "address": "D79",
+              "row": 79,
+              "column": 4,
+              "value": 13,
+              "formula": null
+            },
+            {
+              "address": "E79",
+              "row": 79,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F79",
+              "row": 79,
+              "column": 6,
+              "value": -5,
+              "formula": "=D79-E79"
+            },
+            {
+              "address": "C80",
+              "row": 80,
+              "column": 3,
+              "value": 125,
+              "formula": null
+            },
+            {
+              "address": "D80",
+              "row": 80,
+              "column": 4,
+              "value": 15,
+              "formula": null
+            },
+            {
+              "address": "E80",
+              "row": 80,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F80",
+              "row": 80,
+              "column": 6,
+              "value": -3,
+              "formula": "=D80-E80"
+            },
+            {
+              "address": "C81",
+              "row": 81,
+              "column": 3,
+              "value": 126,
+              "formula": null
+            },
+            {
+              "address": "D81",
+              "row": 81,
+              "column": 4,
+              "value": 15,
+              "formula": null
+            },
+            {
+              "address": "E81",
+              "row": 81,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F81",
+              "row": 81,
+              "column": 6,
+              "value": -3,
+              "formula": "=D81-E81"
+            },
+            {
+              "address": "C82",
+              "row": 82,
+              "column": 3,
+              "value": 127,
+              "formula": null
+            },
+            {
+              "address": "D82",
+              "row": 82,
+              "column": 4,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "E82",
+              "row": 82,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F82",
+              "row": 82,
+              "column": 6,
+              "value": 0,
+              "formula": "=D82-E82"
+            },
+            {
+              "address": "C83",
+              "row": 83,
+              "column": 3,
+              "value": 128,
+              "formula": null
+            },
+            {
+              "address": "D83",
+              "row": 83,
+              "column": 4,
+              "value": 21,
+              "formula": null
+            },
+            {
+              "address": "E83",
+              "row": 83,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F83",
+              "row": 83,
+              "column": 6,
+              "value": 3,
+              "formula": "=D83-E83"
+            },
+            {
+              "address": "C84",
+              "row": 84,
+              "column": 3,
+              "value": 129,
+              "formula": null
+            },
+            {
+              "address": "D84",
+              "row": 84,
+              "column": 4,
+              "value": 27,
+              "formula": null
+            },
+            {
+              "address": "E84",
+              "row": 84,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F84",
+              "row": 84,
+              "column": 6,
+              "value": 9,
+              "formula": "=D84-E84"
+            },
+            {
+              "address": "C85",
+              "row": 85,
+              "column": 3,
+              "value": 130,
+              "formula": null
+            },
+            {
+              "address": "D85",
+              "row": 85,
+              "column": 4,
+              "value": 28,
+              "formula": null
+            },
+            {
+              "address": "E85",
+              "row": 85,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F85",
+              "row": 85,
+              "column": 6,
+              "value": 10,
+              "formula": "=D85-E85"
+            },
+            {
+              "address": "C86",
+              "row": 86,
+              "column": 3,
+              "value": 131,
+              "formula": null
+            },
+            {
+              "address": "D86",
+              "row": 86,
+              "column": 4,
+              "value": 28,
+              "formula": null
+            },
+            {
+              "address": "E86",
+              "row": 86,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F86",
+              "row": 86,
+              "column": 6,
+              "value": 10,
+              "formula": "=D86-E86"
+            },
+            {
+              "address": "C87",
+              "row": 87,
+              "column": 3,
+              "value": 132,
+              "formula": null
+            },
+            {
+              "address": "D87",
+              "row": 87,
+              "column": 4,
+              "value": 28,
+              "formula": null
+            },
+            {
+              "address": "E87",
+              "row": 87,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F87",
+              "row": 87,
+              "column": 6,
+              "value": 10,
+              "formula": "=D87-E87"
+            },
+            {
+              "address": "C88",
+              "row": 88,
+              "column": 3,
+              "value": 133,
+              "formula": null
+            },
+            {
+              "address": "D88",
+              "row": 88,
+              "column": 4,
+              "value": 33.5,
+              "formula": null
+            },
+            {
+              "address": "E88",
+              "row": 88,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F88",
+              "row": 88,
+              "column": 6,
+              "value": 15.5,
+              "formula": "=D88-E88"
+            },
+            {
+              "address": "C89",
+              "row": 89,
+              "column": 3,
+              "value": 134,
+              "formula": null
+            },
+            {
+              "address": "D89",
+              "row": 89,
+              "column": 4,
+              "value": 34,
+              "formula": null
+            },
+            {
+              "address": "E89",
+              "row": 89,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F89",
+              "row": 89,
+              "column": 6,
+              "value": 16,
+              "formula": "=D89-E89"
+            },
+            {
+              "address": "C90",
+              "row": 90,
+              "column": 3,
+              "value": 135,
+              "formula": null
+            },
+            {
+              "address": "D90",
+              "row": 90,
+              "column": 4,
+              "value": 34,
+              "formula": null
+            },
+            {
+              "address": "E90",
+              "row": 90,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F90",
+              "row": 90,
+              "column": 6,
+              "value": 16,
+              "formula": "=D90-E90"
+            },
+            {
+              "address": "C91",
+              "row": 91,
+              "column": 3,
+              "value": 136,
+              "formula": null
+            },
+            {
+              "address": "D91",
+              "row": 91,
+              "column": 4,
+              "value": 36,
+              "formula": null
+            },
+            {
+              "address": "E91",
+              "row": 91,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F91",
+              "row": 91,
+              "column": 6,
+              "value": 18,
+              "formula": "=D91-E91"
+            },
+            {
+              "address": "C92",
+              "row": 92,
+              "column": 3,
+              "value": 137,
+              "formula": null
+            },
+            {
+              "address": "D92",
+              "row": 92,
+              "column": 4,
+              "value": 38,
+              "formula": null
+            },
+            {
+              "address": "E92",
+              "row": 92,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F92",
+              "row": 92,
+              "column": 6,
+              "value": 20,
+              "formula": "=D92-E92"
+            },
+            {
+              "address": "C93",
+              "row": 93,
+              "column": 3,
+              "value": 138,
+              "formula": null
+            },
+            {
+              "address": "D93",
+              "row": 93,
+              "column": 4,
+              "value": 48,
+              "formula": null
+            },
+            {
+              "address": "E93",
+              "row": 93,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F93",
+              "row": 93,
+              "column": 6,
+              "value": 30,
+              "formula": "=D93-E93"
+            },
+            {
+              "address": "C94",
+              "row": 94,
+              "column": 3,
+              "value": 139,
+              "formula": null
+            },
+            {
+              "address": "D94",
+              "row": 94,
+              "column": 4,
+              "value": 57,
+              "formula": null
+            },
+            {
+              "address": "E94",
+              "row": 94,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F94",
+              "row": 94,
+              "column": 6,
+              "value": 39,
+              "formula": "=D94-E94"
+            },
+            {
+              "address": "C95",
+              "row": 95,
+              "column": 3,
+              "value": 140,
+              "formula": null
+            },
+            {
+              "address": "D95",
+              "row": 95,
+              "column": 4,
+              "value": 75,
+              "formula": null
+            },
+            {
+              "address": "E95",
+              "row": 95,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F95",
+              "row": 95,
+              "column": 6,
+              "value": 57,
+              "formula": "=D95-E95"
+            },
+            {
+              "address": "C96",
+              "row": 96,
+              "column": 3,
+              "value": 141,
+              "formula": null
+            },
+            {
+              "address": "D96",
+              "row": 96,
+              "column": 4,
+              "value": 75,
+              "formula": null
+            },
+            {
+              "address": "E96",
+              "row": 96,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F96",
+              "row": 96,
+              "column": 6,
+              "value": 57,
+              "formula": "=D96-E96"
+            },
+            {
+              "address": "C97",
+              "row": 97,
+              "column": 3,
+              "value": 142,
+              "formula": null
+            },
+            {
+              "address": "D97",
+              "row": 97,
+              "column": 4,
+              "value": 75,
+              "formula": null
+            },
+            {
+              "address": "E97",
+              "row": 97,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F97",
+              "row": 97,
+              "column": 6,
+              "value": 57,
+              "formula": "=D97-E97"
+            },
+            {
+              "address": "C98",
+              "row": 98,
+              "column": 3,
+              "value": 143,
+              "formula": null
+            },
+            {
+              "address": "D98",
+              "row": 98,
+              "column": 4,
+              "value": 100,
+              "formula": null
+            },
+            {
+              "address": "E98",
+              "row": 98,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F98",
+              "row": 98,
+              "column": 6,
+              "value": 82,
+              "formula": "=D98-E98"
+            },
+            {
+              "address": "C99",
+              "row": 99,
+              "column": 3,
+              "value": 144,
+              "formula": null
+            },
+            {
+              "address": "D99",
+              "row": 99,
+              "column": 4,
+              "value": 100,
+              "formula": null
+            },
+            {
+              "address": "E99",
+              "row": 99,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F99",
+              "row": 99,
+              "column": 6,
+              "value": 82,
+              "formula": "=D99-E99"
+            },
+            {
+              "address": "C100",
+              "row": 100,
+              "column": 3,
+              "value": 145,
+              "formula": null
+            },
+            {
+              "address": "D100",
+              "row": 100,
+              "column": 4,
+              "value": 105,
+              "formula": null
+            },
+            {
+              "address": "E100",
+              "row": 100,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F100",
+              "row": 100,
+              "column": 6,
+              "value": 87,
+              "formula": "=D100-E100"
+            },
+            {
+              "address": "C101",
+              "row": 101,
+              "column": 3,
+              "value": 146,
+              "formula": null
+            },
+            {
+              "address": "D101",
+              "row": 101,
+              "column": 4,
+              "value": 105,
+              "formula": null
+            },
+            {
+              "address": "E101",
+              "row": 101,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F101",
+              "row": 101,
+              "column": 6,
+              "value": 87,
+              "formula": "=D101-E101"
+            },
+            {
+              "address": "C102",
+              "row": 102,
+              "column": 3,
+              "value": 147,
+              "formula": null
+            },
+            {
+              "address": "D102",
+              "row": 102,
+              "column": 4,
+              "value": 119,
+              "formula": null
+            },
+            {
+              "address": "E102",
+              "row": 102,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F102",
+              "row": 102,
+              "column": 6,
+              "value": 101,
+              "formula": "=D102-E102"
+            },
+            {
+              "address": "C103",
+              "row": 103,
+              "column": 3,
+              "value": 148,
+              "formula": null
+            },
+            {
+              "address": "D103",
+              "row": 103,
+              "column": 4,
+              "value": 135,
+              "formula": null
+            },
+            {
+              "address": "E103",
+              "row": 103,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F103",
+              "row": 103,
+              "column": 6,
+              "value": 117,
+              "formula": "=D103-E103"
+            },
+            {
+              "address": "C104",
+              "row": 104,
+              "column": 3,
+              "value": 149,
+              "formula": null
+            },
+            {
+              "address": "D104",
+              "row": 104,
+              "column": 4,
+              "value": 150,
+              "formula": null
+            },
+            {
+              "address": "E104",
+              "row": 104,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F104",
+              "row": 104,
+              "column": 6,
+              "value": 132,
+              "formula": "=D104-E104"
+            },
+            {
+              "address": "C105",
+              "row": 105,
+              "column": 3,
+              "value": 150,
+              "formula": null
+            },
+            {
+              "address": "D105",
+              "row": 105,
+              "column": 4,
+              "value": 404,
+              "formula": null
+            },
+            {
+              "address": "E105",
+              "row": 105,
+              "column": 5,
+              "value": 18,
+              "formula": null
+            },
+            {
+              "address": "F105",
+              "row": 105,
+              "column": 6,
+              "value": 386,
+              "formula": "=D105-E105"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meaning",
+      "title": "Light of Meaning identification",
+      "file": "assets/light of meaning ID EV.xlsx",
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "rows": 16,
+          "columns": 7,
+          "cells": [
+            {
+              "address": "B2",
+              "row": 2,
+              "column": 2,
+              "value": "type",
+              "formula": null
+            },
+            {
+              "address": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "probability",
+              "formula": null
+            },
+            {
+              "address": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "revenue",
+              "formula": null
+            },
+            {
+              "address": "E2",
+              "row": 2,
+              "column": 5,
+              "value": "revenue per click",
+              "formula": null
+            },
+            {
+              "address": "G2",
+              "row": 2,
+              "column": 7,
+              "value": "cost",
+              "formula": null
+            },
+            {
+              "address": "B3",
+              "row": 3,
+              "column": 2,
+              "value": "evasion",
+              "formula": null
+            },
+            {
+              "address": "C3",
+              "row": 3,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D3",
+              "row": 3,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E3",
+              "row": 3,
+              "column": 5,
+              "value": 0,
+              "formula": "=(D3*C3)"
+            },
+            {
+              "address": "G3",
+              "row": 3,
+              "column": 7,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "B4",
+              "row": 4,
+              "column": 2,
+              "value": "life",
+              "formula": null
+            },
+            {
+              "address": "C4",
+              "row": 4,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D4",
+              "row": 4,
+              "column": 4,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "E4",
+              "row": 4,
+              "column": 5,
+              "value": 0.038461538461538464,
+              "formula": "=(D4*C4)"
+            },
+            {
+              "address": "B5",
+              "row": 5,
+              "column": 2,
+              "value": "attributes",
+              "formula": null
+            },
+            {
+              "address": "C5",
+              "row": 5,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D5",
+              "row": 5,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E5",
+              "row": 5,
+              "column": 5,
+              "value": 0,
+              "formula": "=(D5*C5)"
+            },
+            {
+              "address": "B6",
+              "row": 6,
+              "column": 2,
+              "value": "crit chance",
+              "formula": null
+            },
+            {
+              "address": "C6",
+              "row": 6,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D6",
+              "row": 6,
+              "column": 4,
+              "value": 0,
+              "formula": null
+            },
+            {
+              "address": "E6",
+              "row": 6,
+              "column": 5,
+              "value": 0,
+              "formula": "=(D6*C6)"
+            },
+            {
+              "address": "B7",
+              "row": 7,
+              "column": 2,
+              "value": "cold dmg",
+              "formula": null
+            },
+            {
+              "address": "C7",
+              "row": 7,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D7",
+              "row": 7,
+              "column": 4,
+              "value": 12,
+              "formula": null
+            },
+            {
+              "address": "E7",
+              "row": 7,
+              "column": 5,
+              "value": 0.9230769230769231,
+              "formula": "=(D7*C7)"
+            },
+            {
+              "address": "B8",
+              "row": 8,
+              "column": 2,
+              "value": "armour",
+              "formula": null
+            },
+            {
+              "address": "C8",
+              "row": 8,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D8",
+              "row": 8,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E8",
+              "row": 8,
+              "column": 5,
+              "value": 0.15384615384615385,
+              "formula": "=(D8*C8)"
+            },
+            {
+              "address": "B9",
+              "row": 9,
+              "column": 2,
+              "value": "mana",
+              "formula": null
+            },
+            {
+              "address": "C9",
+              "row": 9,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D9",
+              "row": 9,
+              "column": 4,
+              "value": 0.1,
+              "formula": null
+            },
+            {
+              "address": "E9",
+              "row": 9,
+              "column": 5,
+              "value": 0.007692307692307693,
+              "formula": "=(D9*C9)"
+            },
+            {
+              "address": "B10",
+              "row": 10,
+              "column": 2,
+              "value": "fire dmg",
+              "formula": null
+            },
+            {
+              "address": "C10",
+              "row": 10,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D10",
+              "row": 10,
+              "column": 4,
+              "value": 9,
+              "formula": null
+            },
+            {
+              "address": "E10",
+              "row": 10,
+              "column": 5,
+              "value": 0.6923076923076923,
+              "formula": "=(D10*C10)"
+            },
+            {
+              "address": "B11",
+              "row": 11,
+              "column": 2,
+              "value": "chaos dmg",
+              "formula": null
+            },
+            {
+              "address": "C11",
+              "row": 11,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D11",
+              "row": 11,
+              "column": 4,
+              "value": 3,
+              "formula": null
+            },
+            {
+              "address": "E11",
+              "row": 11,
+              "column": 5,
+              "value": 0.23076923076923078,
+              "formula": "=(D11*C11)"
+            },
+            {
+              "address": "B12",
+              "row": 12,
+              "column": 2,
+              "value": "lightning damage",
+              "formula": null
+            },
+            {
+              "address": "C12",
+              "row": 12,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D12",
+              "row": 12,
+              "column": 4,
+              "value": 1.2,
+              "formula": null
+            },
+            {
+              "address": "E12",
+              "row": 12,
+              "column": 5,
+              "value": 0.09230769230769231,
+              "formula": "=(D12*C12)"
+            },
+            {
+              "address": "B13",
+              "row": 13,
+              "column": 2,
+              "value": "phys damage",
+              "formula": null
+            },
+            {
+              "address": "C13",
+              "row": 13,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D13",
+              "row": 13,
+              "column": 4,
+              "value": 9,
+              "formula": null
+            },
+            {
+              "address": "E13",
+              "row": 13,
+              "column": 5,
+              "value": 0.6923076923076923,
+              "formula": "=(D13*C13)"
+            },
+            {
+              "address": "B14",
+              "row": 14,
+              "column": 2,
+              "value": "chaos res",
+              "formula": null
+            },
+            {
+              "address": "C14",
+              "row": 14,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D14",
+              "row": 14,
+              "column": 4,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "E14",
+              "row": 14,
+              "column": 5,
+              "value": 0.15384615384615385,
+              "formula": "=(D14*C14)"
+            },
+            {
+              "address": "B15",
+              "row": 15,
+              "column": 2,
+              "value": "energy shield",
+              "formula": null
+            },
+            {
+              "address": "C15",
+              "row": 15,
+              "column": 3,
+              "value": 0.07692307692307693,
+              "formula": null
+            },
+            {
+              "address": "D15",
+              "row": 15,
+              "column": 4,
+              "value": 13,
+              "formula": null
+            },
+            {
+              "address": "E15",
+              "row": 15,
+              "column": 5,
+              "value": 1,
+              "formula": "=(D15*C15)"
+            },
+            {
+              "address": "E16",
+              "row": 16,
+              "column": 5,
+              "value": 3.9846153846153842,
+              "formula": "=SUM(E3:E15)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decks",
+      "title": "Stacked-deck opening log",
+      "file": "assets/stacked deck data.xlsx",
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "rows": 81,
+          "columns": 11,
+          "cells": [
+            {
+              "address": "A1",
+              "row": 1,
+              "column": 1,
+              "value": "start 04/05/2024",
+              "formula": null
+            },
+            {
+              "address": "C2",
+              "row": 2,
+              "column": 3,
+              "value": "cost",
+              "formula": null
+            },
+            {
+              "address": "D2",
+              "row": 2,
+              "column": 4,
+              "value": "cards",
+              "formula": null
+            },
+            {
+              "address": "F2",
+              "row": 2,
+              "column": 6,
+              "value": "avg cards per div:",
+              "formula": null
+            },
+            {
+              "address": "G2",
+              "row": 2,
+              "column": 7,
+              "value": 89.82407407407408,
+              "formula": "=D17/C17"
+            },
+            {
+              "address": "J2",
+              "row": 2,
+              "column": 10,
+              "value": "outcomes",
+              "formula": null
+            },
+            {
+              "address": "K2",
+              "row": 2,
+              "column": 11,
+              "value": "total",
+              "formula": null
+            },
+            {
+              "address": "C3",
+              "row": 3,
+              "column": 3,
+              "value": 15,
+              "formula": null
+            },
+            {
+              "address": "D3",
+              "row": 3,
+              "column": 4,
+              "value": 1380,
+              "formula": null
+            },
+            {
+              "address": "F3",
+              "row": 3,
+              "column": 6,
+              "value": "avg cost per card:",
+              "formula": null
+            },
+            {
+              "address": "G3",
+              "row": 3,
+              "column": 7,
+              "value": 0.011132872899701062,
+              "formula": "=C17/D17"
+            },
+            {
+              "address": "J3",
+              "row": 3,
+              "column": 10,
+              "value": 0.35,
+              "formula": null
+            },
+            {
+              "address": "K3",
+              "row": 3,
+              "column": 11,
+              "value": 68.54999999999998,
+              "formula": "=SUM(J3:J999)"
+            },
+            {
+              "address": "C4",
+              "row": 4,
+              "column": 3,
+              "value": 8,
+              "formula": null
+            },
+            {
+              "address": "D4",
+              "row": 4,
+              "column": 4,
+              "value": 680,
+              "formula": null
+            },
+            {
+              "address": "F4",
+              "row": 4,
+              "column": 6,
+              "value": "avg cost per 100 cards:",
+              "formula": null
+            },
+            {
+              "address": "G4",
+              "row": 4,
+              "column": 7,
+              "value": 1.1132872899701063,
+              "formula": "=G3*100"
+            },
+            {
+              "address": "J4",
+              "row": 4,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C5",
+              "row": 5,
+              "column": 3,
+              "value": 7,
+              "formula": null
+            },
+            {
+              "address": "D5",
+              "row": 5,
+              "column": 4,
+              "value": 595,
+              "formula": null
+            },
+            {
+              "address": "J5",
+              "row": 5,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "C6",
+              "row": 6,
+              "column": 3,
+              "value": 5,
+              "formula": null
+            },
+            {
+              "address": "D6",
+              "row": 6,
+              "column": 4,
+              "value": 455,
+              "formula": null
+            },
+            {
+              "address": "J6",
+              "row": 6,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C7",
+              "row": 7,
+              "column": 3,
+              "value": 16,
+              "formula": null
+            },
+            {
+              "address": "D7",
+              "row": 7,
+              "column": 4,
+              "value": 1524,
+              "formula": null
+            },
+            {
+              "address": "J7",
+              "row": 7,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C8",
+              "row": 8,
+              "column": 3,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "D8",
+              "row": 8,
+              "column": 4,
+              "value": 900,
+              "formula": null
+            },
+            {
+              "address": "J8",
+              "row": 8,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "C9",
+              "row": 9,
+              "column": 3,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "D9",
+              "row": 9,
+              "column": 4,
+              "value": 900,
+              "formula": null
+            },
+            {
+              "address": "J9",
+              "row": 9,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C10",
+              "row": 10,
+              "column": 3,
+              "value": 13,
+              "formula": null
+            },
+            {
+              "address": "D10",
+              "row": 10,
+              "column": 4,
+              "value": 1196,
+              "formula": null
+            },
+            {
+              "address": "J10",
+              "row": 10,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C11",
+              "row": 11,
+              "column": 3,
+              "value": 5,
+              "formula": null
+            },
+            {
+              "address": "D11",
+              "row": 11,
+              "column": 4,
+              "value": 455,
+              "formula": null
+            },
+            {
+              "address": "J11",
+              "row": 11,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "C12",
+              "row": 12,
+              "column": 3,
+              "value": 19,
+              "formula": null
+            },
+            {
+              "address": "D12",
+              "row": 12,
+              "column": 4,
+              "value": 1616,
+              "formula": null
+            },
+            {
+              "address": "F12",
+              "row": 12,
+              "column": 6,
+              "value": "avg rev per card:",
+              "formula": null
+            },
+            {
+              "address": "G12",
+              "row": 12,
+              "column": 7,
+              "value": 0.007066281826615811,
+              "formula": "=K3/D17"
+            },
+            {
+              "address": "J12",
+              "row": 12,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "F13",
+              "row": 13,
+              "column": 6,
+              "value": "avg rev per 100 cards:",
+              "formula": null
+            },
+            {
+              "address": "G13",
+              "row": 13,
+              "column": 7,
+              "value": 0.7066281826615811,
+              "formula": "=G12*100"
+            },
+            {
+              "address": "J13",
+              "row": 13,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J14",
+              "row": 14,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J15",
+              "row": 15,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "J16",
+              "row": 16,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "B17",
+              "row": 17,
+              "column": 2,
+              "value": "total:",
+              "formula": null
+            },
+            {
+              "address": "C17",
+              "row": 17,
+              "column": 3,
+              "value": 108,
+              "formula": "=SUM(C3:C16)"
+            },
+            {
+              "address": "D17",
+              "row": 17,
+              "column": 4,
+              "value": 9701,
+              "formula": "=SUM(D3:D16)"
+            },
+            {
+              "address": "J17",
+              "row": 17,
+              "column": 10,
+              "value": 0.1,
+              "formula": null
+            },
+            {
+              "address": "J18",
+              "row": 18,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J19",
+              "row": 19,
+              "column": 10,
+              "value": 0.8,
+              "formula": null
+            },
+            {
+              "address": "J20",
+              "row": 20,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "F21",
+              "row": 21,
+              "column": 6,
+              "value": "total profit:",
+              "formula": null
+            },
+            {
+              "address": "G21",
+              "row": 21,
+              "column": 7,
+              "value": -39.45000000000002,
+              "formula": "=K3-C17"
+            },
+            {
+              "address": "J21",
+              "row": 21,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "F22",
+              "row": 22,
+              "column": 6,
+              "value": "avg profit per card:",
+              "formula": null
+            },
+            {
+              "address": "G22",
+              "row": 22,
+              "column": 7,
+              "value": -0.004066591073085251,
+              "formula": "=G21/D17"
+            },
+            {
+              "address": "J22",
+              "row": 22,
+              "column": 10,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "F23",
+              "row": 23,
+              "column": 6,
+              "value": "avg profit per 100 cards:",
+              "formula": null
+            },
+            {
+              "address": "G23",
+              "row": 23,
+              "column": 7,
+              "value": -0.4066591073085251,
+              "formula": "=G22*100"
+            },
+            {
+              "address": "J23",
+              "row": 23,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J24",
+              "row": 24,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J25",
+              "row": 25,
+              "column": 10,
+              "value": 0.15,
+              "formula": null
+            },
+            {
+              "address": "J26",
+              "row": 26,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J27",
+              "row": 27,
+              "column": 10,
+              "value": 0.9,
+              "formula": null
+            },
+            {
+              "address": "J28",
+              "row": 28,
+              "column": 10,
+              "value": 0.35,
+              "formula": null
+            },
+            {
+              "address": "J29",
+              "row": 29,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "J30",
+              "row": 30,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "J31",
+              "row": 31,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J32",
+              "row": 32,
+              "column": 10,
+              "value": 3.2,
+              "formula": null
+            },
+            {
+              "address": "J33",
+              "row": 33,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J34",
+              "row": 34,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J35",
+              "row": 35,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J36",
+              "row": 36,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J37",
+              "row": 37,
+              "column": 10,
+              "value": 2.4,
+              "formula": null
+            },
+            {
+              "address": "J38",
+              "row": 38,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J39",
+              "row": 39,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J40",
+              "row": 40,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J41",
+              "row": 41,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J42",
+              "row": 42,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J43",
+              "row": 43,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J44",
+              "row": 44,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J45",
+              "row": 45,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J46",
+              "row": 46,
+              "column": 10,
+              "value": 4.6,
+              "formula": null
+            },
+            {
+              "address": "J47",
+              "row": 47,
+              "column": 10,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "J48",
+              "row": 48,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "J49",
+              "row": 49,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "J50",
+              "row": 50,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J51",
+              "row": 51,
+              "column": 10,
+              "value": 2,
+              "formula": null
+            },
+            {
+              "address": "J52",
+              "row": 52,
+              "column": 10,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "J53",
+              "row": 53,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J54",
+              "row": 54,
+              "column": 10,
+              "value": 0.8,
+              "formula": null
+            },
+            {
+              "address": "J55",
+              "row": 55,
+              "column": 10,
+              "value": 0.65,
+              "formula": null
+            },
+            {
+              "address": "J56",
+              "row": 56,
+              "column": 10,
+              "value": 0.65,
+              "formula": null
+            },
+            {
+              "address": "J57",
+              "row": 57,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "J58",
+              "row": 58,
+              "column": 10,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "J59",
+              "row": 59,
+              "column": 10,
+              "value": 0.9,
+              "formula": null
+            },
+            {
+              "address": "J60",
+              "row": 60,
+              "column": 10,
+              "value": 0.25,
+              "formula": null
+            },
+            {
+              "address": "J61",
+              "row": 61,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "J62",
+              "row": 62,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J63",
+              "row": 63,
+              "column": 10,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "J64",
+              "row": 64,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J65",
+              "row": 65,
+              "column": 10,
+              "value": 0.5,
+              "formula": null
+            },
+            {
+              "address": "J66",
+              "row": 66,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J67",
+              "row": 67,
+              "column": 10,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "J68",
+              "row": 68,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J69",
+              "row": 69,
+              "column": 10,
+              "value": 0.3,
+              "formula": null
+            },
+            {
+              "address": "J70",
+              "row": 70,
+              "column": 10,
+              "value": 0.2,
+              "formula": null
+            },
+            {
+              "address": "J71",
+              "row": 71,
+              "column": 10,
+              "value": 5,
+              "formula": null
+            },
+            {
+              "address": "J72",
+              "row": 72,
+              "column": 10,
+              "value": 0.3,
+              "formula": null
+            },
+            {
+              "address": "J73",
+              "row": 73,
+              "column": 10,
+              "value": 0.3,
+              "formula": null
+            },
+            {
+              "address": "J74",
+              "row": 74,
+              "column": 10,
+              "value": 10,
+              "formula": null
+            },
+            {
+              "address": "J75",
+              "row": 75,
+              "column": 10,
+              "value": 0.1,
+              "formula": null
+            },
+            {
+              "address": "J76",
+              "row": 76,
+              "column": 10,
+              "value": 0.35,
+              "formula": null
+            },
+            {
+              "address": "J77",
+              "row": 77,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J78",
+              "row": 78,
+              "column": 10,
+              "value": 0.6,
+              "formula": null
+            },
+            {
+              "address": "J79",
+              "row": 79,
+              "column": 10,
+              "value": 1,
+              "formula": null
+            },
+            {
+              "address": "J80",
+              "row": 80,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            },
+            {
+              "address": "J81",
+              "row": 81,
+              "column": 10,
+              "value": 0.4,
+              "formula": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "adorned",
+      "title": "Adorned roll valuation",
+      "cost": 18,
+      "unit": "original worksheet units",
+      "note": "Historical 50-150 roll model, with 101 equally weighted outcomes. Prices and zero valuations are archived author assumptions, not current trade quotes. The original sheet does not label the currency unit.",
+      "outcomes": [
+        {
+          "label": "50% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D5"
+        },
+        {
+          "label": "51% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D6"
+        },
+        {
+          "label": "52% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D7"
+        },
+        {
+          "label": "53% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D8"
+        },
+        {
+          "label": "54% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D9"
+        },
+        {
+          "label": "55% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D10"
+        },
+        {
+          "label": "56% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D11"
+        },
+        {
+          "label": "57% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D12"
+        },
+        {
+          "label": "58% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D13"
+        },
+        {
+          "label": "59% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D14"
+        },
+        {
+          "label": "60% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D15"
+        },
+        {
+          "label": "61% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D16"
+        },
+        {
+          "label": "62% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D17"
+        },
+        {
+          "label": "63% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D18"
+        },
+        {
+          "label": "64% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D19"
+        },
+        {
+          "label": "65% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D20"
+        },
+        {
+          "label": "66% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D21"
+        },
+        {
+          "label": "67% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D22"
+        },
+        {
+          "label": "68% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D23"
+        },
+        {
+          "label": "69% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D24"
+        },
+        {
+          "label": "70% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D25"
+        },
+        {
+          "label": "71% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D26"
+        },
+        {
+          "label": "72% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D27"
+        },
+        {
+          "label": "73% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D28"
+        },
+        {
+          "label": "74% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D29"
+        },
+        {
+          "label": "75% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D30"
+        },
+        {
+          "label": "76% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D31"
+        },
+        {
+          "label": "77% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D32"
+        },
+        {
+          "label": "78% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D33"
+        },
+        {
+          "label": "79% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D34"
+        },
+        {
+          "label": "80% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D35"
+        },
+        {
+          "label": "81% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D36"
+        },
+        {
+          "label": "82% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D37"
+        },
+        {
+          "label": "83% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D38"
+        },
+        {
+          "label": "84% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D39"
+        },
+        {
+          "label": "85% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D40"
+        },
+        {
+          "label": "86% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D41"
+        },
+        {
+          "label": "87% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D42"
+        },
+        {
+          "label": "88% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D43"
+        },
+        {
+          "label": "89% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D44"
+        },
+        {
+          "label": "90% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D45"
+        },
+        {
+          "label": "91% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D46"
+        },
+        {
+          "label": "92% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D47"
+        },
+        {
+          "label": "93% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D48"
+        },
+        {
+          "label": "94% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D49"
+        },
+        {
+          "label": "95% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D50"
+        },
+        {
+          "label": "96% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D51"
+        },
+        {
+          "label": "97% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D52"
+        },
+        {
+          "label": "98% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D53"
+        },
+        {
+          "label": "99% roll",
+          "probability": 0.009900990099009901,
+          "price": 0,
+          "source": "D54"
+        },
+        {
+          "label": "100% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D55"
+        },
+        {
+          "label": "101% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D56"
+        },
+        {
+          "label": "102% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D57"
+        },
+        {
+          "label": "103% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D58"
+        },
+        {
+          "label": "104% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D59"
+        },
+        {
+          "label": "105% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D60"
+        },
+        {
+          "label": "106% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D61"
+        },
+        {
+          "label": "107% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D62"
+        },
+        {
+          "label": "108% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D63"
+        },
+        {
+          "label": "109% roll",
+          "probability": 0.009900990099009901,
+          "price": 1,
+          "source": "D64"
+        },
+        {
+          "label": "110% roll",
+          "probability": 0.009900990099009901,
+          "price": 2,
+          "source": "D65"
+        },
+        {
+          "label": "111% roll",
+          "probability": 0.009900990099009901,
+          "price": 2,
+          "source": "D66"
+        },
+        {
+          "label": "112% roll",
+          "probability": 0.009900990099009901,
+          "price": 2,
+          "source": "D67"
+        },
+        {
+          "label": "113% roll",
+          "probability": 0.009900990099009901,
+          "price": 2,
+          "source": "D68"
+        },
+        {
+          "label": "114% roll",
+          "probability": 0.009900990099009901,
+          "price": 2,
+          "source": "D69"
+        },
+        {
+          "label": "115% roll",
+          "probability": 0.009900990099009901,
+          "price": 4,
+          "source": "D70"
+        },
+        {
+          "label": "116% roll",
+          "probability": 0.009900990099009901,
+          "price": 4,
+          "source": "D71"
+        },
+        {
+          "label": "117% roll",
+          "probability": 0.009900990099009901,
+          "price": 4,
+          "source": "D72"
+        },
+        {
+          "label": "118% roll",
+          "probability": 0.009900990099009901,
+          "price": 5,
+          "source": "D73"
+        },
+        {
+          "label": "119% roll",
+          "probability": 0.009900990099009901,
+          "price": 6,
+          "source": "D74"
+        },
+        {
+          "label": "120% roll",
+          "probability": 0.009900990099009901,
+          "price": 9.5,
+          "source": "D75"
+        },
+        {
+          "label": "121% roll",
+          "probability": 0.009900990099009901,
+          "price": 10,
+          "source": "D76"
+        },
+        {
+          "label": "122% roll",
+          "probability": 0.009900990099009901,
+          "price": 10,
+          "source": "D77"
+        },
+        {
+          "label": "123% roll",
+          "probability": 0.009900990099009901,
+          "price": 10,
+          "source": "D78"
+        },
+        {
+          "label": "124% roll",
+          "probability": 0.009900990099009901,
+          "price": 13,
+          "source": "D79"
+        },
+        {
+          "label": "125% roll",
+          "probability": 0.009900990099009901,
+          "price": 15,
+          "source": "D80"
+        },
+        {
+          "label": "126% roll",
+          "probability": 0.009900990099009901,
+          "price": 15,
+          "source": "D81"
+        },
+        {
+          "label": "127% roll",
+          "probability": 0.009900990099009901,
+          "price": 18,
+          "source": "D82"
+        },
+        {
+          "label": "128% roll",
+          "probability": 0.009900990099009901,
+          "price": 21,
+          "source": "D83"
+        },
+        {
+          "label": "129% roll",
+          "probability": 0.009900990099009901,
+          "price": 27,
+          "source": "D84"
+        },
+        {
+          "label": "130% roll",
+          "probability": 0.009900990099009901,
+          "price": 28,
+          "source": "D85"
+        },
+        {
+          "label": "131% roll",
+          "probability": 0.009900990099009901,
+          "price": 28,
+          "source": "D86"
+        },
+        {
+          "label": "132% roll",
+          "probability": 0.009900990099009901,
+          "price": 28,
+          "source": "D87"
+        },
+        {
+          "label": "133% roll",
+          "probability": 0.009900990099009901,
+          "price": 33.5,
+          "source": "D88"
+        },
+        {
+          "label": "134% roll",
+          "probability": 0.009900990099009901,
+          "price": 34,
+          "source": "D89"
+        },
+        {
+          "label": "135% roll",
+          "probability": 0.009900990099009901,
+          "price": 34,
+          "source": "D90"
+        },
+        {
+          "label": "136% roll",
+          "probability": 0.009900990099009901,
+          "price": 36,
+          "source": "D91"
+        },
+        {
+          "label": "137% roll",
+          "probability": 0.009900990099009901,
+          "price": 38,
+          "source": "D92"
+        },
+        {
+          "label": "138% roll",
+          "probability": 0.009900990099009901,
+          "price": 48,
+          "source": "D93"
+        },
+        {
+          "label": "139% roll",
+          "probability": 0.009900990099009901,
+          "price": 57,
+          "source": "D94"
+        },
+        {
+          "label": "140% roll",
+          "probability": 0.009900990099009901,
+          "price": 75,
+          "source": "D95"
+        },
+        {
+          "label": "141% roll",
+          "probability": 0.009900990099009901,
+          "price": 75,
+          "source": "D96"
+        },
+        {
+          "label": "142% roll",
+          "probability": 0.009900990099009901,
+          "price": 75,
+          "source": "D97"
+        },
+        {
+          "label": "143% roll",
+          "probability": 0.009900990099009901,
+          "price": 100,
+          "source": "D98"
+        },
+        {
+          "label": "144% roll",
+          "probability": 0.009900990099009901,
+          "price": 100,
+          "source": "D99"
+        },
+        {
+          "label": "145% roll",
+          "probability": 0.009900990099009901,
+          "price": 105,
+          "source": "D100"
+        },
+        {
+          "label": "146% roll",
+          "probability": 0.009900990099009901,
+          "price": 105,
+          "source": "D101"
+        },
+        {
+          "label": "147% roll",
+          "probability": 0.009900990099009901,
+          "price": 119,
+          "source": "D102"
+        },
+        {
+          "label": "148% roll",
+          "probability": 0.009900990099009901,
+          "price": 135,
+          "source": "D103"
+        },
+        {
+          "label": "149% roll",
+          "probability": 0.009900990099009901,
+          "price": 150,
+          "source": "D104"
+        },
+        {
+          "label": "150% roll",
+          "probability": 0.009900990099009901,
+          "price": 404,
+          "source": "D105"
+        }
+      ]
+    },
+    {
+      "id": "meaning",
+      "title": "Light of Meaning identification",
+      "cost": 2,
+      "unit": "original worksheet units",
+      "note": "Thirteen equally weighted outcomes as assumed in the original sheet. Archived values are not current market quotes, and the source does not label the currency unit.",
+      "outcomes": [
+        {
+          "label": "evasion",
+          "probability": 0.07692307692307693,
+          "price": 0,
+          "source": "D3"
+        },
+        {
+          "label": "life",
+          "probability": 0.07692307692307693,
+          "price": 0.5,
+          "source": "D4"
+        },
+        {
+          "label": "attributes",
+          "probability": 0.07692307692307693,
+          "price": 0,
+          "source": "D5"
+        },
+        {
+          "label": "crit chance",
+          "probability": 0.07692307692307693,
+          "price": 0,
+          "source": "D6"
+        },
+        {
+          "label": "cold dmg",
+          "probability": 0.07692307692307693,
+          "price": 12,
+          "source": "D7"
+        },
+        {
+          "label": "armour",
+          "probability": 0.07692307692307693,
+          "price": 2,
+          "source": "D8"
+        },
+        {
+          "label": "mana",
+          "probability": 0.07692307692307693,
+          "price": 0.1,
+          "source": "D9"
+        },
+        {
+          "label": "fire dmg",
+          "probability": 0.07692307692307693,
+          "price": 9,
+          "source": "D10"
+        },
+        {
+          "label": "chaos dmg",
+          "probability": 0.07692307692307693,
+          "price": 3,
+          "source": "D11"
+        },
+        {
+          "label": "lightning damage",
+          "probability": 0.07692307692307693,
+          "price": 1.2,
+          "source": "D12"
+        },
+        {
+          "label": "phys damage",
+          "probability": 0.07692307692307693,
+          "price": 9,
+          "source": "D13"
+        },
+        {
+          "label": "chaos res",
+          "probability": 0.07692307692307693,
+          "price": 2,
+          "source": "D14"
+        },
+        {
+          "label": "energy shield",
+          "probability": 0.07692307692307693,
+          "price": 13,
+          "source": "D15"
+        }
+      ]
+    }
+  ],
+  "modifiers": [
+    {
+      "mod_id": "anger_damage_penetrates_fire_resistance",
+      "aura": "Anger",
+      "display_text": "Damage Penetrates (10 to 15)% Fire Resistance while affected by Anger"
+    },
+    {
+      "mod_id": "anger_gain_of_physical_damage_as_extra_fire_damage",
+      "aura": "Anger",
+      "display_text": "Gain (15 to 25)% of Physical Damage as Extra Fire Damage while affected by Anger"
+    },
+    {
+      "mod_id": "anger_increased_fire_damage",
+      "aura": "Anger",
+      "display_text": "(40 to 60)% increased Fire Damage while affected by Anger"
+    },
+    {
+      "mod_id": "anger_of_fire_damage_leeched_as_life",
+      "aura": "Anger",
+      "display_text": "(1 to 1.5)% of Fire Damage Leeched as Life while affected by Anger"
+    },
+    {
+      "mod_id": "anger_of_physical_damage_converted_to_fire_damage",
+      "aura": "Anger",
+      "display_text": "(25 to 40)% of Physical Damage Converted to Fire Damage while affected by Anger"
+    },
+    {
+      "mod_id": "anger_to_critical_strike_multiplier",
+      "aura": "Anger",
+      "display_text": "+(30 to 50)% to Critical Strike Multiplier while affected by Anger"
+    },
+    {
+      "mod_id": "clarity_chance_to_recover_10_of_mana_when_you_use_a_skill",
+      "aura": "Clarity",
+      "display_text": "(10 to 15)% chance to Recover 10% of Mana when you use a Skill while affected by Clarity"
+    },
+    {
+      "mod_id": "clarity_damage_taken_affected_clarity_recouped_mana",
+      "aura": "Clarity",
+      "display_text": "(15 to 20)% of Damage taken while affected by Clarity Recouped as Mana"
+    },
+    {
+      "mod_id": "clarity_gain_of_maximum_mana_as_extra_maximum_energy_shield",
+      "aura": "Clarity",
+      "display_text": "Gain (6 to 10)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity"
+    },
+    {
+      "mod_id": "clarity_increased_mana_recovery_rate",
+      "aura": "Clarity",
+      "display_text": "(10 to 15)% increased Mana Recovery Rate while affected by Clarity"
+    },
+    {
+      "mod_id": "clarity_non_channelling_skills_have_to_total_mana_cost",
+      "aura": "Clarity",
+      "display_text": "Non-Channelling Skills have (-10 to -5) to Total Mana Cost while affected by Clarity"
+    },
+    {
+      "mod_id": "clarity_of_damage_taken_from_mana_before_life",
+      "aura": "Clarity",
+      "display_text": "(6 to 10)% of Damage taken from Mana before Life while affected by Clarity"
+    },
+    {
+      "mod_id": "determination_additional_physical_damage_reduction",
+      "aura": "Determination",
+      "display_text": "(5 to 8)% additional Physical Damage Reduction while affected by Determination"
+    },
+    {
+      "mod_id": "determination_chance_to_block_attack_damage",
+      "aura": "Determination",
+      "display_text": "+(5 to 8)% Chance to Block Attack Damage while affected by Determination"
+    },
+    {
+      "mod_id": "determination_prevent_reflected_physical_damage_would_take",
+      "aura": "Determination",
+      "display_text": "Prevent +(50 to 75)% of Reflected Physical Damage you would take while affected by Determination"
+    },
+    {
+      "mod_id": "determination_take_reduced_extra_damage_critical_strikes",
+      "aura": "Determination",
+      "display_text": "You take (40 to 60)% reduced Extra Damage from Critical Strikes while affected by Determination"
+    },
+    {
+      "mod_id": "determination_to_armour",
+      "aura": "Determination",
+      "display_text": "+(600 to 1000) to Armour while affected by Determination"
+    },
+    {
+      "mod_id": "determination_unaffected_by_vulnerability",
+      "aura": "Determination",
+      "display_text": "Unaffected by Vulnerability while affected by Determination"
+    },
+    {
+      "mod_id": "discipline_chance_to_block_spell_damage",
+      "aura": "Discipline",
+      "display_text": "+(5 to 8)% Chance to Block Spell Damage while affected by Discipline"
+    },
+    {
+      "mod_id": "discipline_faster_start_of_energy_shield_recharge",
+      "aura": "Discipline",
+      "display_text": "(30 to 40)% faster start of Energy Shield Recharge while affected by Discipline"
+    },
+    {
+      "mod_id": "discipline_gain_energy_shield_per_enemy_hit",
+      "aura": "Discipline",
+      "display_text": "Gain (20 to 30) Energy Shield per Enemy Hit while affected by Discipline"
+    },
+    {
+      "mod_id": "discipline_increased_energy_shield_recovery_rate",
+      "aura": "Discipline",
+      "display_text": "(10 to 15)% increased Energy Shield Recovery Rate while affected by Discipline"
+    },
+    {
+      "mod_id": "discipline_regenerate_of_energy_shield_per_second",
+      "aura": "Discipline",
+      "display_text": "Regenerate (1.5 to 2.5)% of Energy Shield per Second while affected by Discipline"
+    },
+    {
+      "mod_id": "grace_chance_to_blind_enemies_which_hit_you",
+      "aura": "Grace",
+      "display_text": "(30 to 50)% chance to Blind Enemies which Hit you while affected by Grace"
+    },
+    {
+      "mod_id": "grace_chance_to_evade_attack_hits",
+      "aura": "Grace",
+      "display_text": "+(5 to 8)% chance to Evade Attack Hits while affected by Grace"
+    },
+    {
+      "mod_id": "grace_chance_to_suppress_spell_damage",
+      "aura": "Grace",
+      "display_text": "+(12 to 15)% chance to Suppress Spell Damage while affected by Grace"
+    },
+    {
+      "mod_id": "grace_increased_movement_speed",
+      "aura": "Grace",
+      "display_text": "(10 to 15)% increased Movement Speed while affected by Grace"
+    },
+    {
+      "mod_id": "grace_unaffected_by_enfeeble",
+      "aura": "Grace",
+      "display_text": "Unaffected by Enfeeble while affected by Grace"
+    },
+    {
+      "mod_id": "haste_debuffs_on_you_expire_faster",
+      "aura": "Haste",
+      "display_text": "Debuffs on you expire (15 to 20)% faster while affected by Haste"
+    },
+    {
+      "mod_id": "haste_increased_cooldown_recovery_rate_of_movement_skills_used",
+      "aura": "Haste",
+      "display_text": "(30 to 50)% increased Cooldown Recovery Rate of Movement Skills used while affected by Haste"
+    },
+    {
+      "mod_id": "haste_unaffected_by_temporal_chains",
+      "aura": "Haste",
+      "display_text": "Unaffected by Temporal Chains while affected by Haste"
+    },
+    {
+      "mod_id": "haste_you_gain_onslaught_for_seconds_on_kill",
+      "aura": "Haste",
+      "display_text": "You gain Onslaught for 4 seconds on Kill while affected by Haste"
+    },
+    {
+      "mod_id": "haste_you_have_phasing",
+      "aura": "Haste",
+      "display_text": "You have Phasing while affected by Haste"
+    },
+    {
+      "mod_id": "hatred_adds_to_cold_damage",
+      "aura": "Hatred",
+      "display_text": "Adds (58 to 70) to (88 to 104) Cold Damage while affected by Hatred"
+    },
+    {
+      "mod_id": "hatred_damage_penetrates_cold_resistance",
+      "aura": "Hatred",
+      "display_text": "Damage Penetrates (10 to 15)% Cold Resistance while affected by Hatred"
+    },
+    {
+      "mod_id": "hatred_increased_cold_damage",
+      "aura": "Hatred",
+      "display_text": "(40 to 60)% increased Cold Damage while affected by Hatred"
+    },
+    {
+      "mod_id": "hatred_of_physical_damage_converted_to_cold_damage",
+      "aura": "Hatred",
+      "display_text": "(25 to 40)% of Physical Damage Converted to Cold Damage while affected by Hatred"
+    },
+    {
+      "mod_id": "hatred_to_critical_strike_chance",
+      "aura": "Hatred",
+      "display_text": "+(1.2 to 1.8)% to Critical Strike Chance while affected by Hatred"
+    },
+    {
+      "mod_id": "malevolence_damaging_ailments_you_inflict_deal_damage_faster",
+      "aura": "Malevolence",
+      "display_text": "Damaging Ailments you inflict deal Damage (10 to 15)% faster while affected by Malevolence"
+    },
+    {
+      "mod_id": "malevolence_increased_recovery_rate_of_life_and_energy_shield",
+      "aura": "Malevolence",
+      "display_text": "(8 to 12)% increased Recovery rate of Life and Energy Shield while affected by Malevolence"
+    },
+    {
+      "mod_id": "malevolence_to_damage_over_time_multiplier",
+      "aura": "Malevolence",
+      "display_text": "+(18 to 22)% to Damage over Time Multiplier while affected by Malevolence"
+    },
+    {
+      "mod_id": "malevolence_unaffected_by_bleeding",
+      "aura": "Malevolence",
+      "display_text": "Unaffected by Bleeding while affected by Malevolence"
+    },
+    {
+      "mod_id": "malevolence_unaffected_by_poison",
+      "aura": "Malevolence",
+      "display_text": "Unaffected by Poison while affected by Malevolence"
+    },
+    {
+      "mod_id": "precision_cannot_be_blinded",
+      "aura": "Precision",
+      "display_text": "Cannot be Blinded while affected by Precision"
+    },
+    {
+      "mod_id": "precision_gain_a_flask_charge_when_you_deal_a_critical_strike",
+      "aura": "Precision",
+      "display_text": "Gain a Flask Charge when you deal a Critical Strike while affected by Precision"
+    },
+    {
+      "mod_id": "precision_increased_attack_damage",
+      "aura": "Precision",
+      "display_text": "(40 to 60)% increased Attack Damage while affected by Precision"
+    },
+    {
+      "mod_id": "precision_increased_attack_speed",
+      "aura": "Precision",
+      "display_text": "(10 to 15)% increased Attack Speed while affected by Precision"
+    },
+    {
+      "mod_id": "precision_to_critical_strike_multiplier",
+      "aura": "Precision",
+      "display_text": "+(20 to 30)% to Critical Strike Multiplier while affected by Precision"
+    },
+    {
+      "mod_id": "pride_chance_to_deal_double_damage",
+      "aura": "Pride",
+      "display_text": "(8 to 12)% chance to deal Double Damage while using Pride"
+    },
+    {
+      "mod_id": "pride_chance_to_impale_enemies_on_hit_with_attacks",
+      "aura": "Pride",
+      "display_text": "25% chance to Impale Enemies on Hit with Attacks while using Pride"
+    },
+    {
+      "mod_id": "pride_impales_you_inflict_last_additional_hits",
+      "aura": "Pride",
+      "display_text": "Impales you inflict last 2 additional Hits while using Pride"
+    },
+    {
+      "mod_id": "pride_increased_physical_damage",
+      "aura": "Pride",
+      "display_text": "(40 to 60)% increased Physical Damage while using Pride"
+    },
+    {
+      "mod_id": "pride_your_hits_intimidate_enemies_for_4_seconds",
+      "aura": "Pride",
+      "display_text": "Your Hits Intimidate Enemies for 4 seconds while you are using Pride"
+    },
+    {
+      "mod_id": "purity_of_elements_prevent_reflected_elemental_damage_would_take",
+      "aura": "Purity of Elements",
+      "display_text": "Prevent +(50 to 75)% of Reflected Elemental Damage you would take while affected by Purity of Elements"
+    },
+    {
+      "mod_id": "purity_of_elements_to_all_maximum_elemental_resistances",
+      "aura": "Purity of Elements",
+      "display_text": "+1% to all maximum Elemental Resistances while affected by Purity of Elements"
+    },
+    {
+      "mod_id": "purity_of_elements_to_chaos_resistance",
+      "aura": "Purity of Elements",
+      "display_text": "+(30 to 50)% to Chaos Resistance while affected by Purity of Elements"
+    },
+    {
+      "mod_id": "purity_of_elements_unaffected_by_elemental_weakness",
+      "aura": "Purity of Elements",
+      "display_text": "Unaffected by Elemental Weakness while affected by Purity of Elements"
+    },
+    {
+      "mod_id": "purity_of_fire_immune_to_ignite",
+      "aura": "Purity of Fire",
+      "display_text": "Immune to Ignite while affected by Purity of Fire"
+    },
+    {
+      "mod_id": "purity_of_fire_of_cold_and_lightning_damage_taken_as_fire_damage",
+      "aura": "Purity of Fire",
+      "display_text": "(10 to 20)% of Cold and Lightning Damage taken as Fire Damage while affected by Purity of Fire"
+    },
+    {
+      "mod_id": "purity_of_fire_unaffected_by_burning_ground",
+      "aura": "Purity of Fire",
+      "display_text": "Unaffected by Burning Ground while affected by Purity of Fire"
+    },
+    {
+      "mod_id": "purity_of_fire_unaffected_by_flammability",
+      "aura": "Purity of Fire",
+      "display_text": "Unaffected by Flammability while affected by Purity of Fire"
+    },
+    {
+      "mod_id": "purity_of_ice_immune_to_freeze",
+      "aura": "Purity of Ice",
+      "display_text": "Immune to Freeze while affected by Purity of Ice"
+    },
+    {
+      "mod_id": "purity_of_ice_of_fire_and_lightning_damage_taken_as_cold_damage",
+      "aura": "Purity of Ice",
+      "display_text": "(10 to 20)% of Fire and Lightning Damage taken as Cold Damage while affected by Purity of Ice"
+    },
+    {
+      "mod_id": "purity_of_ice_unaffected_by_chilled_ground",
+      "aura": "Purity of Ice",
+      "display_text": "Unaffected by Chilled Ground while affected by Purity of Ice"
+    },
+    {
+      "mod_id": "purity_of_ice_unaffected_by_frostbite",
+      "aura": "Purity of Ice",
+      "display_text": "Unaffected by Frostbite while affected by Purity of Ice"
+    },
+    {
+      "mod_id": "purity_of_lightning_fire_cold_damage_taken_lightning_damage",
+      "aura": "Purity of Lightning",
+      "display_text": "(10 to 20)% of Fire and Cold Damage taken as Lightning Damage while affected by Purity of Lightning"
+    },
+    {
+      "mod_id": "purity_of_lightning_immune_to_shock",
+      "aura": "Purity of Lightning",
+      "display_text": "Immune to Shock while affected by Purity of Lightning"
+    },
+    {
+      "mod_id": "purity_of_lightning_unaffected_by_conductivity",
+      "aura": "Purity of Lightning",
+      "display_text": "Unaffected by Conductivity while affected by Purity of Lightning"
+    },
+    {
+      "mod_id": "purity_of_lightning_unaffected_by_shocked_ground",
+      "aura": "Purity of Lightning",
+      "display_text": "Unaffected by Shocked Ground while affected by Purity of Lightning"
+    },
+    {
+      "mod_id": "vitality_gain_life_per_enemy_hit",
+      "aura": "Vitality",
+      "display_text": "Gain (20 to 30) Life per Enemy Hit while affected by Vitality"
+    },
+    {
+      "mod_id": "vitality_increased_life_recovery_from_flasks",
+      "aura": "Vitality",
+      "display_text": "(50 to 70)% increased Life Recovery from Flasks while affected by Vitality"
+    },
+    {
+      "mod_id": "vitality_increased_life_recovery_rate",
+      "aura": "Vitality",
+      "display_text": "(10 to 15)% increased Life Recovery Rate while affected by Vitality"
+    },
+    {
+      "mod_id": "vitality_of_damage_leeched_as_life",
+      "aura": "Vitality",
+      "display_text": "(0.8 to 1.2)% of Damage leeched as Life while affected by Vitality"
+    },
+    {
+      "mod_id": "vitality_regenerate_of_life_per_second",
+      "aura": "Vitality",
+      "display_text": "Regenerate (1 to 1.5)% of Life per second while affected by Vitality"
+    },
+    {
+      "mod_id": "wrath_damage_penetrates_lightning_resistance",
+      "aura": "Wrath",
+      "display_text": "Damage Penetrates (10 to 15)% Lightning Resistance while affected by Wrath"
+    },
+    {
+      "mod_id": "wrath_gain_of_physical_damage_as_extra_lightning_damage",
+      "aura": "Wrath",
+      "display_text": "Gain (15 to 25)% of Physical Damage as Extra Lightning Damage while affected by Wrath"
+    },
+    {
+      "mod_id": "wrath_increased_critical_strike_chance",
+      "aura": "Wrath",
+      "display_text": "(70 to 100)% increased Critical Strike Chance while affected by Wrath"
+    },
+    {
+      "mod_id": "wrath_increased_lightning_damage",
+      "aura": "Wrath",
+      "display_text": "(40 to 60)% increased Lightning Damage while affected by Wrath"
+    },
+    {
+      "mod_id": "wrath_of_lightning_damage_is_leeched_as_energy_shield",
+      "aura": "Wrath",
+      "display_text": "(1 to 1.5)% of Lightning Damage is Leeched as Energy Shield while affected by Wrath"
+    },
+    {
+      "mod_id": "wrath_of_physical_damage_converted_to_lightning_damage",
+      "aura": "Wrath",
+      "display_text": "(25 to 40)% of Physical Damage Converted to Lightning Damage while affected by Wrath"
+    },
+    {
+      "mod_id": "zealotry_consecrated_ground_create_affected_zealotry_eda9ed",
+      "aura": "Zealotry",
+      "display_text": "Consecrated Ground you create while affected by Zealotry causes enemies to take (8 to 10)% increased Damage"
+    },
+    {
+      "mod_id": "zealotry_critical_strikes_penetrate_enemy_elemental_resistances",
+      "aura": "Zealotry",
+      "display_text": "Critical Strikes Penetrate (8 to 10)% of Enemy Elemental Resistances while affected by Zealotry"
+    },
+    {
+      "mod_id": "zealotry_effects_consecrated_ground_create_affected_f190dc",
+      "aura": "Zealotry",
+      "display_text": "Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds"
+    },
+    {
+      "mod_id": "zealotry_gain_arcane_surge_4_seconds_create_consecrated_ground",
+      "aura": "Zealotry",
+      "display_text": "Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry"
+    },
+    {
+      "mod_id": "zealotry_increased_cast_speed",
+      "aura": "Zealotry",
+      "display_text": "(10 to 15)% increased Cast Speed while affected by Zealotry"
+    },
+    {
+      "mod_id": "zealotry_increased_critical_strike_chance_against_c9ebdb",
+      "aura": "Zealotry",
+      "display_text": "(100 to 120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry"
+    },
+    {
+      "mod_id": "zealotry_increased_maximum_total_energy_shield_recovery_8f9bef",
+      "aura": "Zealotry",
+      "display_text": "30% increased Maximum total Energy Shield Recovery per second from Leech while affected by Zealotry"
+    }
+  ],
+  "catalogueDate": "2026-08-01T00:00:00Z",
+  "league": "Allflame"
+}

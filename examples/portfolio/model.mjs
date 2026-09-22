@@ -1,123 +1,14 @@
-export const defaults = {
-  cost: 110,
-  priceScale: 1,
-  missing: false,
-  listings: [2, 98, 101, 105, 108, 110, 113, 116, 122, 125],
-  outcomes: [
-    { item: "ordinary roll", probability: 0.58, price: 45 },
-    { item: "useful pairing", probability: 0.25, price: 140 },
-    { item: "strong pairing", probability: 0.12, price: 310 },
-    { item: "rare pairing", probability: 0.05, price: 920 },
-  ],
-};
-export const controls = [
-  {
-    key: "cost",
-    label: "Buy-in (chaos)",
-    type: "number",
-    min: 0,
-    max: 2000,
-    step: 5,
-  },
-  {
-    key: "priceScale",
-    label: "Resale-price multiplier",
-    type: "number",
-    min: 0.1,
-    max: 4,
-    step: 0.1,
-  },
-  { key: "missing", label: "Hide the rare outcome price", type: "checkbox" },
-];
-export function risk(outcomes, cost) {
-  const p = outcomes.reduce((a, r) => a + r.probability, 0);
-  if (
-    Math.abs(p - 1) > 1e-8 ||
-    outcomes.some((r) => r.probability < 0) ||
-    cost < 0
-  )
-    throw Error("Probabilities must total 1 and costs must be nonnegative.");
-  const priced = outcomes.filter(
-    (r) => r.price !== null && Number.isFinite(r.price),
-  );
-  const coverage = priced.reduce((a, r) => a + r.probability, 0);
-  if (coverage < 1 - 1e-8)
-    return {
-      coverage,
-      ev: null,
-      stdev: null,
-      profitFactor: null,
-      returnRisk: null,
-    };
-  const ev = priced.reduce((a, r) => a + r.probability * (r.price - cost), 0);
-  const variance = priced.reduce(
-      (a, r) => a + r.probability * (r.price - cost - ev) ** 2,
-      0,
-    ),
-    stdev = Math.sqrt(variance);
-  const gains = priced.reduce(
-      (a, r) => a + r.probability * Math.max(0, r.price - cost),
-      0,
-    ),
-    losses = priced.reduce(
-      (a, r) => a + r.probability * Math.max(0, cost - r.price),
-      0,
-    );
-  return {
-    coverage,
-    ev,
-    stdev,
-    profitFactor: losses ? gains / losses : null,
-    returnRisk: stdev ? ev / stdev : null,
-  };
+export function risk(outcomes,cost){
+    if(!Number.isFinite(cost)||cost<0)throw Error('Enter a non-negative buy-in.');
+    if(!Array.isArray(outcomes)||!outcomes.length)throw Error('Add outcomes first.');
+    for(const r of outcomes)if(!Number.isFinite(r.probability)||r.probability<0||r.price!==null&&(!Number.isFinite(r.price)||r.price<0))throw Error('Use valid probabilities and non-negative prices; leave unknown prices blank.');
+    const mass=outcomes.reduce((n,r)=>n+r.probability,0);if(Math.abs(mass-1)>1e-8)throw Error('Outcome probabilities must sum to one.');
+    const priced=outcomes.filter(r=>r.price!==null),coverage=priced.reduce((n,r)=>n+r.probability,0),knownRevenue=priced.reduce((n,r)=>n+r.probability*r.price,0);
+    if(coverage<1-1e-8)return {coverage,knownRevenue,mean:null,profit:null,stdev:null,win:null,profitFactor:null,ratio:null};
+    const mean=knownRevenue,profit=mean-cost,variance=priced.reduce((n,r)=>n+r.probability*(r.price-mean)**2,0),stdev=Math.sqrt(variance);
+    const gains=priced.reduce((n,r)=>n+r.probability*Math.max(0,r.price-cost),0),losses=priced.reduce((n,r)=>n+r.probability*Math.max(0,cost-r.price),0);
+    return {coverage,knownRevenue,mean,profit,stdev,win:priced.reduce((n,r)=>n+(r.price>cost?r.probability:0),0),profitFactor:losses?gains/losses:gains?Infinity:null,ratio:stdev?profit/stdev:null};
 }
-export function medianBuyin(listings) {
-  const s = listings
-    .filter(Number.isFinite)
-    .filter((x) => x > 0)
-    .sort((a, b) => a - b)
-    .slice(0, 10);
-  if (!s.length) return null;
-  const n = s.length;
-  return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2;
-}
-export function run(i) {
-  const outcomes = i.outcomes.map((r, n) => ({
-      ...r,
-      price:
-        i.missing && n === i.outcomes.length - 1
-          ? null
-          : r.price === null
-            ? null
-            : r.price * i.priceScale,
-    })),
-    r = risk(outcomes, i.cost),
-    fmt = (x) => (x === null ? "not available" : x.toFixed(2));
-  return {
-    summary:
-      r.ev === null
-        ? "A missing price stops the EV claim"
-        : "Expected value is only part of the decision",
-    metrics: {
-      "net EV (chaos)": fmt(r.ev),
-      "stdev (chaos)": fmt(r.stdev),
-      "profit factor": fmt(r.profitFactor),
-      "priced probability": (r.coverage * 100).toFixed(1) + "%",
-      "median of cheapest 10": fmt(medianBuyin(i.listings)),
-    },
-    columns: ["variant", "probability", "resale (chaos)", "net (chaos)"],
-    rows: outcomes.map((r) => [
-      r.item,
-      (r.probability * 100).toFixed(1) + "%",
-      r.price ?? "missing",
-      r.price === null ? "missing" : (r.price - i.cost).toFixed(2),
-    ]),
-    steps: [
-      "Collect and log trade quotes",
-      "Use a robust buy-in rather than one suspicious floor listing",
-      "Join variant probabilities to prices",
-      "Calculate EV and downside without hiding missing coverage",
-    ],
-    artifact: { ...r, outcomes },
-  };
-}
+export function histogram(outcomes,cost,count=16){const priced=outcomes.filter(o=>o.price!==null);if(!priced.length)return [];const low=Math.min(...priced.map(o=>o.price-cost)),high=Math.max(...priced.map(o=>o.price-cost)),width=(high-low||1)/count;const bins=Array.from({length:count},(_,i)=>({low:low+i*width,high:low+(i+1)*width,p:0}));for(const o of priced)bins[Math.min(count-1,Math.floor((o.price-cost-low)/width))].p+=o.probability;return bins;}
+export function pairs(modifiers,query=''){const q=query.toLowerCase(),rows=[];for(let i=0;i<modifiers.length;i++)for(let j=i+1;j<modifiers.length;j++){const a=modifiers[i],b=modifiers[j];if(q&&!(a.display_text+' '+b.display_text).toLowerCase().includes(q))continue;rows.push({a,b})}return rows;}
+export function csv(outcomes,cost){return 'outcome,probability,price,profit_if_priced\n'+outcomes.map(o=>[o.label,o.probability,o.price??'',o.price===null?'':o.price-cost].map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');}
