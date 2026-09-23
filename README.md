@@ -1,38 +1,42 @@
-# poe item research
+# sheetato / PoE item research
 
-**[Open the research desk](https://lolstar123.github.io/poe-item-pricer/)**
+[Open the dataset browser](https://lolstar123.github.io/poe-item-pricer/)
 
-The spreadsheets that grew into a larger item-pricing pipeline. Browse the original work, change outcome values and see expected profit, dispersion, probability of profit and profit factor update.
+Search 3,741 priced Watcher's Eye pairs, filter by aura, and compare expected resale, profit and risk against an editable buy-in. Switch to the 105,995 three-mod combinations to explore a model based on the strongest contained pair. These are archived asking prices from August 2026, not a live market feed.
 
-![Item research desk](examples/portfolio/preview.png)
+![Dataset browser](examples/portfolio/preview.png)
 
-## Real work to inspect
+## Explore the data
 
-- **Adorned valuation:** 101 outcomes from the original 50-150 roll worksheet. The browser reproduces its saved profit-per-identification result.
-- **Light of Meaning:** 13 original outcomes and weights. The calculated mean matches the saved workbook total.
-- **Stacked decks:** the original opening log, starting 04/05/2024, with costs, card counts and realised proceeds.
-- **Watcher's Eye:** the actual 87-aura-modifier catalogue, searchable across 3,741 two-mod combinations. These pairs do not carry invented prices.
+- Watcher's Eye: all 3,741 priced pairs, plus derived three-mod combinations.
+- Split Personality: 36 modifier pairs.
+- Forbidden Flame and Flesh: 166 outcomes each, with missing prices retained.
+- Sublime Vision: 17 aura variants, median quotes and separate floors.
+- Balance of Terror: 153 pairs, 138 priced.
+- Mageblood: 171 double-implicit outcomes, 66 priced. The model is conditional on hitting double implicits.
+- Voices: four outcomes with the archived published drop weights.
 
-Download the three original Excel files unchanged, or inspect their formulas and saved values in the browser. The two valuation sheets do not state a currency unit, so the app preserves source units. These are historical assumptions, not current profitability claims.
+Search, filter, sort, inspect the source row, change the buy-in, or export the filtered data as CSV. A comparison table links every dataset. Filters narrow the table without silently changing the probability model. Missing price coverage prevents full EV rather than becoming zero.
 
-## Try it
+[Early spreadsheets](https://lolstar123.github.io/poe-item-pricer/archive.html) remain available with their original formulas and downloads.
 
-Change buy-in or an outcome price. Blank a price to see coverage fall: complete EV and risk become unknown. Restore archive values, export edited outcomes, or inspect a cell formula. The histogram uses discrete probability weights.
-
-## The later pipeline
-
-Local residential-proxy collection records item prices, league and collection time. Defined modifier combinations make observations comparable. The [original buy-in logic](original/buyin.py) uses the median of the ten cheapest listings while showing the floor separately. Linked formulas feed EV and risk calculations; missing coverage remains explicit.
-
-The public desk presents the archive and workflow. It has no live trade session, proxy connection or private credentials. Nominal modifier combinations are a catalogue calculation, not a claim that every pair is eligible or equally probable in game.
-
-## Run and check
+## Run locally
 
 ```sh
 python -m http.server 8000 --directory examples/portfolio
 node --test examples/portfolio/model.test.mjs
-pip install playwright
-python -m playwright install chromium
 python tools/browser_audit.py
 ```
 
-Open http://localhost:8000. [Risk calculations](examples/portfolio/model.mjs), [archive extraction](tools/export_archive.py), [source notes](PROVENANCE.md). Extraction uses openpyxl to read existing workbooks without rewriting them.
+Browser checks need Playwright and Chromium. `tools/export_datasets.py <workbook>` reproduces the public export from the recovered Sheetato workbook using openpyxl. The public JSON contains only whitelisted item descriptions, prices, counts, timestamps and source cells.
+
+## Files
+
+- `examples/portfolio/datasets.mjs`: dataset search, three-mod pricing and risk adapter.
+- `examples/portfolio/browser.mjs`: dataset browser interactions.
+- `examples/portfolio/model.mjs`: expected value, dispersion and profit-factor calculations.
+- `examples/portfolio/data/datasets.json`: recovered archive data.
+- `tools/export_datasets.py`: reproducible extraction.
+- `original/`: original collection logic.
+
+See [provenance](PROVENANCE.md) for model boundaries and source hashes.

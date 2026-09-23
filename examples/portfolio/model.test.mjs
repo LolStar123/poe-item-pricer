@@ -56,3 +56,53 @@ test("87 source modifiers yield unique pairs and genuine search results", () => 
     );
     assert.ok(pairs(data.modifiers, "Anger").length > 0);
 });
+
+import { tripleRows, selectRows, calculate } from "./datasets.mjs";
+const market = JSON.parse(
+    readFileSync(new URL("./data/datasets.json", import.meta.url), "utf8"),
+);
+test("recovered priced pairs are unique, complete, and searchable by both auras", () => {
+    const rows = market.datasets[0].rows;
+    assert.equal(rows.length, 3741);
+    assert.equal(
+        new Set(rows.map((r) => [...r.mods].sort().join("|"))).size,
+        3741,
+    );
+    assert.equal(rows.filter((r) => r.price !== null).length, 3741);
+    const found = selectRows(rows, { query: "clarity precision" });
+    assert(found.length > 0);
+    assert(
+        found.every(
+            (r) =>
+                r.label.toLowerCase().includes("clarity") &&
+                r.label.toLowerCase().includes("precision"),
+        ),
+    );
+});
+test("triple pricing exhaustively enumerates and does not invent observed quotes", () => {
+    const rows = tripleRows(market.datasets[0].rows);
+    assert.equal(rows.length, 105995);
+    assert(rows.every((r) => r.modelled && r.listings === null));
+    assert(Math.abs(rows.reduce((s, r) => s + r.probability, 0) - 1) < 1e-8);
+    const small = [
+        { mods: ["a", "b"], price: 3, source: "a" },
+        { mods: ["a", "c"], price: 7, source: "b" },
+        { mods: ["b", "c"], price: 2, source: "c" },
+    ];
+    assert.equal(tripleRows(small)[0].price, 7);
+    small[0].price = null;
+    assert.equal(tripleRows(small)[0].price, null);
+});
+test("incomplete recovered data blocks full EV, changing cost propagates", () => {
+    const terror = market.datasets.find((d) => d.id === "terror");
+    const incomplete = calculate(terror.rows, terror.cost);
+    assert.equal(incomplete.profit, null);
+    assert(Math.abs(incomplete.coverage - 138 / 153) < 1e-10);
+    const rows = market.datasets[0].rows;
+    const a = calculate(rows, 159),
+        b = calculate(rows, 259);
+    assert(Math.abs(a.profit - b.profit - 100) < 1e-8);
+    assert.equal(a.stdev, b.stdev);
+    assert.equal(calculate(rows, null).profit, null);
+    assert.equal(selectRows(terror.rows, { coverage: "missing" }).length, 15);
+});

@@ -24,7 +24,42 @@ try:
         page = browser.new_page(viewport={'width': 1280, 'height': 1000})
         errors = []
         page.on('pageerror', lambda e: errors.append(str(e)))
-        page.goto(os.environ.get('AUDIT_URL', f'http://127.0.0.1:{server.server_port}'))
+        url=os.environ.get('AUDIT_URL', f'http://127.0.0.1:{server.server_port}/')
+        page.goto(url)
+        page.wait_for_function('window.__datasets?.ready')
+        assert page.evaluate('__datasets.count') == 3741
+        assert page.locator('#metrics').is_visible()
+        before=page.evaluate('__datasets.result.profit')
+        page.locator('#buyin').fill('259')
+        assert abs(page.evaluate('__datasets.result.profit')-(before-100))<1e-8
+        page.locator('#buyin').fill('-1')
+        assert page.locator('#error').inner_text()
+        assert page.evaluate('__datasets.result') is None
+        page.locator('#buyin').fill('259')
+        page.locator('#search').fill('clarity precision')
+        assert 0<page.evaluate('__datasets.filtered')<3741
+        with page.expect_download() as dl:
+            page.locator('#export').click()
+        assert 'Clarity' in Path(dl.value.path()).read_text(encoding='utf-8')
+        page.locator('#clear').click()
+        page.locator('#mode').select_option('triple')
+        assert page.evaluate('__datasets.count') == 105995
+        page.locator('[data-dataset="terror"]').click()
+        assert page.evaluate('__datasets.result.profit') is None
+        page.locator('#coverage').select_option('missing')
+        assert page.evaluate('__datasets.filtered')==15
+        page.locator('[data-dataset="watchers"]').click()
+        page.locator('#mode').select_option('pair')
+        page.locator('#search').fill('no-such-mod-zzzz')
+        assert page.locator('#empty').is_visible()
+        page.locator('#clear').click()
+        page.screenshot(path=str(ROOT / 'examples/portfolio/preview.png'))
+        page.set_viewport_size({'width':390,'height':844})
+        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+        page.locator('#dataset-select').select_option('split')
+        assert page.evaluate('__datasets.count')==36
+        page.set_viewport_size({'width':1280,'height':1000})
+        page.goto(url.rstrip('/')+'/archive.html')
         page.wait_for_function('window.__poe?.ready')
         assert page.evaluate('__poe.outcomes') == 101
         assert abs(page.evaluate('__poe.result.profit') - 1.7920792079207921) < 1e-8
@@ -54,11 +89,11 @@ try:
         page.locator('[data-tab="calculator"]').click()
         page.locator('#case').select_option('adorned')
         page.evaluate('window.scrollTo(0,0)')
-        page.screenshot(path=str(ROOT / 'examples/portfolio/preview.png'))
+
         page.set_viewport_size({'width': 390, 'height': 844})
         assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
         assert not errors, errors
-        print('PASS: original formula parity, edited outcomes, missing coverage, downloads and variants')
+        print('PASS: priced dataset landing, EV edits, 105995 triples, filters, missing coverage, mobile switching, archive parity and downloads')
         browser.close()
 finally:
     server.shutdown()
