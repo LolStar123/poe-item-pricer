@@ -38,8 +38,20 @@ function state() {
         if ($("#" + id).value) q.set(id, $("#" + id).value);
     history.replaceState(null, "", "?" + q);
 }
+function showView(view) {
+    const risk = view === "risk";
+    $("#risk-panel").hidden = !risk;
+    $("#browse-panel").hidden = risk;
+    $("#risk-view").setAttribute("aria-pressed", risk);
+    $("#browse-view").setAttribute("aria-pressed", !risk);
+    $("#export").hidden = risk;
+}
+$("#browse-view").onclick = () => showView("browse");
+$("#risk-view").onclick = () => showView("risk");
+$(".compare-link").onclick = () => { $("#comparison").open = true; };
 function measure() {
     cost = $("#buyin").value === "" ? null : Number($("#buyin").value);
+    $("#table-cost").textContent = cost === null ? "your buy-in" : money(cost);
     try {
         result = calculate(rows, cost);
         $("#error").textContent = "";
@@ -55,16 +67,16 @@ function measure() {
         return;
     }
     const stats = [
-        ["expected resale / outcome", money(result.mean)],
+        ["average resale (EV)", money(result.mean)],
         [
-            "expected profit / outcome",
+            "average profit after buy-in",
             cost === null ? "enter buy-in" : money(result.profit),
         ],
         [
             "chance of profit",
             result.win === null ? "unknown" : fmt(result.win * 100) + "%",
         ],
-        ["priced probability", fmt(result.coverage * 100) + "%"],
+        ["price coverage", fmt(result.coverage * 100) + "%"],
     ];
     $("#metrics").innerHTML = stats
         .map(
@@ -130,6 +142,8 @@ function load(id, initial = false) {
     const triple = current.id === "watchers" && $("#mode").value === "triple";
     rows = triple ? (triples ??= tripleRows(current.rows)) : current.rows;
     $("#dataset-select").value = current.id;
+    $("#quick-filters").innerHTML = current.id === "watchers"
+        ? '<span>try an aura</span>' + ["Clarity", "Precision", "Hatred", "Malevolence", "Determination"].map(a => `<button data-aura="${a}">${a}</button>`).join("") : "";
     $("#title").textContent = current.name;
     $("#description").textContent = current.description;
     $("#assumption").textContent = current.assumption;
@@ -173,6 +187,14 @@ function load(id, initial = false) {
     filter();
     measure();
 }
+$("#quick-filters").onclick = (e) => {
+    const b = e.target.closest("[data-aura]");
+    if (!b) return;
+    $("#search").value = "";
+    $("#group").value = b.dataset.aura;
+    $("#coverage").value = "all";
+    filter();
+};
 $("#datasets").onclick = (e) => {
     const b = e.target.closest("[data-dataset]");
     if (b) load(b.dataset.dataset);
@@ -247,6 +269,7 @@ $("#compare").onclick = (e) => {
     const b = e.target.closest("[data-open]");
     if (b) {
         load(b.dataset.open);
+        showView("risk");
         $("#title").scrollIntoView({ block: "start" });
     }
 };
@@ -264,7 +287,7 @@ try {
     $("#datasets").innerHTML = data.datasets
         .map(
             (d) =>
-                `<button data-dataset="${d.id}" aria-pressed="false"><span>${esc(d.name)}</span><small>${d.rows.length.toLocaleString()} outcomes</small></button>`,
+                `<button data-dataset="${d.id}" aria-pressed="false"><span>${esc(d.name)}</span><small>${d.rows.length.toLocaleString()} variants / ${d.rows.filter(r => r.price !== null).length.toLocaleString()} priced</small></button>`,
         )
         .join("");
     $("#compare").innerHTML = data.datasets

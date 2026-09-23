@@ -25,10 +25,10 @@
             <div class="heading">
                 <div>
                     <p class="eyebrow">path of exile / item research</p>
-                    <h1>find the item. check the odds.</h1>
+                    <h1>watcher's eye & item datasets.</h1>
                     <p>
-                        Browse prices across the item datasets, then compare
-                        expected returns against your buy-in.
+                        3,741 priced pairs. 105,995 modelled triples. Search the modifiers,
+                        compare item datasets, and check what a roll is worth.
                     </p>
                 </div>
                 <p class="archive">
@@ -55,7 +55,6 @@
                         </div>
                         <button id="export">download results</button>
                     </div>
-                    <div class="calculator">
                         <div id="mode-wrap">
                             <label for="mode">eye type</label
                             ><select id="mode">
@@ -67,6 +66,15 @@
                                 </option>
                             </select>
                         </div>
+                    <p id="error" role="alert"></p>
+                    <nav class="view-switch" aria-label="Dataset view">
+                        <button id="browse-view" aria-pressed="true">browse variants</button>
+                        <button id="risk-view" aria-pressed="false">check EV &amp; risk</button>
+                    </nav>
+                    <div id="risk-panel" hidden>
+                    <h3>what is one random outcome worth?</h3>
+                    <p class="help">Set your purchase price. Expected value (EV) is the average resale across all outcomes; expected profit subtracts your buy-in.</p>
+                    <div class="calculator">
                         <div>
                             <label for="buyin">your buy-in</label>
                             <div class="input-unit">
@@ -82,12 +90,11 @@
                         <button id="reset-cost">reset buy-in</button>
                         <p id="cost-note"></p>
                     </div>
-                    <p id="error" role="alert"></p>
                     <p id="model-label" class="model-label"></p>
                     <div id="metrics" class="metrics" aria-live="polite"></div>
                     <p id="interpretation"></p>
                     <details>
-                        <summary>assumptions & more risk stats</summary>
+                        <summary>probabilities, coverage & more risk stats</summary>
                         <p id="assumption"></p>
                         <div id="extra-stats"></div>
                         <p>
@@ -97,6 +104,9 @@
                             one-roll standard deviation, not annualised Sharpe.
                         </p>
                     </details>
+                    </div>
+                    <div id="browse-panel">
+                    <div id="quick-filters" aria-label="Try an aura"></div>
                     <div class="filters">
                         <label
                             >search modifiers or items<input
@@ -105,7 +115,7 @@
                                 placeholder="e.g. malevolence damage..."
                                 autocomplete="off" /></label
                         ><label
-                            >category<select id="group">
+                            >aura / category<select id="group">
                                 <option value="">all categories</option>
                             </select></label
                         ><label
@@ -142,7 +152,7 @@
                                     <th scope="col" id="price-heading">
                                         asking price
                                     </th>
-                                    <th scope="col">profit at your buy-in</th>
+                                    <th scope="col">profit at <span id="table-cost">archived buy-in</span></th>
                                     <th scope="col">listings</th>
                                 </tr>
                             </thead>
@@ -157,9 +167,10 @@
                         <button id="prev">previous</button
                         ><span id="page"></span><button id="next">next</button>
                     </div>
+                    </div>
                 </section>
             </div>
-            <section id="comparison">
+            <details id="comparison"><summary>compare dataset coverage and expected profit</summary>
                 <h2>which dataset do you want to explore?</h2>
                 <p>
                     Each row uses its archived buy-in and stated probability
@@ -179,7 +190,7 @@
                         <tbody id="compare"></tbody>
                     </table>
                 </div>
-            </section>
+            </details>
             <footer>
                 Item-price collection, probability models and risk calculations
                 by Atul Kanodia.

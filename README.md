@@ -6,6 +6,14 @@ Search 3,741 priced Watcher's Eye pairs, filter by aura, and compare expected re
 
 ![Dataset browser](examples/portfolio/preview.png)
 
+## Start here
+
+1. Pick an item dataset in the left sidebar (the selector on mobile).
+2. **Browse variants**: search modifiers, tap an aura, sort prices or export your matches.
+3. **Check EV & risk**: enter a buy-in to see average resale, average profit and the probability of profit across the whole dataset.
+
+The Watcher's Eye selector switches between observed two-mod prices and modelled three-mod values. Filters never silently change the EV calculation.
+
 ## Explore the data
 
 - Watcher's Eye: all 3,741 priced pairs, plus derived three-mod combinations.

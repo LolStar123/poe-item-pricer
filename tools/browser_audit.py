@@ -28,6 +28,12 @@ try:
         page.goto(url)
         page.wait_for_function('window.__datasets?.ready')
         assert page.evaluate('__datasets.count') == 3741
+        assert page.locator('#search').is_visible()
+        assert not page.locator('#metrics').is_visible()
+        page.locator('[data-aura=Clarity]').click()
+        assert 0 < page.evaluate('__datasets.filtered') < 3741
+        page.locator('#clear').click()
+        page.locator('#risk-view').click()
         assert page.locator('#metrics').is_visible()
         before=page.evaluate('__datasets.result.profit')
         page.locator('#buyin').fill('259')
@@ -36,6 +42,7 @@ try:
         assert page.locator('#error').inner_text()
         assert page.evaluate('__datasets.result') is None
         page.locator('#buyin').fill('259')
+        page.locator('#browse-view').click()
         page.locator('#search').fill('clarity precision')
         assert 0<page.evaluate('__datasets.filtered')<3741
         with page.expect_download() as dl:
