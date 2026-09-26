@@ -1,4 +1,4 @@
-import { selectRows } from "./datasets.mjs";
+import { calculate, selectRows } from "./datasets.mjs";
 
 const $ = (selector) => document.querySelector(selector);
 const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
@@ -29,6 +29,23 @@ function visibleRows() {
     return [...filtered.slice(shift), ...filtered.slice(0, shift)].slice(0, 6);
 }
 
+function renderMetrics() {
+    const cost = $("#buy-in").value === "" ? null : Number($("#buy-in").value);
+    const result = calculate(rows, cost);
+    const metric = (value, digits = 2) => value === null || value === undefined
+        ? "\u2014"
+        : value === Infinity ? "\u221e" : Number(value).toLocaleString("en-GB", { maximumFractionDigits: digits });
+    const cells = [
+        ["EV", result.mean === null ? "\u2014" : `${metric(result.mean)} ${current.unit}`, "expected resale"],
+        ["profit", result.profit === null ? "\u2014" : `${metric(result.profit)} ${current.unit}`, "expected profit after buy-in"],
+        ["Sharpe", metric(result.ratio), "expected profit divided by one-roll volatility"],
+        ["\u03c3", metric(result.stdev), "one-roll standard deviation"],
+        ["PF", metric(result.profitFactor), "expected gains divided by expected losses"],
+        ["win", result.win === null ? "\u2014" : `${metric(result.win * 100, 1)}%`, "chance of a profitable outcome"],
+    ];
+    $("#sheet-kpis").innerHTML = cells.map(([label, value, title]) => `<span title="${title}"><small>${label}</small><strong>${value}</strong></span>`).join("");
+}
+
 function renderRows() {
     const shown = visibleRows();
     $("#rows").innerHTML = shown.map((row) => `<tr>
@@ -37,6 +54,7 @@ function renderRows() {
         <td>${row.modelled ? "modelled" : fmt(row.listings)}</td>
     </tr>`).join("");
     $("#empty").hidden = filtered.length > 0;
+    renderMetrics();
     window.__datasets = {
         ready: true,
         id: current.id,
@@ -105,6 +123,7 @@ function loadDataset(id) {
     $("#dataset-select").value = current.id;
     $("#sheet-title").textContent = current.name;
     $("#row-count").textContent = `${rows.length.toLocaleString()} rows`;
+    $("#buy-in").value = current.cost ?? "";
     $("#search").value = "";
     $("#updated").textContent = "not refreshed yet";
     setStep("");
@@ -114,6 +133,7 @@ function loadDataset(id) {
 
 $("#dataset-select").addEventListener("change", () => loadDataset($("#dataset-select").value));
 $("#search").addEventListener("input", filter);
+$("#buy-in").addEventListener("input", renderMetrics);
 $("#refresh").addEventListener("click", refreshWorkbook);
 $("#export").addEventListener("click", () => {
     const quote = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;

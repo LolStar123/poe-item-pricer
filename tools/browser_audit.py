@@ -32,6 +32,11 @@ try:
         page.goto(url)
         page.wait_for_function("window.__datasets?.ready")
         page.wait_for_function("window.__datasets.refreshId === 1 && !window.__datasets.refreshing")
+        assert page.locator('#sheet-kpis span').count() == 6
+        assert page.locator('#sheet-kpis span').first.inner_text().startswith('EV')
+        before_profit = page.locator('#sheet-kpis span').nth(1).inner_text()
+        page.locator('#buy-in').fill('200')
+        assert page.locator('#sheet-kpis span').nth(1).inner_text() != before_profit
         assert page.evaluate("window.__datasets.count") == 3741
         assert page.locator("#rows tr").count() == 6
         assert page.locator(".pipeline .done").count() == 4
@@ -75,7 +80,7 @@ try:
         page.locator("[data-tab='variants']").click()
         assert page.evaluate("window.__poe.pairs") == 3741
         assert not errors, errors
-        print("PASS: refresh pipeline, dataset switch, search, export, mobile and archived workbook")
+        print("PASS: refresh pipeline, EV/risk sheet, dataset switch, search, export, mobile and archived workbook")
         browser.close()
 finally:
     server.shutdown()

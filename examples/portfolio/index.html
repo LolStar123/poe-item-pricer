@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#171a1f">
     <title>sheetato / refresh the workbook</title>
     <link rel="stylesheet" href="browser.css">
+    <link rel="stylesheet" href="identity.css">
 </head>
 <body>
 <a class="skip" href="#refresh">skip to refresh</a>
@@ -17,7 +18,7 @@
 <main>
     <section class="hero">
         <p>path of exile market data</p>
-        <h1>refresh the<br><em>pricing workbook.</em></h1>
+        <h1>refresh the pricing workbook.</h1>
         <span>listings in. clean sheets out.</span>
     </section>
 
@@ -39,8 +40,9 @@
     <section class="sheet" aria-labelledby="sheet-title">
         <div class="sheet-head">
             <div><p>workbook preview</p><h2 id="sheet-title">Watcher’s Eye</h2></div>
-            <strong id="row-count">0 rows</strong>
+            <div class="sheet-summary"><label for="buy-in">buy-in<input id="buy-in" type="number" min="0" step=".1"></label><strong id="row-count">0 rows</strong></div>
         </div>
+        <div class="sheet-kpis" id="sheet-kpis" aria-label="Workbook risk statistics"></div>
         <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
         <div class="table-wrap">
             <table>
