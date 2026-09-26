@@ -33,8 +33,15 @@ try:
         page.locator('[data-aura=Clarity]').click()
         assert 0 < page.evaluate('__datasets.filtered') < 3741
         page.locator('#clear').click()
+        page.locator('#rows button').first.click()
+        page.locator('#save-selection').click()
+        assert page.evaluate('__datasets.saved') == 1
+        page.locator('#view-shortlist').click()
+        assert page.locator('#shortlist tr').count() == 1
         page.locator('#risk-view').click()
         assert page.locator('#metrics').is_visible()
+        assert page.locator('#distribution rect').count() > 8
+        assert page.locator('#sensitivity tr').count() == 5
         before=page.evaluate('__datasets.result.profit')
         page.locator('#buyin').fill('259')
         assert abs(page.evaluate('__datasets.result.profit')-(before-100))<1e-8

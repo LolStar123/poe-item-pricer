@@ -52,6 +52,7 @@
                         <div>
                             <h2 id="title">watcher's eye</h2>
                             <p id="description"></p>
+                            <p class="dataset-state"><span id="dataset-state"></span><span id="coverage-badge"></span></p>
                         </div>
                         <button id="export">download results</button>
                     </div>
@@ -93,6 +94,16 @@
                     <p id="model-label" class="model-label"></p>
                     <div id="metrics" class="metrics" aria-live="polite"></div>
                     <p id="interpretation"></p>
+                    <div class="risk-workbench">
+                        <figure class="distribution-card">
+                            <figcaption>profit distribution at this buy-in</figcaption>
+                            <svg id="distribution" viewBox="0 0 720 220" role="img" aria-label="Distribution of profit outcomes"></svg>
+                        </figure>
+                        <section class="sensitivity-card" aria-labelledby="sensitivity-title">
+                            <h4 id="sensitivity-title">buy-in sensitivity</h4>
+                            <table><thead><tr><th>buy-in</th><th>EV</th><th>chance</th></tr></thead><tbody id="sensitivity"></tbody></table>
+                        </section>
+                    </div>
                     <details>
                         <summary>probabilities, coverage & more risk stats</summary>
                         <p id="assumption"></p>
@@ -135,15 +146,20 @@
                     </div>
                     <div class="results-heading">
                         <p id="count" aria-live="polite"></p>
-                        <p>select a row for its source and price details</p>
+                        <p><button id="view-shortlist" class="text-button">shortlist <span id="saved-count">0</span></button></p>
                     </div>
                     <details id="selection">
                         <summary>selected variant</summary>
-                        <div id="selected">
+                        <div class="selected-layout"><div id="selected">
                             Select a variant to inspect its price, probability
                             and measurement date.
-                        </div>
+                        </div><button id="save-selection" type="button">save variant</button></div>
                     </details>
+                    <section id="shortlist-panel" class="shortlist" hidden aria-labelledby="shortlist-title">
+                        <div><h3 id="shortlist-title">saved variants</h3><button id="clear-shortlist" class="text-button">clear</button></div>
+                        <p id="shortlist-empty">Select useful rows to compare them here.</p>
+                        <div class="table-wrap"><table><thead><tr><th>variant</th><th>price</th><th>profit</th><th></th></tr></thead><tbody id="shortlist"></tbody></table></div>
+                    </section>
                     <div class="table-wrap">
                         <table>
                             <thead>
@@ -168,6 +184,10 @@
                         ><span id="page"></span><button id="next">next</button>
                     </div>
                     </div>
+                    <details class="method">
+                        <summary>how this dataset becomes a decision</summary>
+                        <ol><li>collect archived asking-price observations through rotating residential proxies</li><li>normalise item variants and keep missing quotes visible</li><li>join each outcome to its probability assumption and buy-in</li><li>calculate EV, dispersion, profit factor and downside without treating missing prices as zero</li></ol>
+                    </details>
                 </section>
             </div>
             <details id="comparison"><summary>compare dataset coverage and expected profit</summary>

@@ -1,4 +1,5 @@
 import { tripleRows, selectRows, calculate } from "./datasets.mjs";
+import { histogram } from "./model.mjs";
 const $ = (s) => document.querySelector(s),
     esc = (s) =>
         String(s ?? "").replace(
@@ -25,7 +26,9 @@ let data,
     page = 0,
     result,
     cost = null,
-    triples;
+    triples,
+    selectedRow = null,
+    saved = [];
 const size = 25,
     params = new URLSearchParams(location.search);
 function money(x) {
@@ -97,6 +100,8 @@ function measure() {
     ]
         .map(([a, b]) => `<span>${a}: <strong>${b}</strong></span>`)
         .join("");
+    renderDistribution();
+    renderSensitivity();
     window.__datasets = {
         ready: true,
         id: current.id,
@@ -104,8 +109,30 @@ function measure() {
         result,
         cost,
         filtered: filtered.length,
+        saved: saved.length,
     };
     renderTable();
+}
+function renderDistribution() {
+    const svg = $("#distribution");
+    if (cost === null || !result || result.coverage < 1 - 1e-8) {
+        svg.innerHTML = '<text x="360" y="110" text-anchor="middle" fill="#a9b2be" font-size="14">complete prices and a buy-in are needed</text>';
+        return;
+    }
+    const bins = histogram(rows, cost, 22), max = Math.max(...bins.map((bin) => bin.p), .0001), bar = 620 / bins.length;
+    const zero = bins[0].low >= 0 ? 54 : bins.at(-1).high <= 0 ? 674 : 54 + (-bins[0].low / (bins.at(-1).high - bins[0].low)) * 620;
+    svg.innerHTML = bins.map((bin, index) => {
+        const height = bin.p / max * 142, x = 54 + index * bar, tone = bin.high <= 0 ? '#ba806f' : '#8db8a7';
+        return `<rect x="${x.toFixed(2)}" y="${(174-height).toFixed(2)}" width="${Math.max(1,bar-2).toFixed(2)}" height="${height.toFixed(2)}" fill="${tone}"><title>${fmt(bin.low)} to ${fmt(bin.high)} ${current.unit}: ${(bin.p*100).toFixed(2)}%</title></rect>`;
+    }).join('') + `<path d="M54 174H674M${zero.toFixed(2)} 22V180" fill="none" stroke="#596575" stroke-width="1"/><text x="54" y="202" fill="#a9b2be" font-size="12">${fmt(bins[0].low)}</text><text x="674" y="202" text-anchor="end" fill="#a9b2be" font-size="12">${fmt(bins.at(-1).high)} profit</text><text x="${Math.min(650,Math.max(78,zero+6)).toFixed(2)}" y="34" fill="#e3b978" font-size="11">break-even</text>`;
+}
+function renderSensitivity() {
+    const body = $("#sensitivity");
+    if (cost === null || !result) { body.innerHTML = '<tr><td colspan="3">enter a buy-in</td></tr>'; return; }
+    body.innerHTML = [.8,.9,1,1.1,1.2].map(multiplier => {
+        const trial = cost * multiplier, measured = calculate(rows, trial), profit = measured.profit;
+        return `<tr><td>${money(trial)}</td><td class="${profit === null ? '' : profit >= 0 ? 'positive' : 'negative'}">${profit === null ? 'unknown' : money(profit)}</td><td>${measured.win === null ? 'unknown' : fmt(measured.win*100)+'%'}</td></tr>`;
+    }).join('');
 }
 function renderTable() {
     page = Math.max(0, Math.min(page, Math.ceil(filtered.length / size) - 1));
@@ -146,6 +173,10 @@ function load(id, initial = false) {
         ? '<span>try an aura</span>' + ["Clarity", "Precision", "Hatred", "Malevolence", "Determination"].map(a => `<button data-aura="${a}">${a}</button>`).join("") : "";
     $("#title").textContent = current.name;
     $("#description").textContent = current.description;
+    $("#dataset-state").textContent = `${rows.length.toLocaleString()} outcomes · ${current.unit}`;
+    const priced = rows.filter(row => row.price !== null).length;
+    $("#coverage-badge").textContent = `${priced.toLocaleString()} priced`;
+    $("#coverage-badge").classList.toggle('complete', priced === rows.length);
     $("#assumption").textContent = current.assumption;
     $("#model-label").textContent =
         current.id === "voices"
@@ -182,6 +213,7 @@ function load(id, initial = false) {
     for (const b of document.querySelectorAll("[data-dataset]"))
         b.setAttribute("aria-pressed", b.dataset.dataset === current.id);
     $("#selection").open = false;
+    selectedRow = null;
     $("#selected").textContent =
         "Select a variant to inspect its price, probability and measurement date.";
     filter();
@@ -228,11 +260,30 @@ $("#rows").onclick = (e) => {
     const b = e.target.closest("[data-row]");
     if (!b) return;
     const r = filtered[Number(b.dataset.row)];
+    selectedRow = r;
     $("#selected").innerHTML =
         `<strong>${esc(r.label)}</strong><p>${r.modelled ? "Modelled value" : "Asking price"}: ${money(r.price)}${r.floor !== undefined ? ` / floor: ${money(r.floor)}` : ""}<br>Outcome probability under this model: ${(r.probability * 100).toLocaleString("en-GB", {maximumFractionDigits: 6})}%<br>Measured: ${r.measured ? esc(r.measured.replace("T", " ").replace("Z", " UTC")) : r.modelled ? "derived from archived pair quotes" : "date not recorded on this row"}<br>Source: ${esc(r.source)}</p>`;
     $("#selection").open = true;
+    $("#save-selection").textContent = saved.some(item => item.key === rowKey(r)) ? 'saved' : 'save variant';
     $("#selection").scrollIntoView({ block: "nearest" });
 };
+const rowKey = row => `${current.id}|${row.label}`;
+function renderShortlist() {
+    $("#saved-count").textContent = saved.length;
+    $("#shortlist-empty").hidden = saved.length > 0;
+    $("#shortlist").innerHTML = saved.map((item,index) => `<tr><td>${esc(item.label)}<small>${esc(item.dataset)}</small></td><td>${item.price === null ? 'unknown' : fmt(item.price)+' '+item.unit}</td><td>${cost === null || item.price === null || item.datasetId !== current.id ? '—' : money(item.price-cost)}</td><td><button data-remove="${index}" aria-label="Remove ${esc(item.label)}">remove</button></td></tr>`).join('');
+    if(window.__datasets) window.__datasets.saved=saved.length;
+}
+$("#save-selection").onclick = () => {
+    if(!selectedRow) return;
+    const key=rowKey(selectedRow),index=saved.findIndex(item=>item.key===key);
+    if(index>=0) saved.splice(index,1); else saved.push({key,label:selectedRow.label,price:selectedRow.price,unit:current.unit,dataset:current.name,datasetId:current.id});
+    $("#save-selection").textContent=index>=0?'save variant':'saved';
+    renderShortlist();
+};
+$("#view-shortlist").onclick=()=>{const panel=$("#shortlist-panel");panel.hidden=!panel.hidden;if(!panel.hidden)panel.scrollIntoView({block:'nearest'});};
+$("#clear-shortlist").onclick=()=>{saved=[];renderShortlist();};
+$("#shortlist").onclick=e=>{const button=e.target.closest('[data-remove]');if(!button)return;saved.splice(Number(button.dataset.remove),1);renderShortlist();};
 $("#export").onclick = () => {
     const quote = (x) => '"' + String(x ?? "").replaceAll('"', '""') + '"';
     const text = [
@@ -298,6 +349,7 @@ try {
         .join("");
     $("#mode").value = params.get("mode") === "triple" ? "triple" : "pair";
     load(params.get("dataset") || "watchers", true);
+    renderShortlist();
 } catch (e) {
     $("#error").textContent = e.message;
     $("#datasets").textContent = "Dataset loading failed.";
