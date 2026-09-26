@@ -526,3 +526,8 @@ h3 { font-size: 19px; font-weight: 500; margin: 20px 0 8px; }
 #description { font-size: 14px; }
 #comparison summary { font-size: 17px; margin-bottom: 15px; }
 @media (max-width: 720px) { aside { position: static; } .view-switch button { padding: 12px; } }
+
+/* Tactile without becoming decorative. */
+button{transition-property:color,background-color,border-color,scale;transition-duration:120ms;transition-timing-function:cubic-bezier(.2,0,0,1)}
+button:active:not(:disabled){scale:.96}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
