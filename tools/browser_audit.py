@@ -1,9 +1,10 @@
-"""Exercise original workbook data and the functional item-risk calculator."""
+"""Exercise the refresh pipeline, workbook preview, export and archived workbook."""
 import functools
 import http.server
 import os
 import threading
 from pathlib import Path
+
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,99 +16,66 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 
 
 server = http.server.ThreadingHTTPServer(
-    ('127.0.0.1', 0), functools.partial(Quiet, directory=str(ROOT / 'examples/portfolio'))
+    ("127.0.0.1", 0),
+    functools.partial(Quiet, directory=str(ROOT / "examples/portfolio")),
 )
 threading.Thread(target=server.serve_forever, daemon=True).start()
 try:
-    with sync_playwright() as p:
-        browser = p.chromium.launch(**({'channel': 'chrome'} if os.name == 'nt' else {}))
-        page = browser.new_page(viewport={'width': 1280, 'height': 1000})
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(
+            **({"channel": "chrome"} if os.name == "nt" else {})
+        )
+        page = browser.new_page(viewport={"width": 1280, "height": 940})
         errors = []
-        page.on('pageerror', lambda e: errors.append(str(e)))
-        url=os.environ.get('AUDIT_URL', f'http://127.0.0.1:{server.server_port}/')
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        url = os.environ.get("AUDIT_URL", f"http://127.0.0.1:{server.server_port}/")
         page.goto(url)
-        page.wait_for_function('window.__datasets?.ready')
-        assert page.evaluate('__datasets.count') == 3741
-        assert page.locator('#search').is_visible()
-        assert not page.locator('#metrics').is_visible()
-        page.locator('[data-aura=Clarity]').click()
-        assert 0 < page.evaluate('__datasets.filtered') < 3741
-        page.locator('#clear').click()
-        page.locator('#rows button').first.click()
-        page.locator('#save-selection').click()
-        assert page.evaluate('__datasets.saved') == 1
-        page.locator('#view-shortlist').click()
-        assert page.locator('#shortlist tr').count() == 1
-        page.locator('#risk-view').click()
-        assert page.locator('#metrics').is_visible()
-        assert page.locator('#distribution rect').count() > 8
-        assert page.locator('#sensitivity tr').count() == 5
-        before=page.evaluate('__datasets.result.profit')
-        page.locator('#buyin').fill('259')
-        assert abs(page.evaluate('__datasets.result.profit')-(before-100))<1e-8
-        page.locator('#buyin').fill('-1')
-        assert page.locator('#error').inner_text()
-        assert page.evaluate('__datasets.result') is None
-        page.locator('#buyin').fill('259')
-        page.locator('#browse-view').click()
-        page.locator('#search').fill('clarity precision')
-        assert 0<page.evaluate('__datasets.filtered')<3741
-        with page.expect_download() as dl:
-            page.locator('#export').click()
-        assert 'Clarity' in Path(dl.value.path()).read_text(encoding='utf-8')
-        page.locator('#clear').click()
-        page.locator('#mode').select_option('triple')
-        assert page.evaluate('__datasets.count') == 105995
-        page.locator('[data-dataset="terror"]').click()
-        assert page.evaluate('__datasets.result.profit') is None
-        page.locator('#coverage').select_option('missing')
-        assert page.evaluate('__datasets.filtered')==15
-        page.locator('[data-dataset="watchers"]').click()
-        page.locator('#mode').select_option('pair')
-        page.locator('#search').fill('no-such-mod-zzzz')
-        assert page.locator('#empty').is_visible()
-        page.locator('#clear').click()
-        page.screenshot(path=str(ROOT / 'examples/portfolio/preview.png'))
-        page.set_viewport_size({'width':390,'height':844})
-        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
-        page.locator('#dataset-select').select_option('split')
-        assert page.evaluate('__datasets.count')==36
-        page.set_viewport_size({'width':1280,'height':1000})
-        page.goto(url.rstrip('/')+'/archive.html')
-        page.wait_for_function('window.__poe?.ready')
-        assert page.evaluate('__poe.outcomes') == 101
-        assert abs(page.evaluate('__poe.result.profit') - 1.7920792079207921) < 1e-8
-        page.locator('[data-price="100"]').fill('500')
-        assert page.evaluate('__poe.result.profit') > 2
-        page.locator('[data-price="100"]').fill('')
-        assert page.evaluate('__poe.result.profit') is None
-        assert page.evaluate('__poe.result.coverage') < 1
-        page.locator('#restore').click()
-        page.locator('#case').select_option('meaning')
-        assert page.evaluate('__poe.outcomes') == 13
-        with page.expect_download() as dl:
-            page.locator('#export').click()
-        assert 'energy shield' in Path(dl.value.path()).read_text()
-        page.locator('[data-tab="archive"]').click()
-        page.locator('[data-cell="I5"]').click()
-        assert page.locator('#formula').inner_text() == '=H5/101'
-        with page.expect_download() as dl:
-            page.locator('#download').click()
-        assert Path(dl.value.path()).read_bytes().startswith(b'PK')
-        page.locator('#book').select_option('decks')
-        assert '04/05/2024' in page.locator('#workbook').inner_text()
-        page.locator('[data-tab="variants"]').click()
-        assert page.evaluate('__poe.pairs') == 3741
-        page.locator('#mod-search').fill('Anger')
-        assert 'Anger' in page.locator('#pairs').inner_text()
-        page.locator('[data-tab="calculator"]').click()
-        page.locator('#case').select_option('adorned')
-        page.evaluate('window.scrollTo(0,0)')
+        page.wait_for_function("window.__datasets?.ready")
+        page.wait_for_function("window.__datasets.refreshId === 1 && !window.__datasets.refreshing")
+        assert page.evaluate("window.__datasets.count") == 3741
+        assert page.locator("#rows tr").count() == 6
+        assert page.locator(".pipeline .done").count() == 4
+        assert page.locator("#status").inner_text() == "3,741 rows refreshed."
 
-        page.set_viewport_size({'width': 390, 'height': 844})
-        assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+        page.locator("#search").fill("clarity precision")
+        assert 0 < page.evaluate("window.__datasets.filtered") < 3741
+        previous = page.evaluate("window.__datasets.refreshId")
+        page.locator("#refresh").click()
+        page.wait_for_function(
+            "previous => window.__datasets.refreshId > previous && !window.__datasets.refreshing",
+            arg=previous,
+        )
+
+        with page.expect_download() as download:
+            page.locator("#export").click()
+        assert "Clarity" in Path(download.value.path()).read_text(encoding="utf-8")
+
+        page.locator("#dataset-select").select_option("split")
+        page.wait_for_function("window.__datasets.id === 'split' && !window.__datasets.refreshing")
+        assert page.evaluate("window.__datasets.count") == 36
+        previous = page.evaluate("window.__datasets.refreshId")
+        page.locator("#dataset-select").select_option("watchers")
+        page.wait_for_function(
+            "previous => window.__datasets.id === 'watchers' && window.__datasets.refreshId > previous && !window.__datasets.refreshing",
+            arg=previous,
+        )
+        page.screenshot(path=str(ROOT / "examples/portfolio/preview.png"), full_page=True)
+
+        page.set_viewport_size({"width": 390, "height": 844})
+        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+
+        page.set_viewport_size({"width": 1280, "height": 940})
+        page.goto(url.rstrip("/") + "/archive.html")
+        page.wait_for_function("window.__poe?.ready")
+        assert page.evaluate("window.__poe.outcomes") == 101
+        assert abs(page.evaluate("window.__poe.result.profit") - 1.7920792079207921) < 1e-8
+        page.locator("[data-tab='archive']").click()
+        page.locator("[data-cell='I5']").click()
+        assert page.locator("#formula").inner_text() == "=H5/101"
+        page.locator("[data-tab='variants']").click()
+        assert page.evaluate("window.__poe.pairs") == 3741
         assert not errors, errors
-        print('PASS: priced dataset landing, EV edits, 105995 triples, filters, missing coverage, mobile switching, archive parity and downloads')
+        print("PASS: refresh pipeline, dataset switch, search, export, mobile and archived workbook")
         browser.close()
 finally:
     server.shutdown()

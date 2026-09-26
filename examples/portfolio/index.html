@@ -1,225 +1,63 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="theme-color" content="#191d24" />
-        <title>sheetato / item datasets</title>
-        <link rel="stylesheet" href="browser.css" />
-    </head>
-    <body>
-        <a class="skip" href="#workspace">skip to datasets</a>
-        <header>
-            <a
-                href="https://lolstar123.github.io/just-a-little-further/"
-                >atul / sheetato</a
-            >
-            <nav>
-                <a href="archive.html">early spreadsheets</a
-                ><a href="https://github.com/LolStar123/poe-item-pricer"
-                    >github</a
-                >
-            </nav>
-        </header>
-        <main id="workspace">
-            <div class="heading">
-                <div>
-                    <p class="eyebrow">path of exile / item research</p>
-                    <h1>watcher's eye & item datasets.</h1>
-                    <p>
-                        3,741 priced pairs. 105,995 modelled triples. Search the modifiers,
-                        compare item datasets, and check what a roll is worth.
-                    </p>
-                </div>
-                <p class="archive">
-                    archived market data<br /><strong>august 2026</strong
-                    ><br />asking prices, not a live feed
-                </p>
-            </div>
-            <div class="layout">
-                <aside aria-label="Item datasets">
-                    <h2>datasets</h2>
-                    <label class="mobile-dataset"
-                        >choose a dataset<select id="dataset-select"></select
-                    ></label>
-                    <div id="datasets">loading datasets...</div>
-                    <a class="compare-link" href="#comparison"
-                        >compare all datasets</a
-                    >
-                </aside>
-                <section class="workspace">
-                    <div class="dataset-heading">
-                        <div>
-                            <h2 id="title">watcher's eye</h2>
-                            <p id="description"></p>
-                            <p class="dataset-state"><span id="dataset-state"></span><span id="coverage-badge"></span></p>
-                        </div>
-                        <button id="export">download results</button>
-                    </div>
-                        <div id="mode-wrap">
-                            <label for="mode">eye type</label
-                            ><select id="mode">
-                                <option value="pair">
-                                    2 mods / 3,741 pairs
-                                </option>
-                                <option value="triple">
-                                    3 mods / 105,995 modelled combinations
-                                </option>
-                            </select>
-                        </div>
-                    <p id="error" role="alert"></p>
-                    <nav class="view-switch" aria-label="Dataset view">
-                        <button id="browse-view" aria-pressed="true">browse variants</button>
-                        <button id="risk-view" aria-pressed="false">check EV &amp; risk</button>
-                    </nav>
-                    <div id="risk-panel" hidden>
-                    <h3>what is one random outcome worth?</h3>
-                    <p class="help">Set your purchase price. Expected value (EV) is the average resale across all outcomes; expected profit subtracts your buy-in.</p>
-                    <div class="calculator">
-                        <div>
-                            <label for="buyin">your buy-in</label>
-                            <div class="input-unit">
-                                <input
-                                    id="buyin"
-                                    type="number"
-                                    min="0"
-                                    step="0.1"
-                                    inputmode="decimal"
-                                /><span id="unit">chaos</span>
-                            </div>
-                        </div>
-                        <button id="reset-cost">reset buy-in</button>
-                        <p id="cost-note"></p>
-                    </div>
-                    <p id="model-label" class="model-label"></p>
-                    <div id="metrics" class="metrics" aria-live="polite"></div>
-                    <p id="interpretation"></p>
-                    <div class="risk-workbench">
-                        <figure class="distribution-card">
-                            <figcaption>profit distribution at this buy-in</figcaption>
-                            <svg id="distribution" viewBox="0 0 720 220" role="img" aria-label="Distribution of profit outcomes"></svg>
-                        </figure>
-                        <section class="sensitivity-card" aria-labelledby="sensitivity-title">
-                            <h4 id="sensitivity-title">buy-in sensitivity</h4>
-                            <table><thead><tr><th>buy-in</th><th>EV</th><th>chance</th></tr></thead><tbody id="sensitivity"></tbody></table>
-                        </section>
-                    </div>
-                    <details>
-                        <summary>probabilities, coverage & more risk stats</summary>
-                        <p id="assumption"></p>
-                        <div id="extra-stats"></div>
-                        <p>
-                            Filters narrow the table only. EV always covers the
-                            full selected dataset and its original probability
-                            mass. Return/risk is expected profit divided by
-                            one-roll standard deviation, not annualised Sharpe.
-                        </p>
-                    </details>
-                    </div>
-                    <div id="browse-panel">
-                    <div id="quick-filters" aria-label="Try an aura"></div>
-                    <div class="filters">
-                        <label
-                            >search modifiers or items<input
-                                id="search"
-                                type="search"
-                                placeholder="e.g. malevolence damage..."
-                                autocomplete="off" /></label
-                        ><label
-                            >aura / category<select id="group">
-                                <option value="">all categories</option>
-                            </select></label
-                        ><label
-                            >sort by<select id="sort">
-                                <option value="high">highest price</option>
-                                <option value="low">lowest price</option>
-                                <option value="name">name</option>
-                                <option value="listings">most listings</option>
-                            </select></label
-                        ><label
-                            >coverage<select id="coverage">
-                                <option value="all">all outcomes</option>
-                                <option value="priced">priced</option>
-                                <option value="missing">missing prices</option>
-                            </select></label
-                        ><button id="clear">clear filters</button>
-                    </div>
-                    <div class="results-heading">
-                        <p id="count" aria-live="polite"></p>
-                        <p><button id="view-shortlist" class="text-button">shortlist <span id="saved-count">0</span></button></p>
-                    </div>
-                    <details id="selection">
-                        <summary>selected variant</summary>
-                        <div class="selected-layout"><div id="selected">
-                            Select a variant to inspect its price, probability
-                            and measurement date.
-                        </div><button id="save-selection" type="button">save variant</button></div>
-                    </details>
-                    <section id="shortlist-panel" class="shortlist" hidden aria-labelledby="shortlist-title">
-                        <div><h3 id="shortlist-title">saved variants</h3><button id="clear-shortlist" class="text-button">clear</button></div>
-                        <p id="shortlist-empty">Select useful rows to compare them here.</p>
-                        <div class="table-wrap"><table><thead><tr><th>variant</th><th>price</th><th>profit</th><th></th></tr></thead><tbody id="shortlist"></tbody></table></div>
-                    </section>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">variant</th>
-                                    <th scope="col" id="price-heading">
-                                        asking price
-                                    </th>
-                                    <th scope="col">profit at <span id="table-cost">archived buy-in</span></th>
-                                    <th scope="col">listings</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rows"></tbody>
-                        </table>
-                    </div>
-                    <p id="empty" hidden>
-                        No matching variants. Try fewer words or clear the
-                        filters.
-                    </p>
-                    <div class="pagination">
-                        <button id="prev">previous</button
-                        ><span id="page"></span><button id="next">next</button>
-                    </div>
-                    </div>
-                    <details class="method">
-                        <summary>how this dataset becomes a decision</summary>
-                        <ol><li>collect archived asking-price observations through rotating residential proxies</li><li>normalise item variants and keep missing quotes visible</li><li>join each outcome to its probability assumption and buy-in</li><li>calculate EV, dispersion, profit factor and downside without treating missing prices as zero</li></ol>
-                    </details>
-                </section>
-            </div>
-            <details id="comparison"><summary>compare dataset coverage and expected profit</summary>
-                <h2>which dataset do you want to explore?</h2>
-                <p>
-                    Each row uses its archived buy-in and stated probability
-                    assumptions. Missing prices stay missing.
-                </p>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>dataset</th>
-                                <th>outcomes</th>
-                                <th>priced</th>
-                                <th>expected profit</th>
-                                <th>units</th>
-                            </tr>
-                        </thead>
-                        <tbody id="compare"></tbody>
-                    </table>
-                </div>
-            </details>
-            <footer>
-                Item-price collection, probability models and risk calculations
-                by Atul Kanodia.
-                <a
-                    href="https://github.com/LolStar123/poe-item-pricer/blob/main/PROVENANCE.md"
-                    >data sources</a
-                >
-            </footer>
-        </main>
-        <script type="module" src="browser.mjs"></script>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171a1f">
+    <title>sheetato / refresh the workbook</title>
+    <link rel="stylesheet" href="browser.css">
+</head>
+<body>
+<a class="skip" href="#refresh">skip to refresh</a>
+<header>
+    <a class="brand" href="https://lolstar123.github.io/just-a-little-further/"><span class="eye" aria-hidden="true"><i></i></span>sheetato</a>
+    <nav><a href="archive.html">workbook</a><a href="https://github.com/LolStar123/poe-item-pricer">source</a></nav>
+</header>
+
+<main>
+    <section class="hero">
+        <p>path of exile market data</p>
+        <h1>refresh the<br><em>pricing workbook.</em></h1>
+        <span>listings in. clean sheets out.</span>
+    </section>
+
+    <section class="refresh-panel" aria-labelledby="refresh-title">
+        <div class="refresh-control">
+            <label for="dataset-select"><span>item family</span><select id="dataset-select"></select></label>
+            <button id="refresh"><span>refresh workbook</span><b aria-hidden="true">↻</b></button>
+        </div>
+
+        <div class="pipeline" aria-label="Refresh pipeline">
+            <div data-step="proxy"><i></i><span>rotate proxy</span></div>
+            <div data-step="collect"><i></i><span>collect listings</span></div>
+            <div data-step="clean"><i></i><span>normalise variants</span></div>
+            <div data-step="write"><i></i><span>update sheet</span></div>
+        </div>
+        <p id="status" role="status">preparing refresh…</p>
+    </section>
+
+    <section class="sheet" aria-labelledby="sheet-title">
+        <div class="sheet-head">
+            <div><p>workbook preview</p><h2 id="sheet-title">Watcher’s Eye</h2></div>
+            <strong id="row-count">0 rows</strong>
+        </div>
+        <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>variant</th><th>asking price</th><th>listings</th></tr></thead>
+                <tbody id="rows"></tbody>
+            </table>
+        </div>
+        <p id="empty" hidden>Nothing found. Try fewer words.</p>
+        <div class="sheet-actions">
+            <span id="updated">not refreshed yet</span>
+            <button id="export">download sheet</button>
+        </div>
+    </section>
+    <p id="error" role="alert"></p>
+</main>
+
+<footer><a href="archive.html">open the full workbook</a><span>archived asking prices · august 2026</span></footer>
+<script type="module" src="browser.mjs"></script>
+</body>
 </html>
