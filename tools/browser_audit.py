@@ -4,6 +4,7 @@ import http.server
 import os
 import threading
 from pathlib import Path
+from urllib.parse import urljoin
 
 from playwright.sync_api import sync_playwright
 
@@ -73,7 +74,7 @@ try:
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
 
         page.set_viewport_size({"width": 1280, "height": 940})
-        page.goto(url.rstrip("/") + "/archive.html")
+        page.goto(urljoin(url, "archive.html"))
         page.wait_for_function("window.__poe?.ready")
         assert page.evaluate("window.__poe.outcomes") == 101
         assert abs(page.evaluate("window.__poe.result.profit") - 1.7920792079207921) < 1e-8
