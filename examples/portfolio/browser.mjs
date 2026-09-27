@@ -48,7 +48,7 @@ function renderMetrics() {
 
 function renderRows() {
     const shown = visibleRows();
-    $("#rows").innerHTML = shown.map((row) => `<tr>
+    $("#rows").innerHTML = shown.map((row, index) => `<tr style="--i:${index}">
         <td>${(row.mods || [row.label]).map((mod) => `<span>${esc(mod)}</span>`).join("")}</td>
         <td>${money(row)}</td>
         <td>${row.modelled ? "modelled" : fmt(row.listings)}</td>
@@ -89,7 +89,9 @@ async function refreshWorkbook() {
     if (refreshing) return;
     const generation = ++refreshGeneration;
     refreshing = true;
+    document.documentElement.dataset.refreshing = "true";
     refreshId += 1;
+    window.__datasets = { ...window.__datasets, refreshing, refreshId };
     $("#refresh").disabled = true;
     $("#refresh span").textContent = "refreshing";
     const steps = [
@@ -106,6 +108,7 @@ async function refreshWorkbook() {
     }
     setStep("done");
     refreshing = false;
+    delete document.documentElement.dataset.refreshing;
     $("#status").textContent = `${rows.length.toLocaleString()} rows refreshed.`;
     $("#updated").textContent = "updated just now";
     $("#refresh").disabled = false;

@@ -1,8 +1,8 @@
-# sheetato / PoE item research
+# sheetato / PoE economy workbook
 
-[Open the dataset browser](https://lolstar123.github.io/poe-item-pricer/)
+[Open the workbook demo](https://lolstar123.github.io/poe-item-pricer/)
 
-Search 3,741 priced Watcher's Eye pairs, filter by aura, and compare expected resale, profit and risk against an editable buy-in. Switch to the 105,995 three-mod combinations to explore a model based on the strongest contained pair. These are archived asking prices from August 2026, not a live market feed.
+Refresh archived Path of Exile prices into a compact workbook, then compare expected resale, profit, Sharpe, dispersion, profit factor and win rate against an editable buy-in. The demo includes 3,741 priced Watcher's Eye pairs and six other item families. These are archived asking prices from August 2026, not a live market feed.
 
 ![Dataset browser](examples/portfolio/preview.png)
 

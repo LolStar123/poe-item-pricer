@@ -27,7 +27,9 @@ try:
         )
         page = browser.new_page(viewport={"width": 1280, "height": 940})
         errors = []
+        bad_responses = []
         page.on("pageerror", lambda error: errors.append(str(error)))
+        page.on("response", lambda response: bad_responses.append(f"{response.status} {response.url}") if response.status >= 400 else None)
         url = os.environ.get("AUDIT_URL", f"http://127.0.0.1:{server.server_port}/")
         page.goto(url)
         page.wait_for_function("window.__datasets?.ready")
@@ -64,6 +66,7 @@ try:
             "previous => window.__datasets.id === 'watchers' && window.__datasets.refreshId > previous && !window.__datasets.refreshing",
             arg=previous,
         )
+        page.wait_for_timeout(400)
         page.screenshot(path=str(ROOT / "examples/portfolio/preview.png"), full_page=True)
 
         page.set_viewport_size({"width": 390, "height": 844})
@@ -80,6 +83,7 @@ try:
         page.locator("[data-tab='variants']").click()
         assert page.evaluate("window.__poe.pairs") == 3741
         assert not errors, errors
+        assert not bad_responses, bad_responses
         print("PASS: refresh pipeline, EV/risk sheet, dataset switch, search, export, mobile and archived workbook")
         browser.close()
 finally:

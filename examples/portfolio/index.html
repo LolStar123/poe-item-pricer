@@ -3,63 +3,81 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#171a1f">
-    <title>sheetato / refresh the workbook</title>
+    <meta name="theme-color" content="#121914">
+    <title>sheetato / item pricing workbook</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="browser.css">
     <link rel="stylesheet" href="identity.css">
 </head>
 <body>
 <a class="skip" href="#refresh">skip to refresh</a>
 <header>
-    <a class="brand" href="https://lolstar123.github.io/just-a-little-further/"><span class="eye" aria-hidden="true"><i></i></span>sheetato</a>
-    <nav><a href="archive.html">workbook</a><a href="https://github.com/LolStar123/poe-item-pricer">source</a></nav>
+    <a class="brand" href="https://lolstar123.github.io/just-a-little-further/">
+        <span class="eye" aria-hidden="true"><i></i></span>
+        <span>sheetato</span>
+    </a>
+    <nav><a href="archive.html">early workbook</a><a href="https://github.com/LolStar123/poe-item-pricer">source</a></nav>
 </header>
 
 <main>
-    <section class="hero">
-        <p>path of exile market data</p>
-        <h1>sheetato.xlsx</h1>
-        <span>listings in. clean sheets out.</span>
+    <section class="hero" aria-labelledby="page-title">
+        <div>
+            <p>path of exile economy</p>
+            <h1 id="page-title">sheetato.xlsx</h1>
+        </div>
+        <p class="hero-note">pick an item family. refresh the prices. let the sheet do the worrying.</p>
     </section>
 
-    <section class="refresh-panel" aria-labelledby="refresh-title">
+    <section class="refresh-panel" aria-labelledby="refresh-heading">
+        <h2 id="refresh-heading">refresh pipeline</h2>
         <div class="refresh-control">
             <label for="dataset-select"><span>item family</span><select id="dataset-select"></select></label>
             <button id="refresh"><span>refresh workbook</span><b aria-hidden="true">↻</b></button>
         </div>
-
-        <div class="pipeline" aria-label="Refresh pipeline">
-            <div data-step="proxy"><i></i><span>rotate proxy</span></div>
-            <div data-step="collect"><i></i><span>collect listings</span></div>
-            <div data-step="clean"><i></i><span>normalise variants</span></div>
-            <div data-step="write"><i></i><span>update sheet</span></div>
+        <div class="pipeline" aria-label="Refresh progress">
+            <div data-step="proxy"><i></i><span>proxy</span></div>
+            <div data-step="collect"><i></i><span>listings</span></div>
+            <div data-step="clean"><i></i><span>variants</span></div>
+            <div data-step="write"><i></i><span>workbook</span></div>
         </div>
-        <p id="status" role="status">preparing refresh…</p>
+        <p id="status" role="status">ready to refresh.</p>
     </section>
 
     <section class="sheet" aria-labelledby="sheet-title">
-        <div class="sheet-head">
-            <div><p>workbook preview</p><h2 id="sheet-title">Watcher’s Eye</h2></div>
-            <div class="sheet-summary"><label for="buy-in">buy-in<input id="buy-in" type="number" min="0" step=".1"></label><strong id="row-count">0 rows</strong></div>
+        <div class="workbook-bar">
+            <span class="workbook-mark" aria-hidden="true">S</span>
+            <div><strong>sheetato.xlsx</strong><span>saved locally</span></div>
+            <span class="window-dots" aria-hidden="true">• • •</span>
         </div>
+        <div class="formula-bar" aria-hidden="true"><span>fx</span><code>=AVERAGE(priced_variants)-buy_in</code></div>
+        <div class="sheet-head">
+            <h2 id="sheet-title">Watcher’s Eye</h2>
+            <div class="sheet-summary">
+                <label for="buy-in">buy-in<input id="buy-in" type="number" min="0" step=".1"></label>
+                <strong id="row-count">0 rows</strong>
+            </div>
+        </div>
+
         <div class="sheet-kpis" id="sheet-kpis" aria-label="Workbook risk statistics"></div>
-        <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
+
+        <div class="sheet-tools">
+            <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
+            <button id="export">download .csv</button>
+        </div>
+
         <div class="table-wrap">
             <table>
-                <thead><tr><th>variant</th><th>asking price</th><th>listings</th></tr></thead>
+                <thead><tr><th>variant</th><th>asking</th><th>quotes</th></tr></thead>
                 <tbody id="rows"></tbody>
             </table>
         </div>
         <p id="empty" hidden>Nothing found. Try fewer words.</p>
-        <div class="sheet-actions">
-            <span id="updated">not refreshed yet</span>
-            <button id="export">download sheet</button>
-        </div>
+        <div class="sheet-actions"><span class="sheet-tab">summary</span><span id="updated">not refreshed yet</span></div>
     </section>
     <p id="error" role="alert"></p>
 </main>
 
-<footer><a href="archive.html">open the full workbook</a><span>archived asking prices · august 2026</span></footer>
+<footer><span>archived asking prices · august 2026</span><a href="archive.html">inspect the original formulas</a></footer>
 <script type="module" src="browser.mjs"></script>
 </body>
 </html>
