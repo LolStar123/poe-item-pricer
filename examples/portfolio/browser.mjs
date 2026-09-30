@@ -16,6 +16,8 @@ let refreshId = 0;
 let refreshTimer = 0;
 let refreshing = false;
 let refreshGeneration = 0;
+let page = 0;
+const PAGE_SIZE = 6;
 const delay = (milliseconds) => new Promise((resolve) => {
     refreshTimer = setTimeout(resolve, milliseconds);
 });
@@ -25,8 +27,7 @@ function money(row) {
 }
 
 function visibleRows() {
-    const shift = refreshId % Math.max(1, filtered.length);
-    return [...filtered.slice(shift), ...filtered.slice(0, shift)].slice(0, 6);
+    return filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 }
 
 function renderMetrics() {
@@ -47,6 +48,8 @@ function renderMetrics() {
 }
 
 function renderRows() {
+    const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    page = Math.min(page, pageCount - 1);
     const shown = visibleRows();
     $("#rows").innerHTML = shown.map((row, index) => `<tr style="--i:${index}">
         <td>${(row.mods || [row.label]).map((mod) => `<span>${esc(mod)}</span>`).join("")}</td>
@@ -56,12 +59,20 @@ function renderRows() {
     $("#empty").hidden = filtered.length > 0;
     renderMetrics();
     $("#row-count").textContent = `${filtered.length.toLocaleString()} shown / ${rows.length.toLocaleString()} total`;
+    $("#page-info").textContent = filtered.length
+        ? `${page * PAGE_SIZE + 1}–${Math.min((page + 1) * PAGE_SIZE, filtered.length)} of ${filtered.length.toLocaleString()}`
+        : "0 rows";
+    $("#previous").disabled = page === 0;
+    $("#next").disabled = page >= pageCount - 1;
     window.__datasets = {
         ready: true,
         id: current.id,
         count: rows.length,
         filtered: filtered.length,
         visibleRows: shown.length,
+        page,
+        pages: pageCount,
+        firstVisible: shown[0]?.label || null,
         coverage: $("#coverage").value,
         sort: $("#sort").value,
         refreshing,
@@ -69,7 +80,8 @@ function renderRows() {
     };
 }
 
-function filter() {
+function filter(resetPage = true) {
+    if (resetPage) page = 0;
     filtered = selectRows(rows, {
         query: $("#search").value,
         sort: $("#sort").value,
@@ -125,7 +137,7 @@ function loadDataset(id) {
     refreshing = false;
     current = archive.datasets.find((dataset) => dataset.id === id) || archive.datasets[0];
     rows = current.rows;
-    filtered = rows.filter((row) => row.price !== null);
+    page = 0;
     $("#dataset-select").value = current.id;
     $("#sheet-title").textContent = current.name;
     $("#formula").textContent = "=SUMPRODUCT(price, probability)-buy_in";
@@ -133,7 +145,7 @@ function loadDataset(id) {
     $("#search").value = "";
     $("#updated").textContent = "not refreshed yet";
     setStep("");
-    renderRows();
+    filter(false);
     refreshWorkbook();
 }
 
@@ -141,6 +153,16 @@ $("#dataset-select").addEventListener("change", () => loadDataset($("#dataset-se
 $("#search").addEventListener("input", filter);
 $("#coverage").addEventListener("change", filter);
 $("#sort").addEventListener("change", filter);
+$("#previous").addEventListener("click", () => {
+    if (page === 0) return;
+    page -= 1;
+    renderRows();
+});
+$("#next").addEventListener("click", () => {
+    if (page >= Math.ceil(filtered.length / PAGE_SIZE) - 1) return;
+    page += 1;
+    renderRows();
+});
 $("#buy-in").addEventListener("input", renderMetrics);
 $("#refresh").addEventListener("click", refreshWorkbook);
 $("#export").addEventListener("click", () => {

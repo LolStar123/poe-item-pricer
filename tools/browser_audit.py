@@ -49,6 +49,22 @@ try:
         assert page.evaluate("window.__datasets.coverage") == "all"
         page.locator("#sort").select_option("name")
         assert page.evaluate("window.__datasets.sort") == "name"
+        first = page.evaluate("window.__datasets.firstVisible")
+        assert page.locator("#rows tr").first.inner_text().startswith(first.split(" + ")[0])
+        page.locator("#next").click()
+        assert page.evaluate("window.__datasets.page") == 1
+        refreshed_first = page.evaluate("window.__datasets.firstVisible")
+        assert refreshed_first != first
+        previous_refresh = page.evaluate("window.__datasets.refreshId")
+        page.locator("#refresh").click()
+        page.wait_for_function(
+            "previous => window.__datasets.refreshId > previous && !window.__datasets.refreshing",
+            arg=previous_refresh,
+        )
+        assert page.evaluate("window.__datasets.page") == 1
+        assert page.evaluate("window.__datasets.firstVisible") == refreshed_first
+        page.locator("#previous").click()
+        assert page.evaluate("window.__datasets.page") == 0
 
         page.locator("#search").fill("clarity precision")
         assert 0 < page.evaluate("window.__datasets.filtered") < 3741
@@ -64,19 +80,34 @@ try:
         assert "Clarity" in Path(download.value.path()).read_text(encoding="utf-8")
 
         page.locator("#dataset-select").select_option("split")
-        page.wait_for_function("window.__datasets.id === 'split' && !window.__datasets.refreshing")
+        page.wait_for_function("window.__datasets.id === 'split'")
         assert page.evaluate("window.__datasets.count") == 36
-        previous = page.evaluate("window.__datasets.refreshId")
+        assert page.evaluate("window.__datasets.refreshing") is True
         page.locator("#dataset-select").select_option("watchers")
-        page.wait_for_function(
-            "previous => window.__datasets.id === 'watchers' && window.__datasets.refreshId > previous && !window.__datasets.refreshing",
-            arg=previous,
-        )
+        page.wait_for_function("window.__datasets.id === 'watchers' && !window.__datasets.refreshing")
+        assert page.evaluate("window.__datasets.page") == 0
+        page.locator("#dataset-select").select_option("mageblood")
+        page.wait_for_function("window.__datasets.id === 'mageblood' && !window.__datasets.refreshing")
+        assert page.evaluate("window.__datasets.coverage") == "all"
+        for _ in range(40):
+            if page.locator("#next").is_disabled():
+                break
+            page.locator("#next").click()
+        assert page.locator("#rows").inner_text().count("unknown") > 0
+        with page.expect_download() as missing_export:
+            page.locator("#export").click()
+        assert '\"\",\"' in Path(missing_export.value.path()).read_text(encoding="utf-8")
+        page.locator("#dataset-select").select_option("watchers")
+        page.wait_for_function("window.__datasets.id === 'watchers' && !window.__datasets.refreshing")
         page.wait_for_timeout(400)
+        mobile_dir = ROOT / "output" / "playwright"
+        mobile_dir.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(mobile_dir / "workbook-desktop.png"), full_page=True)
         page.screenshot(path=str(ROOT / "examples/portfolio/preview.png"), full_page=True)
 
         page.set_viewport_size({"width": 390, "height": 844})
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+        page.screenshot(path=str(mobile_dir / "workbook-mobile.png"), full_page=True)
 
         page.set_viewport_size({"width": 1280, "height": 940})
         page.goto(urljoin(url, "archive.html"))
