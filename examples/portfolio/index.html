@@ -49,7 +49,7 @@
             <div><strong>sheetato.xlsx</strong><span>saved locally</span></div>
             <span class="window-dots" aria-hidden="true">• • •</span>
         </div>
-        <div class="formula-bar" aria-hidden="true"><span>fx</span><code>=AVERAGE(priced_variants)-buy_in</code></div>
+        <div class="formula-bar" aria-hidden="true"><span>fx</span><code id="formula">=SUMPRODUCT(price, probability)-buy_in</code></div>
         <div class="sheet-head">
             <h2 id="sheet-title">Watcher’s Eye</h2>
             <div class="sheet-summary">
@@ -62,6 +62,8 @@
 
         <div class="sheet-tools">
             <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
+            <label class="sheet-filter" for="coverage"><span>show</span><select id="coverage"><option value="priced">priced only</option><option value="all">all outcomes</option></select></label>
+            <label class="sheet-filter" for="sort"><span>sort</span><select id="sort"><option value="high">highest</option><option value="low">lowest</option><option value="listings">most quotes</option><option value="name">name</option></select></label>
             <button id="export">download .csv</button>
         </div>
 

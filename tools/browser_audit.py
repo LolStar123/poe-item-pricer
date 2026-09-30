@@ -44,6 +44,11 @@ try:
         assert page.locator("#rows tr").count() == 6
         assert page.locator(".pipeline .done").count() == 4
         assert page.locator("#status").inner_text() == "3,741 rows refreshed."
+        assert "shown" in page.locator("#row-count").inner_text()
+        page.locator("#coverage").select_option("all")
+        assert page.evaluate("window.__datasets.coverage") == "all"
+        page.locator("#sort").select_option("name")
+        assert page.evaluate("window.__datasets.sort") == "name"
 
         page.locator("#search").fill("clarity precision")
         assert 0 < page.evaluate("window.__datasets.filtered") < 3741

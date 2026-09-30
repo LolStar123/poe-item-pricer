@@ -55,12 +55,15 @@ function renderRows() {
     </tr>`).join("");
     $("#empty").hidden = filtered.length > 0;
     renderMetrics();
+    $("#row-count").textContent = `${filtered.length.toLocaleString()} shown / ${rows.length.toLocaleString()} total`;
     window.__datasets = {
         ready: true,
         id: current.id,
         count: rows.length,
         filtered: filtered.length,
         visibleRows: shown.length,
+        coverage: $("#coverage").value,
+        sort: $("#sort").value,
         refreshing,
         refreshId,
     };
@@ -69,8 +72,8 @@ function renderRows() {
 function filter() {
     filtered = selectRows(rows, {
         query: $("#search").value,
-        sort: "high",
-        coverage: "priced",
+        sort: $("#sort").value,
+        coverage: $("#coverage").value,
     });
     renderRows();
 }
@@ -125,7 +128,7 @@ function loadDataset(id) {
     filtered = rows.filter((row) => row.price !== null);
     $("#dataset-select").value = current.id;
     $("#sheet-title").textContent = current.name;
-    $("#row-count").textContent = `${rows.length.toLocaleString()} rows`;
+    $("#formula").textContent = "=SUMPRODUCT(price, probability)-buy_in";
     $("#buy-in").value = current.cost ?? "";
     $("#search").value = "";
     $("#updated").textContent = "not refreshed yet";
@@ -136,6 +139,8 @@ function loadDataset(id) {
 
 $("#dataset-select").addEventListener("change", () => loadDataset($("#dataset-select").value));
 $("#search").addEventListener("input", filter);
+$("#coverage").addEventListener("change", filter);
+$("#sort").addEventListener("change", filter);
 $("#buy-in").addEventListener("input", renderMetrics);
 $("#refresh").addEventListener("click", refreshWorkbook);
 $("#export").addEventListener("click", () => {
