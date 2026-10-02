@@ -83,7 +83,8 @@ try:
         page.locator('[data-mode="triples"]').click()
         assert page.evaluate("__datasets.count")==105995
         assert page.locator("#buy-in").input_value()=="426.5"
-        assert "Modelled triple" in page.locator("#rows").inner_text()
+        assert page.locator('[data-mode="triples"]').get_attribute("aria-pressed")=="true"
+        assert "Not observed" in page.locator("#rows").inner_text()
         page.locator("#buy-in").fill("500")
         page.locator("#search").fill("clarity precision hatred")
         with page.expect_download() as dl:
@@ -204,7 +205,8 @@ try:
         page.locator("#mod-search").fill("Anger")
         assert page.locator(".pair").count()>0
         page.locator('[data-tab="pipeline"]').click()
-        assert page.locator(".workflow li").count()==4
+        assert page.locator('#pipeline a[href$="/README.md"]').is_visible()
+        assert page.locator('#pipeline a[href$="/original/buyin.py"]').is_visible()
         failed=browser.new_page()
         failed.on("pageerror",lambda e:errors.append(str(e)))
         failed.route("**/data/datasets.json",lambda route:route.fulfill(status=500,body="unavailable"))

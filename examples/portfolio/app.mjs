@@ -32,8 +32,8 @@ function update() {
         result = risk(outcomes, cost);
         $("#error").textContent = "";
         $("#metrics").innerHTML = [
-            ["expected profit / roll", result.profit],
-            ["one-roll standard deviation", result.stdev],
+            ["profit / roll", result.profit],
+            ["one-roll SD", result.stdev],
             ["profit factor", result.profitFactor],
             ["price coverage", 100 * result.coverage],
         ]
@@ -90,7 +90,7 @@ function loadCase() {
     current = data.cases.find((c) => c.id === $("#case").value);
     outcomes = structuredClone(current.outcomes);
     $("#cost").value = current.cost;
-    $("#case-note").textContent = current.note;
+    $("#case-note").textContent = `Historical · ${outcomes.length} equal-weight outcomes · source units`;
     $("#outcome-search").value = "";
     renderOutcomes();
 }
@@ -111,7 +111,7 @@ function loadBook() {
         lookup = new Map(sheet.cells.map((c) => [c.address, c]));
     $("#download").href = book.file;
     $("#download").textContent =
-        "download " + book.title.toLowerCase() + ".xlsx";
+        "Download XLSX";
     let html =
         "<thead><tr><th></th>" +
         Array.from(
@@ -132,10 +132,7 @@ function loadBook() {
     $("#workbook").innerHTML = html + "</tbody>";
     $("#cell-name").textContent = "select a cell";
     $("#formula").textContent = "";
-    $("#book-note").textContent =
-        book.id === "decks"
-            ? 'The original sheet begins "start 04/05/2024". It records purchase costs, card counts and realised opening proceeds.'
-            : "Original working assumptions and saved formula results. Spreadsheet prices are historical; they are not refreshed by this page.";
+    $("#book-note").textContent = "";
     $("#workbook").onclick = (e) => {
         const b = e.target.closest("[data-cell]");
         if (!b) return;
@@ -156,7 +153,7 @@ function renderPairs() {
         Math.max(0, Math.ceil(rows.length / size) - 1),
     );
     $("#variant-count").textContent =
-        `${rows.length.toLocaleString()} matching pairs / prices not supplied`;
+        `${rows.length.toLocaleString()} pairs · unpriced`;
     $("#pairs").innerHTML = rows
         .slice(pairPage * size, (pairPage + 1) * size)
         .map(
@@ -212,7 +209,7 @@ try {
         .join("");
     const n = data.modifiers.length;
     $("#variant-summary").textContent =
-        `${n} real aura modifiers form ${((n * (n - 1)) / 2).toLocaleString()} distinct pairs and ${((n * (n - 1) * (n - 2)) / 6).toLocaleString()} nominal three-mod combinations before game eligibility constraints. Catalogue: ${data.league}, ${data.catalogueDate.slice(0, 10)}.`;
+        `${n} modifiers · ${((n * (n - 1)) / 2).toLocaleString()} pairs · ${((n * (n - 1) * (n - 2)) / 6).toLocaleString()} nominal triples before eligibility · ${data.league}, ${data.catalogueDate.slice(0, 10)}`;
     for (const id of loadControls) $("#"+id).disabled = false;
     for (const tab of document.querySelectorAll("[data-tab]")) tab.disabled = false;
     loadCase();

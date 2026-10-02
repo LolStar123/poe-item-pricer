@@ -8,7 +8,7 @@ Inspect archived Path of Exile asking prices, edit a buy-in and trace expected r
 
 ## Try it
 
-Choose an item family in the left rail, or the selector on a phone. Change **Buy-in** to recalculate the full outcome distribution. Search modifiers, filter aura/group or price coverage, change the order and export the matching rows. **Inspect source** shows the worksheet cell, measurement time, outcome weight and separately supplied floor.
+Choose an item family in the left rail, or the selector on a phone. Change **Buy-in** to recalculate the full outcome distribution. Search modifiers, filter aura/group or price coverage, change the order and export the matching rows. **Source** shows the worksheet cell, measurement time, outcome weight and separately supplied floor.
 
 **Reload archive** fetches and validates the bundled JSON again. It retains the selected family, filters, page and edited buy-in; failure keeps the loaded observations and enables retry. Reloading does not collect current trade listings or change historical measurement dates.
 
@@ -32,6 +32,8 @@ Watcher's Eye has explicit **2 mods / observed** and **3 mods / modelled** contr
 The archive is dated **15 August 2026**; row measurement timestamps are retained. These are asking prices, not completed sales. Chaos and divine remain separate units. Missing prices block full EV and risk rather than becoming zero or disappearing from the probability distribution. Filters only change the ledger, never the EV population.
 
 Expected resale and expected profit stay visible. Open **Risk measures** for profitable-outcome probability, one-roll standard deviation, profit divided by volatility and profit factor. The profit/volatility ratio is not annualised Sharpe. Blank or invalid buy-in clears cost-dependent measures; known resale EV remains visible.
+
+The interface keeps one archive state and short controls. **Assumptions**, **Definitions** and **Collection docs** link to the explanations here and in [Provenance](PROVENANCE.md); the source data and calculations are unchanged.
 
 ## Run locally
 

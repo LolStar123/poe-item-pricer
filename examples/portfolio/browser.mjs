@@ -29,7 +29,7 @@ function validateArchive(value) {
 function renderFamilies() {
     $("#dataset-select").innerHTML = archive.datasets.map(d => `<option value="${esc(d.id)}">${esc(d.name)}</option>`).join("");
     $("#dataset-select").value = current.id;
-    $("#families").innerHTML = archive.datasets.map(d => `<button data-family="${esc(d.id)}" aria-pressed="${d.id === current.id}"><strong>${esc(d.name)}</strong><span>${d.rows.filter(r => r.price !== null).length.toLocaleString()} / ${d.rows.length.toLocaleString()} priced</span></button>`).join("");
+    $("#families").innerHTML = archive.datasets.map(d => `<button data-family="${esc(d.id)}" aria-pressed="${d.id === current.id}"><strong>${esc(d.name)}</strong></button>`).join("");
 }
 function renderMetrics() {
     const raw = $("#buy-in").value;
@@ -56,7 +56,7 @@ function renderMetrics() {
     ];
     const metric = ([label,value]) => `<span><small>${label}</small><strong>${value}</strong></span>`;
     const riskOpen = $(".risk-measures")?.open || false;
-    $("#sheet-kpis").innerHTML = `<div class="primary-metrics">${cells.slice(0,2).map(metric).join("")}</div><details class="risk-measures" ${riskOpen ? "open" : ""}><summary>Risk measures</summary><div class="risk-grid">${cells.slice(2).map(metric).join("")}</div><p class="risk-definitions">Volatility is one-roll standard deviation. Profit / volatility divides expected profit by that deviation; it is not annualised Sharpe. Profit factor divides expected gains by expected losses. Profitable outcomes is the probability of resale above buy-in.</p></details>`;
+    $("#sheet-kpis").innerHTML = `<div class="primary-metrics">${cells.slice(0,2).map(metric).join("")}</div><details class="risk-measures" ${riskOpen ? "open" : ""}><summary>Risk measures</summary><div class="risk-grid">${cells.slice(2).map(metric).join("")}</div><a href="https://github.com/LolStar123/poe-item-pricer/blob/main/README.md#archive-contents">Definitions &#8599;</a></details>`;
     $("#coverage-value").textContent = fmt(result.coverage*100,2)+"%";
     $("#coverage-fill").style.width = Math.min(100,result.coverage*100)+"%";
     const missing = rows.filter(r => r.price === null).length;
@@ -70,10 +70,10 @@ function renderRows() {
     const shown = filtered.slice(page*PAGE_SIZE,(page+1)*PAGE_SIZE);
     $("#rows").innerHTML = shown.map((row,index) => {
         const price = row.price === null ? "Unknown" : `${fmt(row.price)} ${current.unit}`;
-        return `<tr><td>${(row.mods || [row.label]).map(mod => `<span class="mod">${esc(mod)}</span>`).join("")}<div class="row-meta"><span class="row-kind">${row.modelled ? "Modelled triple" : ""}</span><button class="source-toggle" data-source="${index}" aria-expanded="${inspected === index}" aria-controls="evidence-${index}">Inspect source</button></div></td><td>${price}</td><td>${row.modelled ? "Not observed" : row.listings === null ? "Unknown" : fmt(row.listings)}</td></tr>${inspected === index ? `<tr id="evidence-${index}" class="source-evidence"><td colspan="3"><dl><dt>Source cell${row.modelled ? "s" : ""}</dt><dd>${esc(row.source)}</dd><dt>Measured</dt><dd>${esc(row.measured || (row.modelled ? "Derived from archived pair quotes" : "Not recorded"))}</dd><dt>Outcome weight</dt><dd>${fmt(row.probability*100,5)}%</dd><dt>Observed floor</dt><dd>${row.floor === undefined ? "Not separately supplied" : fmt(row.floor)+" "+current.unit}</dd><dt>Price definition</dt><dd>${row.modelled ? "Maximum of the three contained pair quotes" : current.id === "sublime" ? "Median of the ten cheapest quotes" : "Archived asking-price observation"}</dd></dl></td></tr>` : ""}`;
+        return `<tr><td>${(row.mods || [row.label]).map(mod => `<span class="mod">${esc(mod)}</span>`).join("")}<div class="row-meta"><button class="source-toggle" data-source="${index}" aria-expanded="${inspected === index}" aria-controls="evidence-${index}">Source</button></div></td><td>${price}</td><td>${row.modelled ? "Not observed" : row.listings === null ? "Unknown" : fmt(row.listings)}</td></tr>${inspected === index ? `<tr id="evidence-${index}" class="source-evidence"><td colspan="3"><dl><dt>Source cell${row.modelled ? "s" : ""}</dt><dd>${esc(row.source)}</dd><dt>Measured</dt><dd>${esc(row.measured || (row.modelled ? "Derived from archived pair quotes" : "Not recorded"))}</dd><dt>Outcome weight</dt><dd>${fmt(row.probability*100,5)}%</dd><dt>Observed floor</dt><dd>${row.floor === undefined ? "Not separately supplied" : fmt(row.floor)+" "+current.unit}</dd><dt>Price definition</dt><dd>${row.modelled ? "Maximum of the three contained pair quotes" : current.id === "sublime" ? "Median of the ten cheapest quotes" : "Archived asking-price observation"}</dd></dl></td></tr>` : ""}`;
     }).join("");
     $("#empty").hidden = filtered.length > 0;
-    $("#row-count").textContent = `${rows.length.toLocaleString()} outcomes \u00b7 ${current.unit}`;
+    $("#row-count").textContent = `${current.unit}`;
     $("#page-info").textContent = filtered.length ? `${page*PAGE_SIZE+1}\u2013${Math.min((page+1)*PAGE_SIZE,filtered.length)} of ${filtered.length.toLocaleString()}` : "0 matches";
     $("#previous").disabled = page === 0;
     $("#next").disabled = page >= pages-1;
@@ -107,9 +107,9 @@ function loadDataset(id, {preserve = false} = {}) {
     $("#cost-unit").textContent = current.unit;
     $("#watcher-controls").hidden = current.id !== "watchers";
     for (const button of document.querySelectorAll('[data-mode]')) button.setAttribute("aria-pressed",button.dataset.mode === mode);
-    $("#assumption").textContent = current.assumption;
-    $("#model-detail").textContent = current.id === "watchers" && mode === "triples" ? "105,995 three-mod combinations use the strongest of their three pair quotes. Equal weights are a scenario assumption. The restored 426.5 chaos buy-in is the archived level-86 boss input." : current.id === "watchers" ? "3,741 observed pairs from 87 modifiers. The restored 159 chaos buy-in is the archived level-85 boss input." : "The profit / volatility ratio is a one-outcome measure; it is not an annualised investment Sharpe ratio.";
-    $("#source-book").textContent = archive.source;
+    $("#assumption").textContent = current.id === "mageblood" ? "Conditional on double implicits." : current.id === "voices" ? "Archived weights: 670 / 300 / 25 / 5." : "Equal weights are a scenario assumption.";
+    if (current.id === "watchers" && mode === "triples") $("#assumption").textContent += " Price = maximum contained pair quote.";
+
     for (const id of ["dataset-select","buy-in","restore","search","coverage","sort"]) $("#"+id).disabled = false;
     history.replaceState(null,"","?dataset="+current.id+(current.id === "watchers" && mode === "triples" ? "&mode=triples" : ""));
     renderMetrics(); filter(false);
@@ -119,7 +119,7 @@ async function reloadArchive() {
     refreshing = true; refreshId += 1;
     $("#refresh").disabled = true;
     $("#refresh").textContent = "Loading archive...";
-    $("#status").textContent = "Fetching the bundled archive. Row measurement dates will not change.";
+    $("#status").textContent = "Loading archive...";
     window.__datasets = {...window.__datasets,refreshing,refreshId};
     try {
         const response = await fetch("data/datasets.json",{cache:"no-store",signal:AbortSignal.timeout(20000)});
