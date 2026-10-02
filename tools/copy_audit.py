@@ -60,6 +60,11 @@ try:
                 words = re.findall(r"\b[\w]+(?:[-'/][\w]+)*\b", text)
                 record = {"view": name, "viewport": width, "chrome_words": len(words), "chrome_text": text,
                           "overflow": page.evaluate("document.documentElement.scrollWidth > innerWidth + 1")}
+                if name == "ledger":
+                    labels = page.locator("#rows .mod").evaluate_all("els => els.map(el => ({visible: el.textContent, canonical: el.title || el.textContent}))")
+                    record["modifier_labels"] = labels
+                    record["canonical_mod_words"] = len(re.findall(r"\b[\w]+(?:[-'/][\w]+)*\b", " ".join(label["canonical"] for label in labels)))
+                    record["visible_mod_words"] = len(re.findall(r"\b[\w]+(?:[-'/][\w]+)*\b", " ".join(label["visible"] for label in labels)))
                 assert not record["overflow"], record
                 records.append(record)
                 page.screenshot(path=str(out / f"{name}-{width}.png"), full_page=True)

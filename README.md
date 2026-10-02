@@ -35,6 +35,8 @@ Expected resale and expected profit stay visible. Open **Risk measures** for pro
 
 The interface keeps one archive state and short controls. **Assumptions**, **Definitions** and **Collection docs** link to the explanations here and in [Provenance](PROVENANCE.md); the source data and calculations are unchanged.
 
+Verified observed modifiers use short row labels. **Source** reveals their exact archived wording and roll ranges; CSV exports retain the canonical strings. Unmapped modifiers remain verbatim.
+
 ## Run locally
 
 The browser demo has no package dependencies or build step. Serve it with Python 3:
@@ -49,6 +51,7 @@ Open **http://localhost:8000/**. Use a second terminal for checks. Node 18 or la
 
 ```sh
 node --test examples/portfolio/model.test.mjs
+node --test examples/portfolio/mod-labels.test.mjs
 ```
 
 The headless browser checks use Python Playwright. On Windows they launch installed Google Chrome; on other platforms install Playwright Chromium:

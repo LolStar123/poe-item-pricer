@@ -31,6 +31,10 @@ try:
         assert page.evaluate("__datasets.count")==3741
         assert page.locator("#sheet-kpis span").count()==6
         assert page.locator("#families button").count()==8
+        first_mods=DATA["datasets"][0]["rows"][0]["mods"]
+        visible_mods=page.locator("#rows tr").first.locator(".mod")
+        assert visible_mods.all_inner_texts()==["Malevolence · faster ailments","Malevolence · damage over time multiplier"]
+        assert [visible_mods.nth(i).get_attribute("title") for i in range(2)]==first_mods
         page.locator(".risk-measures summary").click()
         assert page.locator(".risk-grid span").count()==4
         mean=page.evaluate("__datasets.result.mean")
@@ -52,6 +56,7 @@ try:
         page.locator("#rows [data-source]").first.click()
         assert "WEtato pairs!" in page.locator(".source-evidence").inner_text()
         assert "2026-08" in page.locator(".source-evidence").inner_text()
+        assert all(mod in page.locator(".source-evidence").inner_text() for mod in first_mods)
         page.locator("#rows [data-source]").first.click()
         assert page.locator(".source-evidence").count()==0
         page.locator("#next").click()
@@ -70,6 +75,13 @@ try:
         assert len(exported)==page.evaluate("__datasets.filtered")
         assert all(row["status"]=="observed" and "Clarity" in row["variant"] and row["source"] for row in exported)
         assert "measured" in exported[0] and "probability" in exported[0]
+        canonical={row["label"]:row for row in DATA["datasets"][0]["rows"]}
+        for row in exported:
+            original=canonical[row["variant"]]
+            assert float(row["price"])==original["price"]
+            assert float(row["probability"])==original["probability"]
+            assert row["measured"]==original["measured"]
+            assert row["source"]==original["source"]
         page.locator("#search").fill("")
         page.locator("#buy-in").fill("-1")
         assert page.locator("#cost-error").is_visible()
