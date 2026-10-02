@@ -1,89 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#121914">
-    <title>sheetato / item pricing workbook</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="browser.css">
-    <link rel="stylesheet" href="identity.css">
-</head>
-<body>
-<a class="skip" href="#refresh">skip to refresh</a>
-<header>
-    <a class="brand" href="https://lolstar123.github.io/just-a-little-further/">
-        <span class="eye" aria-hidden="true"><i></i></span>
-        <span>sheetato</span>
-    </a>
-    <nav><a href="archive.html">early workbook</a><a href="https://github.com/LolStar123/poe-item-pricer">source</a></nav>
-</header>
-
-<main>
-    <section class="hero" aria-labelledby="page-title">
-        <div>
-            <p>path of exile economy</p>
-            <h1 id="page-title">sheetato.xlsx</h1>
-        </div>
-        <p class="hero-note">pick an item family. refresh the prices. let the sheet do the worrying.</p>
-    </section>
-
-    <section class="refresh-panel" aria-labelledby="refresh-heading">
-        <h2 id="refresh-heading">refresh pipeline</h2>
-        <div class="refresh-control">
-            <label for="dataset-select"><span>item family</span><select id="dataset-select"></select></label>
-            <button id="refresh"><span>refresh workbook</span><b aria-hidden="true">↻</b></button>
-        </div>
-        <div class="pipeline" aria-label="Refresh progress">
-            <div data-step="proxy"><i></i><span>proxy</span></div>
-            <div data-step="collect"><i></i><span>listings</span></div>
-            <div data-step="clean"><i></i><span>variants</span></div>
-            <div data-step="write"><i></i><span>workbook</span></div>
-        </div>
-        <p id="status" role="status">ready to refresh.</p>
-    </section>
-
-    <section class="sheet" aria-labelledby="sheet-title">
-        <div class="workbook-bar">
-            <span class="workbook-mark" aria-hidden="true">S</span>
-            <div><strong>sheetato.xlsx</strong><span>saved locally</span></div>
-            <span class="window-dots" aria-hidden="true">• • •</span>
-        </div>
-        <div class="formula-bar" aria-hidden="true"><span>fx</span><code id="formula">=SUMPRODUCT(price, probability)-buy_in</code></div>
-        <div class="sheet-head">
-            <h2 id="sheet-title">Watcher’s Eye</h2>
-            <div class="sheet-summary">
-                <label for="buy-in">buy-in<input id="buy-in" type="number" min="0" step=".1"></label>
-                <strong id="row-count">0 rows</strong>
-            </div>
-        </div>
-
-        <div class="sheet-kpis" id="sheet-kpis" aria-label="Workbook risk statistics"></div>
-
-        <div class="sheet-tools">
-            <label class="sheet-search" for="search"><span>find a modifier</span><input id="search" type="search" placeholder="clarity, hatred, malevolence…" autocomplete="off"></label>
-            <label class="sheet-filter" for="coverage"><span>show</span><select id="coverage"><option value="priced">priced only</option><option value="all">all outcomes</option></select></label>
-            <label class="sheet-filter" for="sort"><span>sort</span><select id="sort"><option value="high">highest</option><option value="low">lowest</option><option value="listings">most quotes</option><option value="name">name</option></select></label>
-            <button id="export">download .csv</button>
-        </div>
-
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>variant</th><th>asking</th><th>quotes</th></tr></thead>
-                <tbody id="rows"></tbody>
-            </table>
-        </div>
-        <p id="empty" hidden>Nothing found. Try fewer words.</p>
-        <div class="table-pager" aria-label="Workbook rows">
-            <span id="page-info">0 rows</span>
-            <span><button id="previous" type="button" disabled>previous</button><button id="next" type="button" disabled>next</button></span>
-        </div>
-        <div class="sheet-actions"><span class="sheet-tab">summary</span><span id="updated">not refreshed yet</span></div>
-    </section>
-    <p id="error" role="alert"></p>
-</main>
-
-<footer><span>archived asking prices · august 2026</span><a href="archive.html">inspect the original formulas</a></footer>
-<script type="module" src="browser.mjs"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#161717"><title>Sheetato | PoE economy workbook</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="browser.css"></head><body>
+<a class="skip" href="#buy-in">Skip to buy-in</a><header><a class="brand" href="./"><span class="eye" aria-hidden="true"><i></i></span>sheetato<span class="brand-note">PoE economy workbook</span></a><nav aria-label="Workbook navigation"><a href="archive.html">Original workbooks</a><a href="https://github.com/LolStar123/poe-item-pricer">Source &#8599;</a></nav></header>
+<main><div class="archive-banner"><div><strong>Archived asking prices</strong><span id="archive-date">&#183; 15 Aug 2026</span></div><button id="refresh">Reload archive</button></div><p id="status" role="status">Loading archived observations...</p>
+<div class="workbench"><aside class="family-rail"><p class="rail-label">Item families</p><div id="families" aria-label="Select an item family"></div><div class="rail-foot"><a href="archive.html">Inspect early formulas &#8594;</a></div></aside>
+<div class="ledger"><label class="mobile-family" for="dataset-select">Item family<select id="dataset-select" disabled></select></label><section class="sheet" aria-labelledby="sheet-title"><div class="sheet-heading"><div><p class="eyebrow">Variant ledger</p><h1 id="sheet-title">Loading workbook</h1></div><span id="row-count" class="row-count"></span></div>
+<div id="watcher-controls" class="mode-band" hidden><span>Valuation</span><div role="group" aria-label="Watcher's Eye valuation mode"><button data-mode="pairs" aria-pressed="true">2 mods / observed</button><button data-mode="triples" aria-pressed="false">3 mods / modelled</button></div></div>
+<div class="assumptions"><div><label for="buy-in">Buy-in / <span id="cost-unit">currency</span></label><div class="cost-controls"><input id="buy-in" type="number" min="0" step="any" disabled><button id="restore" disabled>Restore default</button></div></div><div class="coverage"><div><span>Priced probability</span><strong id="coverage-value">Unknown</strong></div><div class="coverage-track"><i id="coverage-fill"></i></div><p id="coverage-note"></p></div></div><p id="cost-error" role="alert" hidden></p><div class="sheet-kpis" id="sheet-kpis" aria-label="Full-distribution risk statistics"></div><p class="calculation-note">All outcomes; filters affect rows only.</p>
+<details class="model-note"><summary>Price definition &amp; probability assumptions</summary><p id="assumption"></p><p id="model-detail"></p></details>
+<div class="sheet-tools"><label class="sheet-search" for="search">Find a modifier<input id="search" type="search" placeholder="clarity, hatred, malevolence" autocomplete="off" disabled></label><label for="group">Aura / group<select id="group" disabled><option value="">All groups</option></select></label><label for="coverage">Price coverage<select id="coverage" disabled><option value="priced">Priced only</option><option value="all">All outcomes</option><option value="missing">Missing only</option></select></label><label for="sort">Order<select id="sort" disabled><option value="high">Highest price</option><option value="low">Lowest price</option><option value="listings">Most quotes</option><option value="name">Name A-Z</option></select></label></div>
+<div class="table-wrap"><table><thead><tr><th>Variant / source evidence</th><th>Asking price</th><th>Quotes</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden>No matching outcomes. Clear the search or change the coverage filter.</p><div class="table-pager" aria-label="Ledger pages"><span id="page-info">0 rows</span><div><button id="previous" disabled aria-label="Previous page">&#8592;</button><button id="next" disabled aria-label="Next page">&#8594;</button><button id="export" disabled>Export matches</button></div></div><div class="sheet-foot"><span id="source-book"></span></div></section><p id="error" role="alert"></p></div></div></main>
+<footer><span>Chaos and divine remain separate source units.</span><a href="https://github.com/LolStar123/poe-item-pricer/blob/main/PROVENANCE.md">Archive &amp; model provenance &#8599;</a></footer><script type="module" src="browser.mjs"></script></body></html>

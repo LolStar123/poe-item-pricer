@@ -1,12 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@400;500&family=Karla:wght@400;500;600&display=swap");
 :root {
     color-scheme: dark;
-    --bg: #252721;
-    --panel: #30342b;
-    --line: #4d5445;
-    --ink: #e5e8d8;
-    --muted: #b6bea8;
-    --accent: #d3c79a;
+    --bg: #161717;
+    --panel: #202222;
+    --line: #41453f;
+    --ink: #f0eee7;
+    --muted: #b6b9af;
+    --accent: #d9bb88;
 }
 * {
     box-sizing: border-box;
@@ -16,7 +15,7 @@ body {
     background: var(--bg);
     color: var(--ink);
     font:
-        15px/1.55 Karla,
+        14px/1.6 "Segoe UI",
         sans-serif;
 }
 header {
@@ -46,7 +45,7 @@ main {
 }
 h1 {
     font:
-        400 clamp(36px, 4.4vw, 56px) / 1.2 Bitter,
+        400 clamp(30px, 3vw, 36px) / 1.2 Georgia,
         Georgia,
         serif;
     margin: 12px 0 30px;
@@ -295,3 +294,5 @@ footer {
         max-width: 100%;
     }
 }
+
+button,input,select{border-radius:5px;min-height:40px}header,main{width:min(1200px,calc(100% - 64px));margin:auto}header{padding:18px 0;min-height:76px;align-items:center}main{padding:26px 0}.intro{gap:36px}.intro h1{margin:8px 0 10px}.intro>p{font-size:13px}.tabs{border-bottom:1px solid var(--line);padding-bottom:14px}.tabs button{font-size:13px}.metrics{gap:15px}.metric strong{font:26px/1.6 Consolas,monospace}.table-wrap{border-radius:6px}.note{line-height:1.8}#chart{min-height:250px}#workbook button{min-height:40px}.formula-bar{border-radius:6px}.pagination button{min-width:40px}[hidden]{display:none!important}@media(max-width:760px){header,main{width:calc(100% - 28px)}header{gap:16px;font-size:12px}.controls{gap:12px}.controls>label{flex:1;min-width:145px}.controls>button{font-size:12px}.tabs{gap:7px}.tabs button{font-size:12px}.metric strong{font-size:23px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

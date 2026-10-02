@@ -23,6 +23,9 @@ let data,
     outcomes = [],
     pairPage = 0,
     result;
+const loadControls = ["case", "cost", "restore", "export", "book", "mod-search", "pair-prev", "pair-next"];
+for (const id of loadControls) $("#"+id).disabled = true;
+for (const tab of document.querySelectorAll("[data-tab]")) tab.disabled = true;
 function update() {
     try {
         const cost = $("#cost").value === "" ? NaN : Number($("#cost").value);
@@ -43,26 +46,21 @@ function update() {
             result.profit === null
                 ? `Prices cover ${(result.coverage * 100).toFixed(2)}% of probability. Known outcomes contribute ${fmt(result.knownRevenue)} revenue units; complete EV and risk remain unknown.`
                 : `Mean revenue: ${fmt(result.mean)}. Chance of a positive profit: ${(result.win * 100).toFixed(2)}%. Return/risk ratio: ${fmt(result.ratio)}.`;
-        const bins = histogram(outcomes, cost),
-            max = Math.max(0.01, ...bins.map((b) => b.p)),
-            w = 580 / Math.max(1, bins.length);
-        $("#chart").innerHTML =
-            bins
-                .map((b, i) => {
-                    const h = (b.p / max) * 165;
-                    return `<rect x="${48 + i * w}" y="${190 - h}" width="${Math.max(1, w - 2)}" height="${h}" fill="${b.high <= 0 ? "#9e8970" : "#b6c39a"}"><title>${fmt(b.low)} to ${fmt(b.high)} profit: ${(b.p * 100).toFixed(2)}%</title></rect>`;
-                })
-                .join("") +
-            (bins.length
-                ? `<path d="M48 25V190H628" fill="none" stroke="#7b846e"/><text x="48" y="215" fill="#b6bea8" font-size="12">${fmt(bins[0].low)}</text><text x="628" y="215" text-anchor="end" fill="#b6bea8" font-size="12">${fmt(bins.at(-1).high)} profit units</text><text x="48" y="18" fill="#b6bea8" font-size="12">max bin ${(max * 100).toFixed(1)}% probability</text>`
-                : "");
+        const bins = histogram(outcomes, cost), chart = $("#chart"), width = Math.max(280,Math.round(chart.clientWidth || 600)), height = 260;
+        const left = 46, right = width-14, top = 24, bottom = 216, max = Math.max(.01,...bins.map(b => b.p));
+        const bw = (right-left)/Math.max(1,bins.length), y = p => bottom-p/max*(bottom-top);
+        chart.setAttribute("viewBox",`0 0 ${width} ${height}`);
+        chart.innerHTML = [0,.5,1].map(v => `<line x1="${left}" x2="${right}" y1="${y(max*v)}" y2="${y(max*v)}" stroke="#41453f"/><text x="${left-7}" y="${y(max*v)+4}" text-anchor="end" fill="#b6b9af" font-size="12">${(max*v*100).toFixed(0)}%</text>`).join("")+bins.map((b,i) => `<rect x="${left+i*bw+1}" y="${y(b.p)}" width="${Math.max(1,bw-2)}" height="${bottom-y(b.p)}" fill="${b.high <= 0 ? '#d9bb88' : '#a3c9b5'}"><title>${fmt(b.low)} to ${fmt(b.high)} profit: ${(b.p*100).toFixed(2)}% probability</title></rect>`).join("")+(bins.length ? `<text x="${left}" y="${height-15}" fill="#b6b9af" font-size="12">${fmt(bins[0].low)}</text><text x="${right}" y="${height-15}" text-anchor="end" fill="#b6b9af" font-size="12">${fmt(bins.at(-1).high)}</text><text x="${left}" y="14" fill="#b6b9af" font-size="12">Outcome probability</text>` : "");
+        $("#export").disabled = false;
         for (const el of document.querySelectorAll("[data-profit]")) {
             const o = outcomes[Number(el.dataset.profit)];
             el.textContent = o.price === null ? "unknown" : fmt(o.price - cost);
         }
     } catch (e) {
         result = null;
+        $("#export").disabled = true;
         $("#error").textContent = e.message;
+        for (const output of document.querySelectorAll("[data-profit]")) output.textContent = "unknown";
         $("#metrics").innerHTML = "";
         $("#chart").innerHTML = "";
         $("#risk-summary").textContent =
@@ -215,10 +213,14 @@ try {
     const n = data.modifiers.length;
     $("#variant-summary").textContent =
         `${n} real aura modifiers form ${((n * (n - 1)) / 2).toLocaleString()} distinct pairs and ${((n * (n - 1) * (n - 2)) / 6).toLocaleString()} nominal three-mod combinations before game eligibility constraints. Catalogue: ${data.league}, ${data.catalogueDate.slice(0, 10)}.`;
+    for (const id of loadControls) $("#"+id).disabled = false;
+    for (const tab of document.querySelectorAll("[data-tab]")) tab.disabled = false;
     loadCase();
     loadBook();
     renderPairs();
 } catch (e) {
     $("#error").textContent = e.message;
-    throw e;
+    $("#export").disabled = true;
 }
+
+new ResizeObserver(() => { if (data && !$("#calculator").hidden) update(); }).observe($("#chart"));

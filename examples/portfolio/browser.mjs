@@ -1,190 +1,167 @@
-import { calculate, selectRows } from "./datasets.mjs";
-
-const $ = (selector) => document.querySelector(selector);
-const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
-})[character]);
-const fmt = (value) => value === null || value === undefined
-    ? "unknown"
-    : Number(value).toLocaleString("en-GB", { maximumFractionDigits: 2 });
-
-let archive;
-let current;
-let rows = [];
-let filtered = [];
-let refreshId = 0;
-let refreshTimer = 0;
-let refreshing = false;
-let refreshGeneration = 0;
-let page = 0;
+import { calculate, selectRows, tripleRows } from "./datasets.mjs";
+const $ = selector => document.querySelector(selector);
+const esc = value => String(value ?? "").replace(/[&<>"']/g,c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const fmt = (value, digits = 2) => value === null || value === undefined ? "unknown" : value === Infinity ? "\u221e" : Number(value).toLocaleString("en-GB",{maximumFractionDigits:digits});
 const PAGE_SIZE = 6;
-const delay = (milliseconds) => new Promise((resolve) => {
-    refreshTimer = setTimeout(resolve, milliseconds);
-});
-
-function money(row) {
-    return row.price === null ? "unknown" : `${fmt(row.price)} ${current.unit}`;
+// The archived level-86 boss input is documented in PROVENANCE.md.
+const THREE_MOD_BUY_IN = 426.5;
+let archive, current, rows = [], filtered = [], tripleCache, mode = "pairs", page = 0;
+let refreshing = false, refreshId = 0, inspected = -1, result;
+const states = new Map();
+const stateKey = () => current.id + ":" + (current.id === "watchers" ? mode : "observed");
+const defaultCost = () => current.id === "watchers" && mode === "triples" ? THREE_MOD_BUY_IN : current.cost;
+function saveState() {
+    if (!current) return;
+    states.set(stateKey(),{cost:$("#buy-in").value, query:$("#search").value, group:$("#group").value, coverage:$("#coverage").value, sort:$("#sort").value, page});
 }
-
-function visibleRows() {
-    return filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
-}
-
-function renderMetrics() {
-    const cost = $("#buy-in").value === "" ? null : Number($("#buy-in").value);
-    const result = calculate(rows, cost);
-    const metric = (value, digits = 2) => value === null || value === undefined
-        ? "\u2014"
-        : value === Infinity ? "\u221e" : Number(value).toLocaleString("en-GB", { maximumFractionDigits: digits });
-    const cells = [
-        ["EV", result.mean === null ? "\u2014" : `${metric(result.mean)} ${current.unit}`, "expected resale"],
-        ["profit", result.profit === null ? "\u2014" : `${metric(result.profit)} ${current.unit}`, "expected profit after buy-in"],
-        ["Sharpe", metric(result.ratio), "expected profit divided by one-roll volatility"],
-        ["\u03c3", metric(result.stdev), "one-roll standard deviation"],
-        ["PF", metric(result.profitFactor), "expected gains divided by expected losses"],
-        ["win", result.win === null ? "\u2014" : `${metric(result.win * 100, 1)}%`, "chance of a profitable outcome"],
-    ];
-    $("#sheet-kpis").innerHTML = cells.map(([label, value, title]) => `<span title="${title}"><small>${label}</small><strong>${value}</strong></span>`).join("");
-}
-
-function renderRows() {
-    const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    page = Math.min(page, pageCount - 1);
-    const shown = visibleRows();
-    $("#rows").innerHTML = shown.map((row, index) => `<tr style="--i:${index}">
-        <td>${(row.mods || [row.label]).map((mod) => `<span>${esc(mod)}</span>`).join("")}</td>
-        <td>${money(row)}</td>
-        <td>${row.modelled ? "modelled" : fmt(row.listings)}</td>
-    </tr>`).join("");
-    $("#empty").hidden = filtered.length > 0;
-    renderMetrics();
-    $("#row-count").textContent = `${filtered.length.toLocaleString()} shown / ${rows.length.toLocaleString()} total`;
-    $("#page-info").textContent = filtered.length
-        ? `${page * PAGE_SIZE + 1}–${Math.min((page + 1) * PAGE_SIZE, filtered.length)} of ${filtered.length.toLocaleString()}`
-        : "0 rows";
-    $("#previous").disabled = page === 0;
-    $("#next").disabled = page >= pageCount - 1;
-    window.__datasets = {
-        ready: true,
-        id: current.id,
-        count: rows.length,
-        filtered: filtered.length,
-        visibleRows: shown.length,
-        page,
-        pages: pageCount,
-        firstVisible: shown[0]?.label || null,
-        coverage: $("#coverage").value,
-        sort: $("#sort").value,
-        refreshing,
-        refreshId,
-    };
-}
-
-function filter(resetPage = true) {
-    if (resetPage) page = 0;
-    filtered = selectRows(rows, {
-        query: $("#search").value,
-        sort: $("#sort").value,
-        coverage: $("#coverage").value,
-    });
-    renderRows();
-}
-
-function setStep(active) {
-    const order = ["proxy", "collect", "clean", "write"];
-    for (const node of document.querySelectorAll(".pipeline [data-step]")) {
-        const index = order.indexOf(node.dataset.step);
-        const currentIndex = order.indexOf(active);
-        node.classList.toggle("active", index === currentIndex);
-        node.classList.toggle("done", index < currentIndex || active === "done");
+function validateArchive(value) {
+    if (!value || !Array.isArray(value.datasets) || !value.datasets.length || typeof value.archiveDate !== "string") throw Error("Archive format is invalid.");
+    const ids = new Set();
+    for (const dataset of value.datasets) {
+        if (!dataset.id || ids.has(dataset.id) || typeof dataset.name !== "string" || !["chaos","divine"].includes(dataset.unit)) throw Error("Archive family metadata is invalid.");
+        ids.add(dataset.id);
+        if (dataset.cost !== null && (!Number.isFinite(dataset.cost) || dataset.cost < 0)) throw Error("Archive buy-in is invalid.");
+        calculate(dataset.rows,null); // Validate prices and probability mass with the unchanged model.
+        if (dataset.rows.some(row => typeof row.label !== "string" || typeof row.source !== "string")) throw Error("Archive source rows are invalid.");
     }
+    return value;
 }
-
-async function refreshWorkbook() {
-    if (refreshing) return;
-    const generation = ++refreshGeneration;
-    refreshing = true;
-    document.documentElement.dataset.refreshing = "true";
-    refreshId += 1;
-    window.__datasets = { ...window.__datasets, refreshing, refreshId };
-    $("#refresh").disabled = true;
-    $("#refresh span").textContent = "refreshing";
-    const steps = [
-        ["proxy", "finding a clean route…"],
-        ["collect", `reading ${rows.length.toLocaleString()} listings…`],
-        ["clean", "matching duplicate variants…"],
-        ["write", "writing workbook rows…"],
-    ];
-    for (const [step, copy] of steps) {
-        setStep(step);
-        $("#status").textContent = copy;
-        await delay(360);
-        if (generation !== refreshGeneration) return;
-    }
-    setStep("done");
-    refreshing = false;
-    delete document.documentElement.dataset.refreshing;
-    $("#status").textContent = `${rows.length.toLocaleString()} rows refreshed.`;
-    $("#updated").textContent = "updated just now";
-    $("#refresh").disabled = false;
-    $("#refresh span").textContent = "refresh again";
-    renderRows();
-}
-
-function loadDataset(id) {
-    refreshGeneration += 1;
-    clearTimeout(refreshTimer);
-    refreshing = false;
-    current = archive.datasets.find((dataset) => dataset.id === id) || archive.datasets[0];
-    rows = current.rows;
-    page = 0;
+function renderFamilies() {
+    $("#dataset-select").innerHTML = archive.datasets.map(d => `<option value="${esc(d.id)}">${esc(d.name)}</option>`).join("");
     $("#dataset-select").value = current.id;
+    $("#families").innerHTML = archive.datasets.map(d => `<button data-family="${esc(d.id)}" aria-pressed="${d.id === current.id}"><strong>${esc(d.name)}</strong><span>${d.rows.filter(r => r.price !== null).length.toLocaleString()} / ${d.rows.length.toLocaleString()} priced</span></button>`).join("");
+}
+function renderMetrics() {
+    const raw = $("#buy-in").value;
+    let cost = raw === "" ? null : Number(raw);
+    $("#cost-error").hidden = true;
+    $("#buy-in").removeAttribute("aria-invalid");
+    try { result = calculate(rows,cost); }
+    catch (error) {
+        result = calculate(rows,null);
+        $("#cost-error").textContent = error.message;
+        $("#cost-error").hidden = false;
+        $("#buy-in").setAttribute("aria-invalid","true");
+        cost = null;
+    }
+    const m = value => value === null || value === undefined ? "Unknown" : fmt(value);
+    const money = value => value === null ? "Unknown" : `${fmt(value)} ${current.unit}`;
+    const cells = [
+        ["Expected resale",money(result.mean)],
+        ["Expected profit",money(result.profit)],
+        ["Profitable outcomes",result.win === null ? "Unknown" : fmt(result.win*100,1)+"%"],
+        ["One-roll volatility",money(result.stdev)],
+        ["Profit / volatility",m(result.ratio)],
+        ["Profit factor",m(result.profitFactor)],
+    ];
+    const metric = ([label,value]) => `<span><small>${label}</small><strong>${value}</strong></span>`;
+    const riskOpen = $(".risk-measures")?.open || false;
+    $("#sheet-kpis").innerHTML = `<div class="primary-metrics">${cells.slice(0,2).map(metric).join("")}</div><details class="risk-measures" ${riskOpen ? "open" : ""}><summary>Risk measures</summary><div class="risk-grid">${cells.slice(2).map(metric).join("")}</div><p class="risk-definitions">Volatility is one-roll standard deviation. Profit / volatility divides expected profit by that deviation; it is not annualised Sharpe. Profit factor divides expected gains by expected losses. Profitable outcomes is the probability of resale above buy-in.</p></details>`;
+    $("#coverage-value").textContent = fmt(result.coverage*100,2)+"%";
+    $("#coverage-fill").style.width = Math.min(100,result.coverage*100)+"%";
+    const missing = rows.filter(r => r.price === null).length;
+    $("#coverage-note").textContent = missing ? `${missing.toLocaleString()} unpriced outcomes. Full EV remains unknown.` : cost === null ? "Enter a buy-in to calculate profit." : "";
+    saveState();
+    window.__datasets = {...window.__datasets, result, cost};
+}
+function renderRows() {
+    const pages = Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));
+    page = Math.min(page,pages-1);
+    const shown = filtered.slice(page*PAGE_SIZE,(page+1)*PAGE_SIZE);
+    $("#rows").innerHTML = shown.map((row,index) => {
+        const price = row.price === null ? "Unknown" : `${fmt(row.price)} ${current.unit}`;
+        return `<tr><td>${(row.mods || [row.label]).map(mod => `<span class="mod">${esc(mod)}</span>`).join("")}<div class="row-meta"><span class="row-kind">${row.modelled ? "Modelled triple" : ""}</span><button class="source-toggle" data-source="${index}" aria-expanded="${inspected === index}" aria-controls="evidence-${index}">Inspect source</button></div></td><td>${price}</td><td>${row.modelled ? "Not observed" : row.listings === null ? "Unknown" : fmt(row.listings)}</td></tr>${inspected === index ? `<tr id="evidence-${index}" class="source-evidence"><td colspan="3"><dl><dt>Source cell${row.modelled ? "s" : ""}</dt><dd>${esc(row.source)}</dd><dt>Measured</dt><dd>${esc(row.measured || (row.modelled ? "Derived from archived pair quotes" : "Not recorded"))}</dd><dt>Outcome weight</dt><dd>${fmt(row.probability*100,5)}%</dd><dt>Observed floor</dt><dd>${row.floor === undefined ? "Not separately supplied" : fmt(row.floor)+" "+current.unit}</dd><dt>Price definition</dt><dd>${row.modelled ? "Maximum of the three contained pair quotes" : current.id === "sublime" ? "Median of the ten cheapest quotes" : "Archived asking-price observation"}</dd></dl></td></tr>` : ""}`;
+    }).join("");
+    $("#empty").hidden = filtered.length > 0;
+    $("#row-count").textContent = `${rows.length.toLocaleString()} outcomes \u00b7 ${current.unit}`;
+    $("#page-info").textContent = filtered.length ? `${page*PAGE_SIZE+1}\u2013${Math.min((page+1)*PAGE_SIZE,filtered.length)} of ${filtered.length.toLocaleString()}` : "0 matches";
+    $("#previous").disabled = page === 0;
+    $("#next").disabled = page >= pages-1;
+    $("#export").disabled = filtered.length === 0;
+    saveState();
+    window.__datasets = {...window.__datasets, ready:true,id:current.id,count:rows.length,filtered:filtered.length,visibleRows:shown.length,page,pages,firstVisible:shown[0]?.label || null,coverage:$("#coverage").value,sort:$("#sort").value,group:$("#group").value,mode,refreshing,refreshId};
+}
+function filter(resetPage = true) {
+    if (!current) return;
+    if (resetPage) page = 0;
+    inspected = -1;
+    filtered = selectRows(rows,{query:$("#search").value,group:$("#group").value,coverage:$("#coverage").value,sort:$("#sort").value});
+    renderRows();
+}
+function loadDataset(id, {preserve = false} = {}) {
+    if (!preserve) saveState();
+    current = archive.datasets.find(d => d.id === id) || archive.datasets[0];
+    rows = current.id === "watchers" && mode === "triples" ? (tripleCache ||= tripleRows(current.rows)) : current.rows;
+    renderFamilies();
+    const state = states.get(stateKey());
+    const groups = [...new Set(rows.flatMap(row => row.mods ? row.mods.map(m => m.split(" - ")[0]) : [row.group]).filter(Boolean))].sort();
+    $("#group").innerHTML = '<option value="">All groups</option>'+groups.map(g => `<option>${esc(g)}</option>`).join("");
+    $("#group").disabled = !groups.length;
+    $("#group").value = groups.includes(state?.group) ? state.group : "";
+    $("#buy-in").value = state?.cost ?? defaultCost() ?? "";
+    $("#search").value = state?.query || "";
+    $("#coverage").value = state?.coverage || "priced";
+    $("#sort").value = state?.sort || "high";
+    page = state?.page || 0;
     $("#sheet-title").textContent = current.name;
-    $("#formula").textContent = "=SUMPRODUCT(price, probability)-buy_in";
-    $("#buy-in").value = current.cost ?? "";
-    $("#search").value = "";
-    $("#updated").textContent = "not refreshed yet";
-    setStep("");
-    filter(false);
-    refreshWorkbook();
+    $("#cost-unit").textContent = current.unit;
+    $("#watcher-controls").hidden = current.id !== "watchers";
+    for (const button of document.querySelectorAll('[data-mode]')) button.setAttribute("aria-pressed",button.dataset.mode === mode);
+    $("#assumption").textContent = current.assumption;
+    $("#model-detail").textContent = current.id === "watchers" && mode === "triples" ? "105,995 three-mod combinations use the strongest of their three pair quotes. Equal weights are a scenario assumption. The restored 426.5 chaos buy-in is the archived level-86 boss input." : current.id === "watchers" ? "3,741 observed pairs from 87 modifiers. The restored 159 chaos buy-in is the archived level-85 boss input." : "The profit / volatility ratio is a one-outcome measure; it is not an annualised investment Sharpe ratio.";
+    $("#source-book").textContent = archive.source;
+    for (const id of ["dataset-select","buy-in","restore","search","coverage","sort"]) $("#"+id).disabled = false;
+    history.replaceState(null,"","?dataset="+current.id+(current.id === "watchers" && mode === "triples" ? "&mode=triples" : ""));
+    renderMetrics(); filter(false);
 }
-
-$("#dataset-select").addEventListener("change", () => loadDataset($("#dataset-select").value));
-$("#search").addEventListener("input", filter);
-$("#coverage").addEventListener("change", filter);
-$("#sort").addEventListener("change", filter);
-$("#previous").addEventListener("click", () => {
-    if (page === 0) return;
-    page -= 1;
-    renderRows();
-});
-$("#next").addEventListener("click", () => {
-    if (page >= Math.ceil(filtered.length / PAGE_SIZE) - 1) return;
-    page += 1;
-    renderRows();
-});
-$("#buy-in").addEventListener("input", renderMetrics);
-$("#refresh").addEventListener("click", refreshWorkbook);
-$("#export").addEventListener("click", () => {
-    const quote = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
-    const text = [["variant", "price", "unit", "listings"], ...filtered.map((row) => [
-        row.label, row.price, current.unit, row.listings,
-    ])].map((line) => line.map(quote).join(",")).join("\n");
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(new Blob([text], { type: "text/csv" }));
-    link.download = `${current.id}-prices.csv`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(link.href), 1_000);
-});
-
-try {
-    const response = await fetch("data/datasets.json");
-    if (!response.ok) throw Error("Prices could not load. Refresh once.");
-    archive = await response.json();
-    $("#dataset-select").innerHTML = archive.datasets
-        .map((dataset) => `<option value="${dataset.id}">${esc(dataset.name)}</option>`)
-        .join("");
-    loadDataset(new URLSearchParams(location.search).get("dataset") || "watchers");
-} catch (error) {
-    $("#error").textContent = error.message;
+async function reloadArchive() {
+    if (refreshing) return;
+    refreshing = true; refreshId += 1;
+    $("#refresh").disabled = true;
+    $("#refresh").textContent = "Loading archive...";
+    $("#status").textContent = "Fetching the bundled archive. Row measurement dates will not change.";
+    window.__datasets = {...window.__datasets,refreshing,refreshId};
+    try {
+        const response = await fetch("data/datasets.json",{cache:"no-store",signal:AbortSignal.timeout(20000)});
+        if (!response.ok) throw Error(`Archive returned HTTP ${response.status}.`);
+        const next = validateArchive(await response.json());
+        saveState();
+        const selected = current?.id || new URLSearchParams(location.search).get("dataset") || "watchers";
+        archive = next; tripleCache = null;
+        $("#archive-date").textContent = "\u00b7 " + new Date(archive.archiveDate+"T00:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
+        loadDataset(selected,{preserve:true});
+        $("#status").textContent = "";
+        $("#error").textContent = "";
+    } catch (error) {
+        $("#status").textContent = archive ? `Reload failed. Loaded observations kept. ${error.message} Retry with Reload archive.` : `Archive could not load. ${error.message} Retry with Reload archive.`;
+        if (!archive) $("#error").textContent = "The ledger needs the bundled datasets.json. Keep the local server running and reload the archive.";
+    } finally {
+        refreshing = false;
+        $("#refresh").disabled = false;
+        $("#refresh").textContent = "Reload archive";
+        window.__datasets = {...window.__datasets,refreshing,refreshId};
+    }
 }
+$("#dataset-select").onchange = () => loadDataset($("#dataset-select").value);
+$("#families").onclick = e => {const b=e.target.closest('[data-family]');if(b) loadDataset(b.dataset.family);};
+$("#watcher-controls").onclick = e => {
+    const b=e.target.closest('[data-mode]');
+    if (!b || mode === b.dataset.mode) return;
+    saveState(); mode=b.dataset.mode; loadDataset("watchers",{preserve:true});
+};
+for (const id of ["search","group","coverage","sort"]) $("#"+id).addEventListener(id === "search" ? "input" : "change",() => filter());
+$("#buy-in").oninput = renderMetrics;
+$("#restore").onclick = () => {$("#buy-in").value=defaultCost() ?? "";renderMetrics();};
+$("#rows").onclick = e => {const b=e.target.closest('[data-source]');if(b){const index=+b.dataset.source;inspected=inspected === index ? -1 : index;renderRows();$('[data-source="'+index+'"]')?.focus();}};
+$("#previous").onclick = () => {if(page>0){page-=1;inspected=-1;renderRows();}};
+$("#next").onclick = () => {if((page+1)*PAGE_SIZE<filtered.length){page+=1;inspected=-1;renderRows();}};
+$("#refresh").onclick = reloadArchive;
+$("#export").onclick = () => {
+    const quote = value => `"${String(value ?? "").replaceAll('"','""')}"`;
+    const keys = ["variant","price","unit","probability","listings","measured","source","status","floor"];
+    const text = [keys,...filtered.map(row => [row.label,row.price,current.unit,row.probability,row.listings,row.measured,row.source,row.modelled ? "modelled" : "observed",row.floor])].map(line => line.map(quote).join(",")).join("\n");
+    const a=document.createElement("a"),url=URL.createObjectURL(new Blob([text],{type:"text/csv"}));
+    a.href=url;a.download=current.id+(current.id === "watchers" ? "-"+mode : "")+"-prices.csv";a.click();setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+mode = new URLSearchParams(location.search).get("mode") === "triples" ? "triples" : "pairs";
+reloadArchive();
